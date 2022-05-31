@@ -1,0 +1,77 @@
+.content {
+
+}
+
+.container {
+  width: 100%;
+  max-width: 1024px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+p {
+  display: inline;
+  padding: 30px;
+  margin-left: 45%;
+}
+.burger {
+  display: inline;
+  padding: 30px;
+  text-align: center;
+  margin-left: 20%;
+}
+.logo{
+  //text-align: center;
+}
+.burger{
+  //text-align: right;
+}
+
+nav {
+  float: right;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block; /*один из способов разместить элементы в строку*/
+}
+
+.row {
+  margin: 15px;
+}
+
+.col-1 {
+  width: 15%;
+  float: left;
+  margin-left: 30%;
+  margin-right: 5%;
+  //padding: 2%;
+}
+.col-2 {
+  width: 15%;
+  float: left;
+  margin-left: 5%;
+  margin-right: 30%;
+//padding: 2%;
+}
+.col-0 {
+  width: 20%;
+  float: left;
+  margin: 2%;
+  margin-left: 40%;
+  margin-right: 40%;
+//padding: 2%;
+}
+.col-alarm {
+  width: 20%;
+  float: left;
+  margin: 2%;
+  margin-left: 40%;
+  margin-right: 40%;
+//padding: 2%;
+}
+
+
