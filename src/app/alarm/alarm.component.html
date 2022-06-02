@@ -1,0 +1,18 @@
+<header>
+  <p>Управление тревогой</p>
+</header>
+<div class="main">
+  <div class="container1">
+
+    <div class="row" [ngClass]="{'myCSSclass' : isAlarmOn}">
+    </div>
+    <div class="row">
+      <button mat-raised-button (click)="changeAlarm()" color="warn" class="col-0" *ngIf="isAlarmOn==false">Включить тревогу!</button>
+      <button mat-raised-button (click)="changeAlarm()" color="primary" class="col-0" *ngIf="isAlarmOn==true">Отключить тревогу!</button>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+      <button mat-raised-button color="accent" class="col-0" routerLink="/content">Назад</button>
+    </div>
+</div>
