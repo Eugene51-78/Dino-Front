@@ -4,7 +4,7 @@ header {
   justify-content: space-between;
   align-items: center;
   display: flex;
-  max-width: 2000px;
+  //max-width: 2000px;
   padding-left: 10%;
   border: thin solid black;
   font-size: 4vw;
@@ -14,8 +14,8 @@ header {
 p{
   text-content: center;
 }
-.row {
-  padding: 2.5em;
+.g-0 {
+  padding: 3em;
 }
 .col-1, .col-2, .col-0 {
   font-size: 1.4vw;

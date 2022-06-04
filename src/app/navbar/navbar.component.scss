@@ -11,7 +11,9 @@
   -webkit-transition: padding 0.3s linear;
   z-index: 999;
 }
-
+.container {
+  max-width: 100%;
+}
 .role {
   font-style: italic;
   font-size: larger;

@@ -3,16 +3,60 @@
 </header>
 <div class="main">
   <div class="container1">
-    <div class="row">
-      <button mat-raised-button color="primary" class="col-0">Отчет о медосмотре</button>
+    <div class="g-0">
+      <button mat-raised-button color="primary" class="col-0" (click)="openMultiModal(multiModal, 1)">Отчитаться о медосмотре</button>
     </div>
-    <div class="row">
-      <button mat-raised-button color="primary" class="col-0">Направление на лечение<mat-icon></mat-icon></button>
+    <div class="g-0">
+      <button mat-raised-button color="primary" class="col-0" (click)="openMultiModal(multiModal, 2)">Направить дино на лечение</button>
     </div>
-    <div class="row">
+    <div class="g-0">
     </div>
-    <div class="row">
+    <div class="g-0">
       <button mat-raised-button color="accent" class="col-0" routerLink="/content">Назад</button>
     </div>
   </div>
 </div>
+
+<ng-template #multiModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentOperation}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group">
+        <label for="dino ID">Дино ИД</label>
+        <div class="input-group">
+          <input id="dino ID" name="id" class="form-control" required ngModel>
+        </div>
+        <div *ngIf="currentOperation === 'Отчет о медосмотре'">
+          <label for="height">Рост (см)</label>
+          <div class="input-group">
+            <input id="height" name="height" class="form-control" required ngModel>
+          </div>
+          <label for="weight">Вес (кг)</label>
+          <div class="input-group">
+            <input id="weight" name="weight" class="form-control" required ngModel>
+          </div>
+          <label for="weight">Возраст</label>
+          <div class="input-group">
+            <select id="age" name="age" class="form-control" required ngModel>
+              <option value="NewBorn">Новорожденный</option>
+              <option value="Young">Молодой</option>
+              <option value="Mature">Зрелый</option>
+              <option value="Old">Пожилой</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Отменить</button>
+  </div>
+  <div class="border modal-footer">
+    <button data-dismiss="modal" [disabled]="f.invalid" class="btn btn-info" (click)="onSubmit(f)">Подтвердить</button>
+  </div>
+</ng-template>

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { ContentComponent } from './content/content.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AlarmComponent } from './alarm/alarm.component';
 import { MedicPageComponent } from './medic-page/medic-page.component';
 import {ContentService} from './content/content.service';
+import {FormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import {ContentService} from './content/content.service';
     BrowserAnimationsModule,
     FlexModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    NgbModule
   ],
   providers: [ContentService],
   bootstrap: [AppComponent]
