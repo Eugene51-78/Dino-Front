@@ -11,13 +11,14 @@ export class AlarmComponent implements OnInit {
 
   isAlarmOn: boolean;
 
-  @ViewChild('ContentComponent') contentComponent: ContentComponent;
+  @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
   constructor(public contentService: ContentService) {
-    //this.isAlarmOn = this.contentService.getIsAlarmOn();
+    // this.isAlarmOn = this.contentService.getIsAlarmOn();
     if (localStorage.getItem('alarm') === 'true')
       this.isAlarmOn = true;
-    else
+    else {
       this.isAlarmOn = false;
+    }
     console.log(this.isAlarmOn);
   }
 
@@ -28,8 +29,9 @@ export class AlarmComponent implements OnInit {
   changeAlarm() {
     if (this.isAlarmOn)
       this.isAlarmOn = false;
-    else
+    else {
       this.isAlarmOn = true;
+    }
     this.contentService.setIsAlarmOn(this.isAlarmOn);
     localStorage.setItem('alarm', String(this.contentService.getIsAlarmOn()));
     console.log(this.contentService.getIsAlarmOn());

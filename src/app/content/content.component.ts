@@ -7,7 +7,7 @@ import {ContentService} from './content.service';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  employeeType: String;
+  employeeType: String | undefined;
   isAlarmOn: boolean;
 
   constructor(public contentService: ContentService) {

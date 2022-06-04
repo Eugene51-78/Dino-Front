@@ -11,9 +11,9 @@ export class NavbarComponent implements OnInit {
 
   employeeRole: string;
 
-  isFixedNavbar;
+  isFixedNavbar: boolean | undefined;
   @HostBinding('class.navbar-opened') navbarOpened = false;
-  @ViewChild('ContentComponent') contentComponent: ContentComponent;
+  @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
   constructor(public contentService: ContentService) {
     this.employeeRole = this.contentService.getEmployeeRole();
   }

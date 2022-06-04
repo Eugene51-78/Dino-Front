@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ContentService {
 
-  employeeRole: string;
-  isAlarmOn: boolean;
+  employeeRole: string | undefined;
+  isAlarmOn: boolean | undefined;
 
   constructor() { }
 
   getEmployeeRole(): string{
-    return this.employeeRole;
+    return <string>this.employeeRole;
   }
 
   setEmployeeRole(val: string){
@@ -17,7 +17,7 @@ export class ContentService {
   }
 
   getIsAlarmOn(): boolean{
-    return this.isAlarmOn;
+    return <boolean>this.isAlarmOn;
   }
 
   setIsAlarmOn(val: boolean){
