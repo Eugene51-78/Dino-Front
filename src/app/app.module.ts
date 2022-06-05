@@ -18,6 +18,7 @@ import { TaskComponent } from './task/task.component';
 import { GuardComponent } from './guard/guard.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {SimpleNotificationsModule} from 'angular2-notifications';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         FlexModule,
         MatButtonModule,
         MatIconModule,

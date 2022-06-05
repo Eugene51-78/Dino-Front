@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ContentService} from './content.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-content',
@@ -11,7 +12,7 @@ export class ContentComponent implements OnInit {
   isAlarmOn: boolean;
   private alarmType: string | undefined;
 
-  constructor(public contentService: ContentService) {
+  constructor(public contentService: ContentService, private notificationService: NotificationsService) {
     //this.employeeType = 'Medic';
     this.employeeType = 'Manager';
     //this.employeeType = 'Hunter';
@@ -33,6 +34,22 @@ export class ContentComponent implements OnInit {
   ngOnInit() {
     //this.employeeType = this.contentService.getEmployeeRole();
     //this.isAlarmOn = this.contentService.getIsAlarmOn();
+    this.getEmployee();
   }
 
+  getEmployee() {  // flag for getData() call without rerender in NgOnInit()
+    this.contentService.getEmployee().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        //this.rerender();
+        return;
+      }
+      this.employeeType = res;
+      console.log(this.employeeType);
+      //this.notificationService.success('Получено')
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения')
+    });
+  }
 }
