@@ -13,8 +13,8 @@ export class ContentComponent implements OnInit {
   private alarmType: string | undefined;
 
   constructor(public contentService: ContentService, private notificationService: NotificationsService) {
-    //this.employeeType = 'Medic';
-    this.employeeType = 'Manager';
+    this.employeeType = 'Medic';
+    //this.employeeType = 'Manager';
     //this.employeeType = 'Hunter';
     this.contentService.setEmployeeRole(this.employeeType.toString());
     this.employeeType = this.contentService.getEmployeeRole();

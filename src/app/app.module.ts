@@ -19,6 +19,9 @@ import { GuardComponent } from './guard/guard.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
+import {MatTableModule} from '@angular/material/table';
+import {NotificationService} from './notification/notification.service';
 
 @NgModule({
   declarations: [
@@ -29,37 +32,39 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     AlarmComponent,
     MedicPageComponent,
     TaskComponent,
-    GuardComponent
+    GuardComponent,
+    HeaderComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        FlexModule,
-        MatButtonModule,
-        MatIconModule,
-        FormsModule,
-        NgbModule,
-        SimpleNotificationsModule.forRoot(),
-      NgCircleProgressModule.forRoot({
-            radius: 30,
-            percent: 100,
-            outerStrokeWidth: 4,
-            innerStrokeWidth: 8,
-            outerStrokeColor: "#FFFFFF",
-            innerStrokeColor: "#C7E596",
-            animation: false,
-            startFromZero: false,
-            showTitle: false,
-            showUnits: false,
-            showSubtitle: false,
-            showBackground: true,
-            showInnerStroke: false,
-            //showZeroOuterStroke: false
-          })
-    ],
-  providers: [ContentService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FlexModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    NgbModule,
+    SimpleNotificationsModule.forRoot(),
+    NgCircleProgressModule.forRoot({
+      radius: 30,
+      percent: 100,
+      outerStrokeWidth: 4,
+      innerStrokeWidth: 8,
+      outerStrokeColor: '#FFFFFF',
+      innerStrokeColor: '#C7E596',
+      animation: false,
+      startFromZero: false,
+      showTitle: false,
+      showUnits: false,
+      showSubtitle: false,
+      showBackground: true,
+      showInnerStroke: false,
+      //showZeroOuterStroke: false
+    }),
+    MatTableModule
+  ],
+  providers: [ContentService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
