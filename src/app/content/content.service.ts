@@ -6,7 +6,9 @@ export class ContentService {
   employeeRole: string | undefined;
   isAlarmOn: boolean | undefined;
 
-  constructor() { }
+  constructor() {
+    this.employeeRole = "Manager";
+  }
 
   getEmployeeRole(): string{
     return <string>this.employeeRole;

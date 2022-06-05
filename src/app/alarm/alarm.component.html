@@ -8,7 +8,7 @@
     </div>
     <div class="g-0">
       <button mat-raised-button (click)="changeAlarm()" color="warn" class="col-0" *ngIf="isAlarmOn==false">Включить тревогу!</button>
-      <button mat-raised-button (click)="changeAlarm()" color="primary" class="col-0" *ngIf="isAlarmOn==true">Отключить тревогу!</button>
+      <button mat-raised-button (click)="changeAlarm()" color="primary" class="col-0" *ngIf="isAlarmOn==true && employeeType==='Manager'">Отключить тревогу!</button>
     </div>
     <div class="g-0">
     </div>

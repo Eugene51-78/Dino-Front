@@ -10,9 +10,12 @@ import {ContentService} from '../content/content.service';
 export class AlarmComponent implements OnInit {
 
   isAlarmOn: boolean;
+  employeeType: String | undefined;
 
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
   constructor(public contentService: ContentService) {
+    this.employeeType = this.contentService.getEmployeeRole();
+    console.log(this.employeeType);
     // this.isAlarmOn = this.contentService.getIsAlarmOn();
     if (localStorage.getItem('alarm') === 'true')
       this.isAlarmOn = true;

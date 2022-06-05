@@ -11,7 +11,11 @@ export class ContentComponent implements OnInit {
   isAlarmOn: boolean;
 
   constructor(public contentService: ContentService) {
-    this.contentService.setEmployeeRole('Medic');
+    //this.employeeType = 'Medic';
+    this.employeeType = 'Manager';
+    //this.employeeType = 'Hunter';
+    this.contentService.setEmployeeRole(this.employeeType.toString());
+    this.employeeType = this.contentService.getEmployeeRole();
     if (localStorage.getItem('alarm') === 'true') {
       this.isAlarmOn = true;
       this.contentService.setIsAlarmOn(true);

@@ -14,6 +14,29 @@ header {
 p{
   text-content: center;
 }
+.hunter {
+  //margin-left: 30%;
+}
+label {
+  font-size: 1em;
+  height: 3em;
+  font-family: Roboto;
+  margin-left: 5em;
+  margin-right: 0;
+  color: white;
+  float: left;
+}
+select {
+  margin-left: 1em;
+  width: 12vw;
+  float: left;
+}
+circle-progress {
+  padding-left: 10%;
+  width: 24%;
+  float: left;
+  margin: 2% 35%;
+}
 .g-0 {
   padding: 3em;
 }
@@ -68,8 +91,4 @@ p{
     float: left;
     margin: 2% 30%;
   }
-}
-
-.myCSSclass {
-  background-color: red;
 }

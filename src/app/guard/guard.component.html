@@ -1,0 +1,33 @@
+<header>
+  <p>Вызов Хантера</p>
+</header>
+<div class="main">
+  <div class="container1">
+    <div class="g-0">
+      <div class="hunter">
+        <label for="hunter">Хантер </label>
+        <select id="hunter" name="hunter" [(ngModel)]="hunterList">
+          <option *ngFor="let hunterItem of hunterList">
+            {{hunterItem}}
+          </option>
+        </select>
+        <div class="progress-circle" *ngIf="progressStatus === 0">
+          <circle-progress id="progress0" [backgroundColor]="'gray'"></circle-progress>
+        </div>
+        <div *ngIf="progressStatus === 1">
+          <circle-progress id="progress1" [backgroundColor]="'yellow'"></circle-progress>
+        </div>
+        <div *ngIf="progressStatus === 2">
+          <circle-progress id="progress2" [backgroundColor]="'green'"></circle-progress>
+        </div>
+        <div *ngIf="progressStatus === 3">
+          <circle-progress id="progress3" [backgroundColor]="'red'"></circle-progress>
+        </div>
+        <!--808080-->
+      </div>
+    </div>
+    <div class="g-0">
+      <button mat-raised-button color="accent" class="col-0" routerLink="/content">Назад</button>
+    </div>
+  </div>
+</div>

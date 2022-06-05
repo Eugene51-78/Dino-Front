@@ -14,6 +14,10 @@
 .container {
   max-width: 100%;
 }
+
+p {
+  margin: 0;
+}
 .role {
   font-style: italic;
   font-size: larger;
@@ -21,7 +25,7 @@
   padding-left: 10px;
 }
 .navbar-logo{
-  padding-left: 30%;
+  #padding-left: 10%;
 }
 .navbar > .container {
   height: auto;

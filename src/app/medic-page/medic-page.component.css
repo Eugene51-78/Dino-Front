@@ -1,13 +1,13 @@
 
 header {
-  height: 80px;
+  height: 4rem;
   justify-content: space-between;
   align-items: center;
   display: flex;
   //max-width: 2000px;
   padding-left: 10%;
   border: thin solid black;
-  font-size: 4vw;
+  font-size: 3rem;
   background-color: orange;
   color: white;
 }
@@ -43,7 +43,7 @@ p{
 @media only screen and (max-width: 600px){
   header {
     font-size: 7vw;
-    height: 50px;
+    height: 3rem;
   }
   .row {
     padding: 2em;
