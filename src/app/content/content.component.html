@@ -2,29 +2,29 @@
 <div class="main">
   <div class="container1">
     <div class="row">
-      <button mat-raised-button color="primary" class="col-1" routerLink="/tasks">Задачи</button>
-      <button mat-raised-button color="primary" class="col-2" routerLink="/notifications">Уведомления</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/tasks">Задачи</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/notifications">Уведомления</button>
     </div>
     <div class="row" *ngIf="employeeType ==='Medic'">
-      <button mat-raised-button color="primary" class="col-1" routerLink="/medicPage">Управление</button>
-      <button mat-raised-button color="accent" class="col-2" routerLink="/guard">Вызов Хантера</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/medicPage">Управление</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="accent" class="col-2" routerLink="/guard">Вызов Хантера</button>
     </div>
     <div class="row" *ngIf="employeeType==='Medic'">
     </div>
     <div class="row" *ngIf="employeeType ==='Manager'">
-      <button mat-raised-button color="primary" class="col-1" routerLink="/">Управление</button>
-      <button mat-raised-button color="primary" class="col-2" routerLink="/">Персонал</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/">Управление</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/">Персонал</button>
     </div>
     <div class="row" *ngIf="employeeType ==='Manager'">
-      <button mat-raised-button color="primary" class="col-1" routerLink="/">Динозавры</button>
-      <button mat-raised-button color="primary" class="col-2" routerLink="/">*</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/">Динозавры</button>
+      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/">*</button>
     </div>
 <!--    <div class="row" *ngIf="employeeType==='DinoTrainer'">-->
 <!--      <button class="col-0">Отчет о занятии</button>-->
 <!--    </div>-->
     <div class="row" *ngIf="employeeType ==='Hunter'"></div>
     <div class="row">
-      <button mat-raised-button color="warn" class="col-0" routerLink="/alarm">Тревога</button>
+      <button mat-raised-button [disabled]="isAlarmOn && employeeType!=='Manager'" color="warn" class="col-0" routerLink="/alarm">Тревога</button>
     </div>
   </div>
 </div>

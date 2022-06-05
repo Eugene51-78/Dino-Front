@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-medic-page',
@@ -11,7 +12,7 @@ export class MedicPageComponent implements OnInit {
 
   currentOperation: any;
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private notificationService: NotificationsService) {
 
   }
 
@@ -40,5 +41,9 @@ export class MedicPageComponent implements OnInit {
     //     this.ngOnInit(); //reload the table
     //   });
     this.modalService.dismissAll(); //dismiss the modal
+    this.notificationService.success("Успех", "Все нормас");
+    this.notificationService.info("Инфо", "Такого нет");
+    this.notificationService.error("Ошибка", "Не удалось что-то");
   }
+
 }

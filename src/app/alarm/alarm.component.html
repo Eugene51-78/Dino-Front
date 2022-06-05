@@ -1,14 +1,15 @@
-<header>
+<header [ngClass]="{'alarm' : isAlarmOn}">
   <p>Управление тревогой</p>
 </header>
 <div class="main">
   <div class="container1">
 
-    <div class="g-0" [ngClass]="{'myCSSclass' : isAlarmOn}">
+    <div class="g-0">
     </div>
     <div class="g-0">
-      <button mat-raised-button (click)="changeAlarm()" color="warn" class="col-0" *ngIf="isAlarmOn==false">Включить тревогу!</button>
-      <button mat-raised-button (click)="changeAlarm()" color="primary" class="col-0" *ngIf="isAlarmOn==true && employeeType==='Manager'">Отключить тревогу!</button>
+      <button mat-raised-button (click)="changeAlarm(0)" color="warn" class="col-0" *ngIf="!isAlarmOn">Нападение динозавра!</button>
+      <button mat-raised-button (click)="changeAlarm(1)" color="warn" class="col-0" *ngIf="!isAlarmOn">Побег динозавра!</button>
+      <button mat-raised-button (click)="changeAlarm(2)" color="primary" class="col-0" *ngIf="isAlarmOn && employeeType==='Manager'">Отключить тревогу!</button>
     </div>
     <div class="g-0">
     </div>
@@ -17,3 +18,5 @@
     </div>
   </div>
 </div>
+
+<simple-notifications></simple-notifications>

@@ -17,6 +17,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskComponent } from './task/task.component';
 import { GuardComponent } from './guard/guard.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
         MatIconModule,
         FormsModule,
         NgbModule,
-        NgCircleProgressModule.forRoot({
+        SimpleNotificationsModule.forRoot(),
+      NgCircleProgressModule.forRoot({
             radius: 30,
             percent: 100,
             outerStrokeWidth: 4,

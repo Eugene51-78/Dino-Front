@@ -10,15 +10,21 @@ import {ContentComponent} from '../content/content.component';
 export class NavbarComponent implements OnInit {
 
   employeeRole: string;
+  isAlarmOn: boolean;
+  alarmType: string | undefined;
 
   isFixedNavbar: boolean | undefined;
   @HostBinding('class.navbar-opened') navbarOpened = false;
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
+
   constructor(public contentService: ContentService) {
     this.employeeRole = this.contentService.getEmployeeRole();
+    this.isAlarmOn = this.contentService.getIsAlarmOn();
+    this.alarmType = this.contentService.getAlarmType();
   }
 
   ngOnInit() {
+    console.log(this.isAlarmOn);
   }
 
   @HostListener('window:scroll', [])

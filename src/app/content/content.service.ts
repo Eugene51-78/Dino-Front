@@ -5,6 +5,7 @@ export class ContentService {
 
   employeeRole: string | undefined;
   isAlarmOn: boolean | undefined;
+  alarmType: string | undefined;
 
   constructor() {
     this.employeeRole = "Manager";
@@ -24,6 +25,14 @@ export class ContentService {
 
   setIsAlarmOn(val: boolean){
     this.isAlarmOn = val;
+  }
+
+  getAlarmType() {
+    return this.alarmType;
+  }
+
+  setAlarmType(type: string){
+    this.alarmType = type;
   }
 
 }
