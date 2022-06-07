@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ContentService} from '../content/content.service';
 import {NotificationsService} from 'angular2-notifications';
 import {NotificationService} from './notification.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
+  id: number;
+  from: string;
+  message: number;
   symbol: string;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  {id: 1, from: 'Hydrogen', message: 1.0079, symbol: 'H'},
+  {id: 2, from: 'Helium', message: 4.0026, symbol: 'He'},
+  {id: 3, from: 'Lithium', message: 6.941, symbol: 'Li'},
+  {id: 4, from: 'Beryllium', message: 9.0122, symbol: 'Be'},
+  {id: 5, from: 'Boron', message: 10.811, symbol: 'B'},
+  {id: 6, from: 'Carbon', message: 12.0107, symbol: 'C'},
+  {id: 7, from: 'Nitrogen', message: 14.0067, symbol: 'N'},
+  {id: 8, from: 'Oxygen', message: 15.9994, symbol: 'O'},
+  {id: 9, from: 'Fluorine', message: 18.9984, symbol: 'F'},
+  {id: 10, from: 'Neon', message: 20.1797, symbol: 'Ne'},
 ];
 
 @Component({
@@ -27,10 +29,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   notifications: any;
-  columnsToDisplay = ['position', 'name', 'weight'];
+  columnsToDisplay = ['id', 'from', 'message'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   constructor(public notificationService: NotificationService, public notificationsService: NotificationsService) { }
 
@@ -38,8 +43,11 @@ export class NotificationComponent implements OnInit {
     this.getNotifications();
     this.notifications = ELEMENT_DATA;
   }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
-  getNotifications() {  // flag for getData() call without rerender in NgOnInit()
+  getNotifications() {
     this.notificationService.getNotifications().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');

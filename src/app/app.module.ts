@@ -22,6 +22,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import {MatTableModule} from '@angular/material/table';
 import {NotificationService} from './notification/notification.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -35,35 +36,36 @@ import {NotificationService} from './notification/notification.service';
     GuardComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FlexModule,
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    NgbModule,
-    SimpleNotificationsModule.forRoot(),
-    NgCircleProgressModule.forRoot({
-      radius: 30,
-      percent: 100,
-      outerStrokeWidth: 4,
-      innerStrokeWidth: 8,
-      outerStrokeColor: '#FFFFFF',
-      innerStrokeColor: '#C7E596',
-      animation: false,
-      startFromZero: false,
-      showTitle: false,
-      showUnits: false,
-      showSubtitle: false,
-      showBackground: true,
-      showInnerStroke: false,
-      //showZeroOuterStroke: false
-    }),
-    MatTableModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FlexModule,
+        MatButtonModule,
+        MatIconModule,
+        FormsModule,
+        NgbModule,
+        SimpleNotificationsModule.forRoot(),
+        NgCircleProgressModule.forRoot({
+            radius: 30,
+            percent: 100,
+            outerStrokeWidth: 4,
+            innerStrokeWidth: 8,
+            outerStrokeColor: '#FFFFFF',
+            innerStrokeColor: '#C7E596',
+            animation: false,
+            startFromZero: false,
+            showTitle: false,
+            showUnits: false,
+            showSubtitle: false,
+            showBackground: true,
+            showInnerStroke: false,
+            //showZeroOuterStroke: false
+        }),
+        MatTableModule,
+        MatPaginatorModule
+    ],
   providers: [ContentService, NotificationService],
   bootstrap: [AppComponent]
 })
