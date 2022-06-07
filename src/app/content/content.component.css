@@ -15,6 +15,11 @@
   margin-top: 5rem;
 }
 
+.progress-circle {
+  margin: 2rem;
+  text-align: center;
+}
+
 button{
   font-family: Roboto;
   height: 3rem;

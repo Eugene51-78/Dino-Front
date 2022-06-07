@@ -1,19 +1,37 @@
-header {
-  height: 4rem;
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-//max-width: 2000px;
-  padding-left: 10%;
-  border: thin solid black;
-  font-size: 3rem;
+header{
   background-color: orange;
-  color: white;
 }
-.row {
-  margin-top: 5%;
+.line1{
+  margin-top: 8rem;
+  margin-bottom: 2rem;
 }
-.demo-table {
+.line{
+  margin-top: 3rem;
+}
+.line2{
+  margin-top: 5rem;
+}
+
+button{
+  font-family: Roboto;
+}
+
+/*header {*/
+/*  height: 4rem;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*  display: flex;*/
+/*//max-width: 2000px;*/
+/*  padding-left: 10%;*/
+/*  border: thin solid black;*/
+/*  font-size: 3rem;*/
+/*  background-color: orange;*/
+/*  color: white;*/
+/*}*/
+/*.row {*/
+/*  margin-top: 5%;*/
+/*}*/
+.table {
   width: 100%;
 }
 
@@ -33,28 +51,28 @@ header {
   font-style: italic;
 }
 
-.col-0 {
-  font-size: 1.4vw;
-  height: 3em;
-  font-family: Roboto;
-  width: 24%;
-  float: left;
-  margin: 2% 40%;
-}
+/*.col-0 {*/
+/*  font-size: 1.4vw;*/
+/*  height: 3em;*/
+/*  font-family: Roboto;*/
+/*  width: 24%;*/
+/*  float: left;*/
+/*  margin: 2% 40%;*/
+/*}*/
 
-@media only screen and (max-width: 600px){
-  header {
-    font-size: 7vw;
-    height: 3rem;
-  }
-  .row {
-    padding: 2em;
-  }
-  .col-0 {
-    width: 40%;
-    float: left;
-    margin: 2% 30%;
-    font-size: 4vw;
-    height: auto;
-  }
-}
+/*@media only screen and (max-width: 600px){*/
+/*  header {*/
+/*    font-size: 7vw;*/
+/*    height: 3rem;*/
+/*  }*/
+/*  .row {*/
+/*    padding: 2em;*/
+/*  }*/
+/*  .col-0 {*/
+/*    width: 40%;*/
+/*    float: left;*/
+/*    margin: 2% 30%;*/
+/*    font-size: 4vw;*/
+/*    height: auto;*/
+/*  }*/
+/*}*/
