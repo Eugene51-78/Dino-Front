@@ -1,30 +1,79 @@
 <app-navbar></app-navbar>
+
 <div class="main">
-  <div class="container1">
-    <div class="row">
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/tasks">Задачи</button>
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/notifications">Уведомления</button>
+
+  <div class="container px-4">
+
+    <div class="row line1 gx-1">
+      <div class="col text-end">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/tasks">Задачи</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/notifications">Уведомления</button>
+        </div>
+      </div>
     </div>
-    <div class="row" *ngIf="employeeType ==='Medic'">
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/medicPage">Управление</button>
-      <button mat-raised-button [disabled]="isAlarmOn" color="accent" class="col-2" routerLink="/guard">Вызов Хантера</button>
+
+    <div class="row line gx-1" *ngIf="employeeType ==='Medic'">
+      <div class="col text-end">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/medicPage">Управление</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/guard">Вызов Хантера</button>
+        </div>
+      </div>
     </div>
-    <div class="row" *ngIf="employeeType==='Medic'">
+
+    <div class="row line" *ngIf="employeeType==='Medic'">
     </div>
-    <div class="row" *ngIf="employeeType ==='Manager'">
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/">Управление</button>
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/">Персонал</button>
+
+    <div class="row line gx-1" *ngIf="employeeType ==='Manager'">
+      <div class="col text-end">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Управление</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Персонал</button>
+        </div>
+      </div>
     </div>
-    <div class="row" *ngIf="employeeType ==='Manager'">
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-1" routerLink="/">Динозавры</button>
-      <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-2" routerLink="/">*</button>
+
+    <div class="row line gx-1" *ngIf="employeeType ==='Manager'">
+      <div class="col text-end">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Динозавры</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">*</button>
+        </div>
+      </div>
     </div>
-<!--    <div class="row" *ngIf="employeeType==='DinoTrainer'">-->
-<!--      <button class="col-0">Отчет о занятии</button>-->
-<!--    </div>-->
-    <div class="row" *ngIf="employeeType ==='Hunter'"></div>
-    <div class="row">
-      <button mat-raised-button [disabled]="isAlarmOn && employeeType!=='Manager'" color="warn" class="col-0" routerLink="/alarm">Тревога</button>
+
+    <div class="row line gx-1" *ngIf="employeeType ==='Hunter'">
     </div>
+
+    <!--    <div class="row" *ngIf="employeeType==='DinoTrainer'">-->
+    <!--      <button class="col-0">Отчет о занятии</button>-->
+    <!--    </div>-->
+
+    <div class="row line2 gx-1">
+      <div class="col text-center">
+        <div class="p-2">
+          <button mat-raised-button [disabled]="isAlarmOn && employeeType!=='Manager'" color="warn" class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" routerLink="/alarm">Тревога</button>
+        </div>
+      </div>
+    </div>
+
   </div>
+
 </div>

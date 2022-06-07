@@ -1,71 +1,17 @@
-
-header {
-  height: 4rem;
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  //max-width: 2000px;
-  padding-left: 10%;
-  border: thin solid black;
-  font-size: 3rem;
+header{
   background-color: orange;
-  color: white;
 }
-p{
-  text-content: center;
+.line1{
+  margin-top: 8rem;
+  margin-bottom: 2rem;
 }
-.g-0 {
-  padding: 3em;
+.line{
+  margin-top: 3rem;
 }
-.col-1, .col-2, .col-0 {
-  font-size: 1.4vw;
-  height: 3em;
-  font-family: Roboto;
-}
-.col-1 {
-  width: 15%;
-  float: left;
-  margin-left: 30%;
-  margin-right: 5%;
-}
-.col-2 {
-  width: 15%;
-  float: left;
-  margin-left: 5%;
-  margin-right: 30%;
-}
-.col-0 {
-  width: 24%;
-  float: left;
-  margin: 2% 40%;
+.line2{
+  margin-top: 5rem;
 }
 
-@media only screen and (max-width: 600px){
-  header {
-    font-size: 7vw;
-    height: 3rem;
-  }
-  .row {
-    padding: 2em;
-  }
-  .col-1, .col-2, .col-0 {
-    font-size: 2.5vw;
-  }
-  .col-1 {
-    width: 40%;
-    float: left;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-  .col-2 {
-    width: 40%;
-    float: left;
-    margin-right: 5%;
-    margin-left: 5%;
-  }
-  .col-0 {
-    width: 40%;
-    float: left;
-    margin: 2% 30%;
-  }
+button{
+  font-family: Roboto;
 }

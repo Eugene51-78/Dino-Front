@@ -1,83 +1,82 @@
-.container1 {
-  max-width: 4000px;
-  padding: 15px;
-  margin-top: 10%;
+/*.container1 {*/
+/*  max-width: 4000px;*/
+/*  padding: 15px;*/
+/*  margin-top: 10%;*/
+/*}*/
+
+.line1{
+  margin-top: 10rem;
+  margin-bottom: 2rem;
+}
+.line{
+  margin-top: 1rem;
+}
+.line2{
+  margin-top: 5rem;
 }
 
-p {
-  display: inline;
-  padding: 30px;
-  margin-left: 45%;
-}
-.burger {
-  display: inline;
-  padding: 30px;
-  text-align: center;
-  margin-left: 20%;
-}
-
-nav {
-  float: right;
-}
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-nav li {
-  display: inline-block; /*один из способов разместить элементы в строку*/
-}
-.row {
-  padding: 1.0em;
-}
-.col-1, .col-2, .col-0 {
-  font-size: 1.4vw;
-  height: 3rem;
+button{
   font-family: Roboto;
+  height: 3rem;
+  font-size: 1rem;
 }
-.col-1 {
-  width: 15%;
-  float: left;
-  margin-left: 30%;
-  margin-right: 5%;
-}
-.col-2 {
-  width: 15%;
-  float: left;
-  margin-left: 5%;
-  margin-right: 30%;
-}
-.col-0 {
-  width: 20%;
-  float: left;
-  margin: 2% 40%;
-}
+/*p {*/
+/*  display: inline;*/
+/*  padding: 30px;*/
+/*  margin-left: 45%;*/
+/*}*/
 
-@media only screen and (max-width: 600px){
-  .row {
-    padding: 2em;
-  }
-  .col-1, .col-2, .col-0 {
-    font-size: 2.5vw;
-    height: 2rem;
-  }
-  .col-1 {
-    width: 40%;
-    float: left;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-  .col-2 {
-    width: 40%;
-    float: left;
-    margin-right: 5%;
-    margin-left: 5%;
-  }
-  .col-0 {
-    width: 40%;
-    float: left;
-    margin: 2% 30%;
-  }
-}
+/*.row {*/
+/*  padding: 1.0em;*/
+/*}*/
+/*.col-1, .col-2, .col-0 {*/
+/*  font-size: 1.4vw;*/
+/*  height: 3rem;*/
+/*  font-family: Roboto;*/
+/*}*/
+/*.col-1 {*/
+/*  width: 15%;*/
+/*  float: left;*/
+/*  margin-left: 30%;*/
+/*  margin-right: 5%;*/
+/*}*/
+/*.col-2 {*/
+/*  width: 15%;*/
+/*  float: left;*/
+/*  margin-left: 5%;*/
+/*  margin-right: 30%;*/
+/*}*/
+/*.col-0 {*/
+/*  width: 20%;*/
+/*  float: left;*/
+/*  margin: 2% 40%;*/
+/*}*/
+
+/*@media only screen and (max-width: 600px){*/
+/*  .row {*/
+/*    padding: 2em;*/
+/*  }*/
+/*  .col-1, .col-2, .col-0 {*/
+/*    font-size: 2.5vw;*/
+/*    height: 2rem;*/
+/*  }*/
+/*  .col-1 {*/
+/*    width: 40%;*/
+/*    float: left;*/
+/*    margin-left: 5%;*/
+/*    margin-right: 5%;*/
+/*  }*/
+/*  .col-2 {*/
+/*    width: 40%;*/
+/*    float: left;*/
+/*    margin-right: 5%;*/
+/*    margin-left: 5%;*/
+/*  }*/
+/*  .col-0 {*/
+/*    width: 40%;*/
+/*    float: left;*/
+/*    margin: 2% 30%;*/
+/*  }*/
+/*}*/
 
 

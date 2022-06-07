@@ -1,18 +1,32 @@
 <header>
-  <p>Управление</p>
+  <div class="container" >
+    <div class="row">
+      <div class="col-12">
+        <h2>Управление</h2>
+      </div>
+    </div>
+  </div>
 </header>
 <div class="main">
-  <div class="container1">
-    <div class="g-0">
-      <button mat-raised-button color="primary" class="col-0" (click)="openMultiModal(multiModal, 1)">Отчитаться о медосмотре</button>
+  <div class="container">
+      <div class="row line1">
+        <div class="text-center">
+          <button type="button" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" (click)="openMultiModal(multiModal, 1)">Отчитаться о медосмотре</button>
+        </div>
+      </div>
+    <div class="row line">
+      <div class="text-center">
+        <button type="button" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" (click)="openMultiModal(multiModal, 2)">Направить дино на лечение</button>
+      </div>
     </div>
-    <div class="g-0">
-      <button mat-raised-button color="primary" class="col-0" (click)="openMultiModal(multiModal, 2)">Направить дино на лечение</button>
-    </div>
-    <div class="g-0">
-    </div>
-    <div class="g-0">
-      <button mat-raised-button color="accent" class="col-0" routerLink="/content">Назад</button>
+<!--    <div class="row">-->
+<!--&lt;!&ndash;      <div class="col-2">&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </div>-->
+    <div class="row line2">
+      <div class="text-center">
+        <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      </div>
     </div>
   </div>
 </div>
@@ -55,9 +69,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>
-  </div>
-  <div class="border modal-footer">
-    <button data-dismiss="modal" [disabled]="f.invalid" class="btn btn-info" (click)="onSubmit(f)">Подтвердить</button>
+    <button data-dismiss="modal" [disabled]="f.invalid" class="btn btn-primary" (click)="onSubmit(f)">Подтвердить</button>
   </div>
 </ng-template>
 
