@@ -4,7 +4,6 @@ import { NotificationComponent } from './notification/notification.component';
 import {ContentComponent} from './content/content.component';
 import {AlarmComponent} from './alarm/alarm.component';
 import {MedicPageComponent} from './medic-page/medic-page.component';
-import {GuardComponent} from './guard/guard.component';
 import {TaskComponent} from './task/task.component';
 
 const routes: Routes = [
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'alarm', component: AlarmComponent },
   { path: 'medicPage', component: MedicPageComponent },
   { path: 'tasks', component: TaskComponent },
-  { path: 'guard', component: GuardComponent },
   { path: '',   redirectTo: '/content', pathMatch: 'full' }
 ];
 

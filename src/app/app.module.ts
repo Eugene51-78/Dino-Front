@@ -15,7 +15,6 @@ import {ContentService} from './content/content.service';
 import {FormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskComponent } from './task/task.component';
-import { GuardComponent } from './guard/guard.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -33,7 +32,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AlarmComponent,
     MedicPageComponent,
     TaskComponent,
-    GuardComponent,
     HeaderComponent
   ],
     imports: [

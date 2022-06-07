@@ -7,12 +7,12 @@
     <div class="row line1 gx-1">
       <div class="col text-end">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/tasks">Задачи</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/tasks">Задачи</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/notifications">Уведомления</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/notifications">Уведомления</button>
         </div>
       </div>
     </div>
@@ -20,12 +20,12 @@
     <div class="row line gx-1" *ngIf="employeeType ==='Medic'">
       <div class="col text-end">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/medicPage">Управление</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/medicPage">Управление</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
         </div>
       </div>
     </div>
@@ -36,12 +36,12 @@
     <div class="row line gx-1" *ngIf="employeeType ==='Manager'">
       <div class="col text-end">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Управление</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Управление</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Персонал</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Персонал</button>
         </div>
       </div>
     </div>
@@ -49,12 +49,12 @@
     <div class="row line gx-1" *ngIf="employeeType ==='Manager'">
       <div class="col text-end">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Динозавры</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Динозавры</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn" color="primary" class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">*</button>
+          <button type="button" [disabled]="isAlarmOn" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">*</button>
         </div>
       </div>
     </div>
@@ -69,13 +69,12 @@
     <div class="row line2 gx-1">
       <div class="col text-center">
         <div class="p-2">
-          <button mat-raised-button [disabled]="isAlarmOn && employeeType!=='Manager'" color="warn" class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" routerLink="/alarm">Тревога</button>
+          <button type="button" [disabled]="isAlarmOn && employeeType!=='Manager'" class="btn btn-danger col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" routerLink="/alarm">Тревога</button>
         </div>
       </div>
     </div>
 
   </div>
-
 </div>
 
 <ng-template #guardModal let-modal>
@@ -88,28 +87,31 @@
   <div class="modal-body">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
-        <label for="hunter">Хантер</label>
         <div *ngIf="hunterList?.length">
-        <select id="hunter" name="id" class="form-control" required ngModel>
-          <option *ngFor="let hunterItem of hunterList">
-            {{hunterItem}}
-          </option>
-        </select>
+          <label for="hunter" class="form-label">ИД Хантера: </label>
+          <select id="hunter" name="id" class="form-select" required ngModel>
+            <option *ngFor="let hunterItem of hunterList">
+              {{hunterItem}}
+            </option>
+          </select>
         </div>
         <div *ngIf="currentHunter">
           <p id="hunter" name="id" class="form-control" ngModel>{{currentHunter}}</p>
         </div>
-        <div class="progress-circle" *ngIf="progressStatus === 0">
-          <circle-progress id="progress0" [backgroundColor]="'gray'"></circle-progress>
-        </div>
-        <div class="progress-circle" *ngIf="progressStatus === 1">
-          <circle-progress id="progress1" [backgroundColor]="'yellow'"></circle-progress>
-        </div>
-        <div class="progress-circle" *ngIf="progressStatus === 2">
-          <circle-progress id="progress2" [backgroundColor]="'green'"></circle-progress>
-        </div>
-        <div class="progress-circle" *ngIf="progressStatus === 3">
-          <circle-progress id="progress3" [backgroundColor]="'red'"></circle-progress>
+        <div class="progress1">
+          <span class="form-text">Подтверждение: </span>
+          <span class="progress-circle" *ngIf="progressStatus === 0">
+            <circle-progress id="progress0" [backgroundColor]="'gray'"></circle-progress>
+          </span>
+          <span class="progress-circle" *ngIf="progressStatus === 1">
+            <circle-progress id="progress1" [backgroundColor]="'yellow'"></circle-progress>
+          </span>
+          <span class="progress-circle" *ngIf="progressStatus === 2">
+            <circle-progress id="progress2" [backgroundColor]="'green'"></circle-progress>
+          </span>
+          <span class="progress-circle" *ngIf="progressStatus === 3">
+            <circle-progress id="progress3" [backgroundColor]="'red'"></circle-progress>
+          </span>
         </div>
       </div>
     </form>

@@ -1,22 +1,30 @@
 <header [ngClass]="{'alarm' : isAlarmOn}">
-  <p>Управление тревогой</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Управление тревогой</h2>
+      </div>
+    </div>
+  </div>
 </header>
-<div class="main">
-  <div class="container1">
 
-    <div class="g-0">
+<div class="main">
+  <div class="container">
+    <div class="row line1">
+      <div class="text-center">
+      <button type="button" *ngIf="!isAlarmOn" (click)="changeAlarm(0)" class="btn btn-danger col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Нападение динозавра!</button>
+      <button type="button" *ngIf="isAlarmOn && employeeType === 'Manager'" (click)="changeAlarm(2)" class="btn btn-warning col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Отключить тревогу!</button>
+      </div>
     </div>
-    <div class="g-0">
-      <button mat-raised-button (click)="changeAlarm(0)" color="warn" class="col-0" *ngIf="!isAlarmOn">Нападение динозавра!</button>
-      <button mat-raised-button (click)="changeAlarm(1)" color="warn" class="col-0" *ngIf="!isAlarmOn">Побег динозавра!</button>
-      <button mat-raised-button (click)="changeAlarm(2)" color="primary" class="col-0" *ngIf="isAlarmOn && employeeType==='Manager'">Отключить тревогу!</button>
+    <div *ngIf="!isAlarmOn" class="row line">
+      <div class="text-center">
+        <button type="button" (click)="changeAlarm(1)" class="btn btn-danger col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Побег динозавра!</button>
+      </div>
     </div>
-    <div class="g-0">
-    </div>
-    <div class="g-0">
-      <button mat-raised-button color="accent" class="col-0" routerLink="/content">Назад</button>
+    <div class="row line2">
+      <div class="text-center">
+      <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      </div>
     </div>
   </div>
 </div>
-
-<simple-notifications></simple-notifications>
