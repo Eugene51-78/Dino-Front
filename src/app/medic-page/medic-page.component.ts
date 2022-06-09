@@ -41,7 +41,7 @@ export class MedicPageComponent implements OnInit {
     //     this.ngOnInit(); //reload the table
     //   });
     this.modalService.dismissAll(); //dismiss the modal
-    this.notificationService.success("Успех", "Все нормас");
+    this.notificationService.success("Успех", "Все хорошо");
     this.notificationService.info("Инфо", "Такого нет");
     this.notificationService.error("Ошибка", "Не удалось что-то");
   }

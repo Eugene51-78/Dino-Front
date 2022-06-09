@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AlarmComponent } from './alarm/alarm.component';
 import { MedicPageComponent } from './medic-page/medic-page.component';
 import {ContentService} from './content/content.service';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskComponent } from './task/task.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import {MatTableModule} from '@angular/material/table';
 import {NotificationService} from './notification/notification.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AlarmComponent,
     MedicPageComponent,
     TaskComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
     imports: [
         BrowserModule,
@@ -40,6 +42,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         BrowserAnimationsModule,
         HttpClientModule,
         FlexModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatIconModule,
         FormsModule,
