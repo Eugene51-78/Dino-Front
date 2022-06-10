@@ -1,0 +1,16 @@
+.ng-invalid:not(form).ng-touched{
+  border: 2px solid red;
+}
+.red-text {
+  color: red;
+}
+.card{
+  border: 0.2rem solid orangered;
+}
+.line1 {
+  margin-top: 10rem;
+}
+.line{
+  padding-top: 1rem;
+}
+

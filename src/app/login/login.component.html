@@ -1,26 +1,26 @@
-<div class="container" >
-  <form class="mat-card" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="mat-card-content">
-      <span class="mat-card-title">Войти в систему</span>
-      <div class="mat-input-field">
-        <label for="email">Email:</label>
-        <input formControlName="email" id="email" type="email" required [ngClass]="{'invalid': form.get('email')?.invalid}">
-        <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-          <span *ngIf="form.hasError('required', 'email')" class="helper-text red-text">Email не должен быть пустым</span>
-          <span *ngIf="form.hasError('email', 'email')" class="helper-text red-text">Введите корректный Email</span>
+<div class="container col-12 col-sm-7 col-md-6 col-lg-5 col-xl-4" >
+  <form class="card line1" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h3 class="card-header text-center">Вход в систему ПЮР</h3>
+    <div class="card-body">
+      <div>
+        <label for="email" class="center-block">Email:</label>
+        <input formControlName="email" id="email" type="email" class="form-control" required [ngClass]="{'invalid': form.get('email')?.invalid}">
+        <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="form-text">
+          <span *ngIf="form.hasError('required', 'email')" class="helper-text red-text"><p>Email не может быть пустым</p></span>
+          <span *ngIf="form.hasError('email', 'email')" class="helper-text red-text"><p>Введите корректный Email</p></span>
         </span>
       </div>
-      <div class="mat-input-field">
-        <label for="password">Пароль:</label>
-        <input formControlName="password" id="password" type="password" required [ngClass]="{'invalid': form.get('password')?.invalid}">
-        <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-          <span *ngIf="form.hasError('required', 'password')" class="helper-text red-text">Пароль не может быть пустым</span>
-          <span *ngIf="form.hasError('minlength', 'password')" class="helper-text red-text">Минимальная длина пароля 6 символов</span>
+      <div class="line">
+        <label for="password" class="card-subtitlel">Пароль:</label>
+        <input formControlName="password" id="password" type="password" class="form-control" required [ngClass]="{'invalid': form.get('password')?.invalid}">
+        <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="form-text">
+          <span *ngIf="form.hasError('required', 'password')" class="helper-text red-text"><p>Пароль не может быть пустым</p></span>
+          <span *ngIf="form.hasError('minlength', 'password')" class="helper-text red-text"><p>Минимальная длина пароля 6 символов</p></span>
         </span>
       </div>
-      <div class="mat-card-action">
-        <button type="submit" [disabled]="form?.invalid || form?.disabled" class="btn btn-primary modal-action waves-effect">Войти</button>
-      </div>
+    </div>
+    <div class="line text-center card-footer">
+      <button type="submit" [disabled]="form?.invalid || form?.disabled" class="btn btn-primary modal-action waves-effect">Войти</button>
     </div>
   </form>
 </div>
