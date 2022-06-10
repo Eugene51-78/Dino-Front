@@ -1,4 +1,4 @@
-<header>
+<header xmlns="http://www.w3.org/1999/html">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -41,28 +41,41 @@
   <div class="modal-body">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
-        <label for="dino ID">Дино ИД</label>
+        <label for="dinoID">Дино ИД</label>
         <div class="input-group">
-          <input id="dino ID" name="id" class="form-control" required ngModel>
+          <input id="dinoID" type="number" min="0" name="id" class="form-control" #id="ngModel" required ngModel>
+        </div>
+        <div class="text-danger">
+          <div *ngIf="id?.invalid && id?.touched && id?.value === ''">Это поле обязательное</div>
+          <div *ngIf="id?.invalid && id?.touched && id?.dirty">ИД должен быть неотрицательным</div>
         </div>
         <div *ngIf="currentOperation === 'Отчет о медосмотре'">
           <label for="height">Рост (см)</label>
           <div class="input-group">
-            <input id="height" name="height" class="form-control" required ngModel>
+            <input id="height" type="number" min="10" name="height" class="form-control" #height="ngModel" required ngModel>
+          </div>
+          <div class="text-danger">
+            <div *ngIf="!height?.dirty && height?.touched">Это поле обязательное</div>
+            <div *ngIf="height?.invalid && height?.touched && height?.dirty">Минимальный рост - 10 см</div>
           </div>
           <label for="weight">Вес (кг)</label>
           <div class="input-group">
-            <input id="weight" name="weight" class="form-control" required ngModel>
+            <input id="weight" type="number" min="0.1" name="weight" class="form-control" #weight="ngModel" required ngModel>
+          </div>
+          <div class="text-danger">
+            <div *ngIf="!weight?.dirty && weight?.touched">Это поле обязательное</div>
+            <div *ngIf="weight?.invalid && weight?.touched && weight?.dirty">Минимальный вес - 0.1 кг</div>
           </div>
           <label for="weight">Возраст</label>
           <div class="input-group">
-            <select id="age" name="age" class="form-control" required ngModel>
+            <select id="age" name="age" class="form-control" #age="ngModel" required ngModel>
               <option value="NewBorn">Новорожденный</option>
               <option value="Young">Молодой</option>
               <option value="Mature">Зрелый</option>
               <option value="Old">Пожилой</option>
             </select>
           </div>
+          <div *ngIf="!age?.dirty && age?.touched" class="text-danger">Это поле обязательное</div>
         </div>
       </div>
     </form>

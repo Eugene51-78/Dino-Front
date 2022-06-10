@@ -23,7 +23,7 @@ export class ContentComponent implements OnInit {
     //this.employeeType = 'Hunter';
     this.hunterList = [1, 11, 12];
     this.progressStatus = 0;
-    //this.currentHunter = 10;
+    this.currentHunter = 10;
 
     this.contentService.setEmployeeRole(this.employeeType.toString());
     this.employeeType = this.contentService.getEmployeeRole();

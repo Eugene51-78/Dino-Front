@@ -7,7 +7,11 @@ body {
   max-height: 480px;
   #max-width: 4000px;
   background-image: url('assets/background.jpg');
-  background-size: 100% no-repeat center center fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

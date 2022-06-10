@@ -1,6 +1,9 @@
 header{
   background-color: orange;
 }
+.ng-invalid:not(form).ng-touched{
+  border: 2px solid red;
+}
 .line1{
   margin-top: 8rem;
   margin-bottom: 2rem;

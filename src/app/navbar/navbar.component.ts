@@ -1,6 +1,7 @@
 import {Component, HostBinding, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ContentService} from '../content/content.service';
 import {ContentComponent} from '../content/content.component';
+import {AuthService} from '../login/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
   @HostBinding('class.navbar-opened') navbarOpened = false;
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
 
-  constructor(public contentService: ContentService) {
+  constructor(public contentService: ContentService, public auth: AuthService) {
     this.employeeRole = this.contentService.getEmployeeRole();
     this.isAlarmOn = this.contentService.getIsAlarmOn();
     this.alarmType = this.contentService.getAlarmType();
