@@ -17,12 +17,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskComponent } from './task/task.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {SimpleNotificationsModule} from 'angular2-notifications';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import {MatTableModule} from '@angular/material/table';
 import {NotificationService} from './notification/notification.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
+import {TokenInterceptor} from './login/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,10 @@ import { LoginComponent } from './login/login.component';
         MatTableModule,
         MatPaginatorModule
     ],
-  providers: [ContentService, NotificationService],
+  providers: [ContentService, NotificationService,
+              { provide: HTTP_INTERCEPTORS,
+                multi: true,
+                useClass: TokenInterceptor}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

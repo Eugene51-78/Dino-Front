@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     // });
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
-
-      } else if (params['accessDenied']){
-
+        this.notificationService.info('Инфо', 'Вы можете войти в систему');
+      } else if (params['accessDenied']) {
+        this.notificationService.info('Инфо', 'Авторизуйтесь в системе, чтобы получить доступ!');
+      } else if (params['sessionFailed']) {
+        this.notificationService.info('Инфо', 'Пожалуйста, войдите в систему заново!');
       }
     });
   }
@@ -56,8 +58,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         console.warn(error);
         console.log(this.form.value);
-        this.notificationService.info("Инфо", "Такого нет");
-        this.notificationService.error("Ошибка", "Не удалось что-то");
+        //this.notificationService.info("Инфо", "Такого нет");
+        this.notificationService.error("Ошибка", error.error);
         this.form.enable();
       }
     );
