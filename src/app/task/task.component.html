@@ -1,1 +1,48 @@
-<p>task works!</p>
+<header xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Задачи</h2>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+  <div class="container">
+    <div class="row line1">
+      <div class="text-center">
+<!--        <button type="button" class="disabled btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Здесь также будет расписание</button>-->
+      </div>
+    </div>
+    <div class="row line justify-content-center" *ngIf="hasMomentum()">
+      <div class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
+        <div class="card-body">
+          <h5 class="card-title text-primary">Моментальная задача</h5>
+          <p class="card-text">От: {{momentumTask.from}}</p>
+          <p class="card-text">
+            Тип задачи: {{momentumTask.type}}
+          </p>
+          <div class="row gx-1">
+            <div class="col">
+              <div class="p-2 text-center">
+                <button type="button" class="btn btn-info col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="acceptMomentumTask()">Принять</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="p-2 text-center">
+                <button type="button" class="btn btn-warning col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="refuseMomentumTask()">Отказать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row line2">
+      <div class="text-center">
+        <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      </div>
+    </div>
+  </div>
+</div>

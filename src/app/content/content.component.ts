@@ -10,9 +10,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  employeeType: String | undefined;
+  employeeType: string | undefined;
   isAlarmOn: boolean;
   alarmType: string | undefined;
+
   hunterList: number[];
   progressStatus: number | undefined;
   currentHunter: any;

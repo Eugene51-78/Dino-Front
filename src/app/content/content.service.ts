@@ -11,10 +11,12 @@ export class ContentService {
   employeeRole: string | undefined;
   isAlarmOn: boolean | undefined;
   alarmType: string | undefined;
+  employee: { name: string, type: string } | undefined;
 
   constructor(private http: HttpClient) {
     this.employeeRole = "Manager";
     this.baseApiUrl = "localhost:8080"
+    this.employee = {name:"Карл", type: "Medic"};
   }
 
   getEmployee() {

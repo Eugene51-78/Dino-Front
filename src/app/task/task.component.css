@@ -1,0 +1,28 @@
+header{
+  background-color: orange;
+}
+.line1{
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+}
+.line{
+  margin-top: 3rem;
+}
+.line2{
+  margin-top: 5rem;
+}
+
+button{
+  font-family: Roboto;
+  font-size: 0.8em;
+}
+
+.col {
+  padding: 0;
+}
+
+.btn-success{
+  height: 3rem;
+  font-size: 1rem;
+}
+

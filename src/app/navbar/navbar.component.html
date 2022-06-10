@@ -3,12 +3,13 @@
     <div class="navbar-mobile-top" fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="navbar-logo">
         <img src="../../assets/profile.ico" width="60rem">
-        <p class="role" *ngIf="employeeRole=='Medic'">Медик</p>
-        <p class="role" *ngIf="employeeRole=='Manager'">Управляющий</p>
-        <p class="role" *ngIf="employeeRole=='Navigator'">Навигатор</p>
-        <p class="role" *ngIf="employeeRole=='Hunter'">Хантер</p>
-        <p class="role" *ngIf="employeeRole=='DinoTrainer'">Дрессировщик</p>
-        <p class="role" *ngIf="employeeRole=='Driver'">Водитель</p>
+        <p class="role" *ngIf="employeeRole=='Medic'">Медик {{employee?.name}}</p>
+        <p class="role" *ngIf="employeeRole=='Manager'">Управляющий {{employee?.name}}</p>
+        <p class="role" *ngIf="employeeRole=='Navigator'">Навигатор {{employee?.name}}</p>
+        <p class="role" *ngIf="employeeRole=='Hunter'">Хантер {{employee?.name}}</p>
+        <p class="role" *ngIf="employeeRole=='DinoTrainer'">Дрессировщик {{employee?.name}}</p>
+        <p class="role" *ngIf="employeeRole=='Driver'">Водитель {{employee?.name}}</p>
+
         <p class="alarm-text" *ngIf="isAlarmOn && alarmType=='Attack'">Внимание, нападение дино!</p>
         <p class="alarm-text" *ngIf="isAlarmOn && alarmType=='Escape'">Внимание, сбежал дино!</p>
       </div>
@@ -19,7 +20,7 @@
     <div fxFlex class="top-navbar">
       <span fxFlex></span>
 <!--      <a mat-button class="navbar-btn"><strong>О парке</strong></a>-->
-      <a mat-button  class="navbar-btn" (click)="this.auth.logout()"><strong>Выйти</strong></a>
+      <a mat-button  class="navbar-btn" (click)="this.auth.logout()" routerLink="/login"><strong>Выйти</strong></a>
     </div>
   </div>
 </header>
