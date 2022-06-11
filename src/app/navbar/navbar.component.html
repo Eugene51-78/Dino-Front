@@ -1,17 +1,17 @@
-<header class="navbar"  [ngClass]="{'navbar-fixed': isFixedNavbar, 'alarm': isAlarmOn}">
+<header class="navbar"  [ngClass]="{'navbar-fixed': isFixedNavbar, 'alarm': alarm.isOn}">
   <div class="container" fxLayout="row wrap" fxLayoutAlign="start center">
     <div class="navbar-mobile-top" fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="navbar-logo">
         <img src="../../assets/profile.ico" width="60rem">
-        <p class="role" *ngIf="employeeRole=='Medic'">Медик {{employee?.name}}</p>
-        <p class="role" *ngIf="employeeRole=='Manager'">Управляющий {{employee?.name}}</p>
-        <p class="role" *ngIf="employeeRole=='Navigator'">Навигатор {{employee?.name}}</p>
-        <p class="role" *ngIf="employeeRole=='Hunter'">Хантер {{employee?.name}}</p>
-        <p class="role" *ngIf="employeeRole=='DinoTrainer'">Дрессировщик {{employee?.name}}</p>
-        <p class="role" *ngIf="employeeRole=='Driver'">Водитель {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='Medic'">Медик {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='Manager'">Управляющий {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='Navigator'">Навигатор {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='Hunter'">Хантер {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='DinoTrainer'">Дрессировщик {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role=='Driver'">Водитель {{employee?.name}}</p>
 
-        <p class="alarm-text" *ngIf="isAlarmOn && alarmType=='Attack'">Внимание, нападение дино!</p>
-        <p class="alarm-text" *ngIf="isAlarmOn && alarmType=='Escape'">Внимание, сбежал дино!</p>
+        <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Attack'">Внимание, нападение дино!</p>
+        <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Escape'">Внимание, сбежал дино!</p>
       </div>
       <button mat-icon-button color="accent" class="navbar-toggle" (click)="toggleNavbar()">
         <mat-icon>{{!navbarOpened ? 'menu': 'close'}}</mat-icon>

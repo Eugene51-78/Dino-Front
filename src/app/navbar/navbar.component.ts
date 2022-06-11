@@ -10,24 +10,20 @@ import {AuthService} from '../login/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  employeeRole: string;
-  isAlarmOn: boolean;
-  alarmType: string | undefined;
-  employee: { name: string, type: string } | undefined;
+  alarm!: {isOn: boolean, type:string};
+  employee: { name: string, role: string } | undefined;
 
   isFixedNavbar: boolean | undefined;
   @HostBinding('class.navbar-opened') navbarOpened = false;
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
 
   constructor(public contentService: ContentService, public auth: AuthService) {
-    this.employeeRole = this.contentService.getEmployeeRole();
-    this.isAlarmOn = this.contentService.getIsAlarmOn();
-    this.alarmType = this.contentService.getAlarmType();
-    this.employee = this.contentService.employee;
+    this.employee = this.contentService.getEmployee();
+    this.alarm = this.contentService.getAlarm();
   }
 
   ngOnInit() {
-    console.log(this.isAlarmOn);
+    console.log(this.alarm.isOn);
   }
 
   @HostListener('window:scroll', [])

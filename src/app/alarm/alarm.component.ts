@@ -39,8 +39,8 @@ export class AlarmComponent implements OnInit {
       this.contentService.setAlarmType("None");
     this.isAlarmOn = !this.isAlarmOn;
     this.contentService.setIsAlarmOn(this.isAlarmOn);
-    localStorage.setItem('alarm', String(this.contentService.getIsAlarmOn()));
-    console.log(this.contentService.getIsAlarmOn());
+    localStorage.setItem('alarm', String(this.contentService.getAlarm().isOn));
+    localStorage.setItem('alarmType', (this.contentService.getAlarm().type));
     this.notificationService.success("Успех", "Все нормас");
     this.notificationService.info("Инфо", "Такого нет");
     this.notificationService.error("Ошибка", "Не удалось что-то");

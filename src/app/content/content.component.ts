@@ -10,52 +10,46 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  employeeType: string | undefined;
-  isAlarmOn: boolean;
-  alarmType: string | undefined;
+  alarm!: {isOn: boolean, type:string};
+  employee: {role: string, name: string};
 
   hunterList: number[];
   progressStatus: number | undefined;
-  currentHunter: any;
+  currentHunterID: number | null;
 
   constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService) {
-    this.employeeType = 'Medic';
-    //this.employeeType = 'Manager';
-    //this.employeeType = 'Hunter';
+
+    this.employee = contentService.getEmployee();
+    this.employee.role = 'Medic';
+    //this.employee.role = 'Manager';
+    //this.employee.role = 'Hunter';
+    this.contentService.setEmployee(this.employee);
+
+
+    this.alarm = contentService.getAlarm();
+
     this.hunterList = [1, 11, 12];
     this.progressStatus = 0;
-    this.currentHunter = 10;
-
-    this.contentService.setEmployeeRole(this.employeeType.toString());
-    this.employeeType = this.contentService.getEmployeeRole();
-    if (localStorage.getItem('alarm') === 'true') {
-      this.isAlarmOn = true;
-      this.contentService.setIsAlarmOn(true);
-      console.log('hello true');
-    } else {
-        console.log(localStorage.getItem('alarm'));
-        localStorage.setItem('alarm', 'false');
-        this.isAlarmOn = false;
-    }
-    this.alarmType = this.contentService.getAlarmType();
-    console.log(this.alarmType);
+    this.currentHunterID = null;
   }
 
   ngOnInit() {
     //this.employeeType = this.contentService.getEmployeeRole();
     //this.isAlarmOn = this.contentService.getIsAlarmOn();
-    this.getEmployee();
+    this.getEmployeeFromServer();
+    this.initAlarm();
+    this.getAlarmFromServer();
   }
 
-  getEmployee() {  // flag for getData() call without rerender in NgOnInit()
-    this.contentService.getEmployee().subscribe((res: any) => {
+  getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
+    this.contentService.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
-        //this.rerender();
         return;
       }
-      this.employeeType = res;
-      console.log(this.employeeType);
+      this.employee = res;
+      this.contentService.setEmployee(this.employee);
+      console.log(this.employee);
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
@@ -63,9 +57,45 @@ export class ContentComponent implements OnInit {
     });
   }
 
+  getAlarmFromServer() {  // flag for getData() call without rerender in NgOnInit()
+    this.contentService.getAlarmFromServer().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        //this.rerender();
+        return;
+      }
+      this.alarm = res;
+      if (this.alarm.isOn) {
+        localStorage.setItem('alarm', 'true');
+      } else {
+        localStorage.setItem('alarm', 'false');
+      }
+      this.contentService.setAlarm(this.alarm);
+      console.log(this.alarm);
+      //this.notificationService.success('Получено')
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения тревоги')
+    });
+  }
+
+  initAlarm(){
+    if (localStorage.getItem('alarm') === 'true') {
+      this.alarm.isOn = true;
+      if (localStorage.getItem('alarmType')) {
+        this.alarm.type = localStorage.getItem('alarmType')!;
+      }
+    } else {
+      localStorage.setItem('alarm', 'false');
+      this.alarm.isOn = false;
+    }
+    this.contentService.setAlarm(this.alarm);
+  }
+
   openGuardModal(guardModal: any) {
     console.log(guardModal);
-
+    this.getHunterList();
+    this.getCurrentHunterID();
     // Get there current Hunter ID
     // else If none than get list of available Hunters
 
@@ -76,16 +106,51 @@ export class ContentComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     console.log(f.value);
-    // send post request to Backend
-    // const url = 'http://localhost:8080/hunter';
-    // this.httpClient.post(url, f.value)
-    //   .subscribe((result) => {
-    //     this.ngOnInit(); //reload the table
-    //   });
+    if (this.currentHunterID === null) {
+      this.postHunterRequest(f.value);
+    }
     this.modalService.dismissAll(); //dismiss the modal
     this.progressStatus = 1;
-    this.notificationService.success("Успех", "Все нормас");
-    this.notificationService.info("Инфо", "Такого нет");
-    this.notificationService.error("Ошибка", "Не удалось что-то");
+  }
+
+  private postHunterRequest(id: number) {
+    this.contentService.postHunterRequest(id).subscribe(
+      () => {
+        console.log("login success");
+        this.notificationService.success("Успех", "");
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка отправки запроса");
+      }
+    );
+  }
+
+  private getHunterList() {
+    this.contentService.getHunterList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      this.hunterList = res;
+      console.log(this.hunterList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Хантеров')
+    });
+  }
+
+  private getCurrentHunterID() {
+    this.contentService.getCurrentHunterID().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      this.currentHunterID = res;
+      console.log(this.currentHunterID);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения вызванного Хантера')
+    });
   }
 }

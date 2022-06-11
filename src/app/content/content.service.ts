@@ -8,43 +8,61 @@ export class ContentService {
 
   baseApiUrl: string;
 
-  employeeRole: string | undefined;
-  isAlarmOn: boolean | undefined;
-  alarmType: string | undefined;
-  employee: { name: string, type: string } | undefined;
+  alarm!: {isOn: boolean, type:string};
+  employee!: { role: string; name: string; };
 
   constructor(private http: HttpClient) {
-    this.employeeRole = "Manager";
     this.baseApiUrl = "localhost:8080"
-    this.employee = {name:"Карл", type: "Medic"};
+    this.employee = {role: "Medic", name:"Карл"};
+    this.alarm = {isOn: false, type: "None"};
   }
 
-  getEmployee() {
+  getEmployeeFromServer() {
     return this.http.get(this.baseApiUrl + '/employee');
   }
 
-  getEmployeeRole(): string{
-    return <string>this.employeeRole;
+  getAlarmFromServer() {
+    return this.http.get(this.baseApiUrl + '/alarm');
   }
 
-  setEmployeeRole(val: string){
-    this.employeeRole = val;
+  getHunterList() {
+    return this.http.get(this.baseApiUrl + '/hunter');
   }
 
-  getIsAlarmOn(): boolean{
-    return <boolean>this.isAlarmOn;
+  getCurrentHunterID() {
+    return this.http.get(this.baseApiUrl + 'curhunter');
   }
 
-  setIsAlarmOn(val: boolean){
-    this.isAlarmOn = val;
+  postHunterRequest(id: number) {
+    return this.http.post(this.baseApiUrl + '/hunter', id);
   }
 
-  getAlarmType() {
-    return this.alarmType;
+  setEmployee(employee: {role: string; name: string }) {
+    this.employee = employee;
   }
 
-  setAlarmType(type: string){
-    this.alarmType = type;
+  getEmployee() {
+    return this.employee;
   }
+
+ getEmployeeRole(): string{
+    return <string>this.employee.role;
+ }
+
+ getAlarm() {
+      return this.alarm;
+ }
+
+ setAlarm(alarm: {isOn: boolean, type:string}) {
+    this.alarm = alarm;
+ }
+
+ setIsAlarmOn(val: boolean){
+    this.alarm.isOn = val;
+ }
+
+ setAlarmType(type: string){
+   this.alarm.type = type;
+ }
 
 }
