@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "config data from general tab",
+    authDomain: "config data from general tab",
+    databaseURL: "config data from general tab",
+    projectId: "config data from general tab",
+    storageBucket: "config data from general tab",
+    messagingSenderId: "config data from general tab",
+    appId: "config data from general tab",
+    measurementId: "config data from general tab",
+    vapidKey: "fron generated key crom Cloud Messaging"
+  },
 };
 
 /*

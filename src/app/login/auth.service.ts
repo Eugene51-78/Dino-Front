@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {User} from './user.interface';
 import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
+import {combineChange} from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ export class AuthService{
 
   constructor(private http: HttpClient) {
   }
+
   login(user: User): Observable<{token: string}> {
-    return this.http.post<{ token: string; }>('auth/login', user)
+    console.log(user);
+    return this.http.post<{ token: string; }>('http://10.192.100.82:8080/auth', user)
       .pipe(
         tap(
           ({token}) => {

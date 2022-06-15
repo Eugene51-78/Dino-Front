@@ -24,6 +24,9 @@ import {NotificationService} from './notification/notification.service';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptor} from './login/token.interceptor';
+import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
+import {AngularFireModule} from '@angular/fire/compat';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import {TokenInterceptor} from './login/token.interceptor';
         MatIconModule,
         FormsModule,
         NgbModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireMessagingModule,
         SimpleNotificationsModule.forRoot(),
         NgCircleProgressModule.forRoot({
             radius: 30,

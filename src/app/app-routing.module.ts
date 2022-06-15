@@ -9,20 +9,20 @@ import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './login/auth.guard';
 
 const routes: Routes = [
-  // { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
-  // { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
-  // { path: 'medicPage', canActivate:[AuthGuard], component: MedicPageComponent },
-  // { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
-  // { path: 'login', component: LoginComponent },
-  // { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  // { path: 'content', canActivate:[AuthGuard], component: ContentComponent },
-  { path: 'notifications', component: NotificationComponent },
-  { path: 'alarm', component: AlarmComponent },
-  { path: 'medicPage', component: MedicPageComponent },
-  { path: 'tasks', component: TaskComponent },
+  { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
+  { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
+  { path: 'medicPage', canActivate:[AuthGuard], component: MedicPageComponent },
+  { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  { path: 'content', component: ContentComponent }
+  { path: 'content', canActivate:[AuthGuard], component: ContentComponent },
+  // { path: 'notifications', component: NotificationComponent },
+  // { path: 'alarm', component: AlarmComponent },
+  // { path: 'medicPage', component: MedicPageComponent },
+  // { path: 'tasks', component: TaskComponent },
+  // { path: 'login', component: LoginComponent },
+  // { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  // { path: 'content', component: ContentComponent }
 ];
 
 @NgModule({

@@ -17,6 +17,10 @@ export class ContentService {
     this.alarm = {isOn: false, type: "None"};
   }
 
+  addPushSubscriber(sub:any) {
+    return this.http.post('/notifications', sub);
+  }
+
   getEmployeeFromServer() {
     return this.http.get(this.baseApiUrl + '/employee');
   }
