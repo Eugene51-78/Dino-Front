@@ -9,12 +9,26 @@ export class ContentService {
   baseApiUrl: string;
 
   alarm!: {isOn: boolean, type:string};
-  employee!: { role: string; name: string; };
+  employee!: {"id": number, email: string, firstName: string,
+    secondName: string, middleName: string, role: { id: number, name: string },
+    age: number, location:{"id": number, name: string, longitude: number, latitude: number},
+    isBusy: boolean};
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = "localhost:8080"
-    this.employee = {role: "Medic", name:"Карл"};
+    this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
+      secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
+      age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
+      isBusy: false};
     this.alarm = {isOn: false, type: "None"};
+  }
+
+  getEmployee(): { id: number; email: string; firstName: string; secondName: string; middleName: string; role: { id: number; name: string }; age: number; location: { id: number; name: string; longitude: number; latitude: number }; isBusy: boolean } {
+    return this.employee;
+  }
+
+  setEmployee(value: { id: number; email: string; firstName: string; secondName: string; middleName: string; role: { id: number; name: string }; age: number; location: { id: number; name: string; longitude: number; latitude: number }; isBusy: boolean }) {
+    this.employee = value;
   }
 
   addPushSubscriber(sub:any) {
@@ -41,16 +55,8 @@ export class ContentService {
     return this.http.post(this.baseApiUrl + '/hunter', id);
   }
 
-  setEmployee(employee: {role: string; name: string }) {
-    this.employee = employee;
-  }
-
-  getEmployee() {
-    return this.employee;
-  }
-
  getEmployeeRole(): string{
-    return <string>this.employee.role;
+    return <string>this.employee.role.name;
  }
 
  getAlarm() {

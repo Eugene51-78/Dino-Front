@@ -11,7 +11,10 @@ import {AuthService} from '../login/auth.service';
 export class NavbarComponent implements OnInit {
 
   alarm!: {isOn: boolean, type:string};
-  employee: { name: string, role: string } | undefined;
+  employee!: {"id": number, email: string, firstName: string,
+    secondName: string, middleName: string, role: { id: number, name: string },
+    age: number, location:{"id": number, name: string, longitude: number, latitude: number},
+    isBusy: boolean};
 
   isFixedNavbar: boolean | undefined;
   @HostBinding('class.navbar-opened') navbarOpened = false;

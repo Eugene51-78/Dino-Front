@@ -10,8 +10,12 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
+
   alarm!: {isOn: boolean, type:string};
-  employee: {role: string, name: string};
+  employee!: {"id": number, email: string, firstName: string,
+    secondName: string, middleName: string, role: { id: number, name: string },
+    age: number, location:{"id": number, name: string, longitude: number, latitude: number},
+    isBusy: boolean};
 
   hunterList: number[];
   progressStatus: number | undefined;
@@ -20,7 +24,7 @@ export class ContentComponent implements OnInit {
   constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService) {
 
     this.employee = contentService.getEmployee();
-    this.employee.role = 'Medic';
+    //this.employee.role = 'Medic';
     //this.employee.role = 'Manager';
     //this.employee.role = 'Hunter';
     this.contentService.setEmployee(this.employee);

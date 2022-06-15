@@ -3,12 +3,12 @@
     <div class="navbar-mobile-top" fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="navbar-logo">
         <img src="../../assets/profile.ico" width="60rem">
-        <p class="role" *ngIf="employee?.role=='Medic'">Медик {{employee?.name}}</p>
-        <p class="role" *ngIf="employee?.role=='Manager'">Управляющий {{employee?.name}}</p>
-        <p class="role" *ngIf="employee?.role=='Navigator'">Навигатор {{employee?.name}}</p>
-        <p class="role" *ngIf="employee?.role=='Hunter'">Хантер {{employee?.name}}</p>
-        <p class="role" *ngIf="employee?.role=='DinoTrainer'">Дрессировщик {{employee?.name}}</p>
-        <p class="role" *ngIf="employee?.role=='Driver'">Водитель {{employee?.name}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='Medic'">Медик {{employee?.firstName}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='Manager'">Управляющий {{employee?.firstName}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='Navigator'">Навигатор {{employee?.firstName}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='Hunter'">Хантер {{employee?.firstName}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='DinoTrainer'">Дрессировщик {{employee?.firstName}}</p>
+        <p class="role" *ngIf="employee?.role?.name=='Driver'">Водитель {{employee?.firstName}}</p>
 
         <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Attack'">Внимание, нападение дино!</p>
         <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Escape'">Внимание, сбежал дино!</p>
