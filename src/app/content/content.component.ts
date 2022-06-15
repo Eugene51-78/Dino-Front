@@ -3,6 +3,7 @@ import {ContentService} from './content.service';
 import {NotificationsService} from 'angular2-notifications';
 import {NgForm} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Employee} from './employee.interface';
 
 @Component({
   selector: 'app-content',
@@ -12,10 +13,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class ContentComponent implements OnInit {
 
   alarm!: {isOn: boolean, type:string};
-  employee!: {"id": number, email: string, firstName: string,
-    secondName: string, middleName: string, role: { id: number, name: string },
-    age: number, location:{"id": number, name: string, longitude: number, latitude: number},
-    isBusy: boolean};
+  employee!: Employee;
 
   hunterList: number[];
   progressStatus: number | undefined;

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {Employee} from './employee.interface';
 
 @Injectable()
 export class ContentService {
@@ -9,10 +10,7 @@ export class ContentService {
   baseApiUrl: string;
 
   alarm!: {isOn: boolean, type:string};
-  employee!: {"id": number, email: string, firstName: string,
-    secondName: string, middleName: string, role: { id: number, name: string },
-    age: number, location:{"id": number, name: string, longitude: number, latitude: number},
-    isBusy: boolean};
+  employee!: Employee;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = "http://localhost:8081"

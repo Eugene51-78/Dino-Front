@@ -10,10 +10,10 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class TaskComponent implements OnInit {
 
-  momentumTask: MomentumTask;
+  momentumTask!: MomentumTask;
 
   constructor(private taskService: TaskService, private notificationService: NotificationsService) {
-    this.momentumTask = {id:1, from: "Медик Карл", type: "памагити"}
+    //this.momentumTask = {id:1}
   }
 
   ngOnInit(): void {
