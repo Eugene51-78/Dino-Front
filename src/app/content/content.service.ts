@@ -15,7 +15,7 @@ export class ContentService {
     isBusy: boolean};
 
   constructor(private http: HttpClient) {
-    this.baseApiUrl = "localhost:8080"
+    this.baseApiUrl = "localhost:8081"
     this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
       secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
       age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
@@ -36,7 +36,7 @@ export class ContentService {
   }
 
   getEmployeeFromServer() {
-    return this.http.get(this.baseApiUrl + '/employee');
+    return this.http.get(this.baseApiUrl + '/user/me');
   }
 
   getAlarmFromServer() {
