@@ -15,11 +15,11 @@ export class ContentService {
     isBusy: boolean};
 
   constructor(private http: HttpClient) {
-    this.baseApiUrl = "localhost:8081"
-    this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
-      secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
-      age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
-      isBusy: false};
+    this.baseApiUrl = "http://localhost:8081"
+    // this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
+    //   secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
+    //   age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
+    //   isBusy: false};
     this.alarm = {isOn: false, type: "None"};
   }
 
@@ -36,7 +36,7 @@ export class ContentService {
   }
 
   getEmployeeFromServer() {
-    return this.http.get(this.baseApiUrl + '/user/me');
+    return this.http.get(this.baseApiUrl + '/api/user/me');
   }
 
   getAlarmFromServer() {

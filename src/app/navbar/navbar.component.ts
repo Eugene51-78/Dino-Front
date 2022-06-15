@@ -21,12 +21,28 @@ export class NavbarComponent implements OnInit {
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
 
   constructor(public contentService: ContentService, public auth: AuthService) {
-    this.employee = this.contentService.getEmployee();
+    this.employee = this.contentService.employee;
     this.alarm = this.contentService.getAlarm();
   }
 
   ngOnInit() {
+    this.getEmployeeFromServer()
     console.log(this.alarm.isOn);
+  }
+
+  getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
+    this.contentService.getEmployeeFromServer().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      this.employee = res;
+      this.contentService.setEmployee(this.employee);
+      console.log(this.employee);
+      //this.notificationService.success('Получено')
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+    });
   }
 
   @HostListener('window:scroll', [])

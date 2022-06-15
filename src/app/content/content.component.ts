@@ -49,15 +49,17 @@ export class ContentComponent implements OnInit {
     this.contentService.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
-        return;
+        return null;
       }
       this.employee = res;
       this.contentService.setEmployee(this.employee);
       console.log(this.employee);
+      return this.employee;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения')
+      return null;
     });
   }
 
