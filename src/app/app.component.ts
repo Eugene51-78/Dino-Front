@@ -17,18 +17,21 @@ export class AppComponent implements OnInit{
   constructor(private auth: AuthService) {
   }
 
-
-
   title = 'Dino-Front';
   options = {
     timeOut: 3000
   }
 
   ngOnInit(): void {
-    const firebaseApp = initializeApp(environment.firebase);
-    this.requestPermission(firebaseApp);
-    this.listen(firebaseApp);
     // setInterval( () => { this.listen(firebaseApp); }, 3000);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.auth.isAuthenticated()) {
+      const firebaseApp = initializeApp(environment.firebase);
+      this.requestPermission(firebaseApp);
+      this.listen(firebaseApp);
+    }
   }
 
   requestPermission(firebaseApp: any) {
