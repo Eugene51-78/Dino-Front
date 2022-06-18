@@ -19,9 +19,9 @@
       <div class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
         <div class="card-body">
           <h5 class="card-title text-primary">Моментальная задача</h5>
-          <p class="card-text">От: {{momentumTask.from}}</p>
+          <p class="card-text">От: {{momentumTask.from.firstName + ' ' + momentumTask.from.secondName}}</p>
           <p class="card-text">
-            Тип задачи: {{momentumTask.type}}
+            Тип задачи: {{momentumTask.type.type}}
           </p>
           <div class="row gx-1">
             <div class="col">

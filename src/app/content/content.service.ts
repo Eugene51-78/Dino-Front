@@ -34,7 +34,7 @@ export class ContentService {
   }
 
   getEmployeeFromServer() {
-    return this.http.get(this.baseApiUrl + '/api/user/me');
+    return this.http.get(this.baseApiUrl + '/api/user/me', {  observe: 'response' });
   }
 
   getAlarmFromServer() {
@@ -46,7 +46,7 @@ export class ContentService {
   }
 
   getCurrentHunterID() {
-    return this.http.get(this.baseApiUrl + 'curhunter');
+    return this.http.get(this.baseApiUrl + '/curhunter');
   }
 
   postHunterRequest(id: number) {

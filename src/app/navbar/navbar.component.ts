@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
       console.log(this.employee);
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
+      console.log('Ошибка', err);
     });
   }
 

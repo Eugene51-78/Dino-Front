@@ -55,8 +55,8 @@ export class ContentComponent implements OnInit {
       return this.employee;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения')
+      console.log('Ошибка', err);
+      // this.notificationService.error('Ошибка получения')
       return null;
     });
   }
