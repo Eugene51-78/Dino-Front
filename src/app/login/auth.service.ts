@@ -16,7 +16,7 @@ export class AuthService{
 
   login(user: User): Observable<{token: string}> {
     console.log(user);
-    return this.http.post<{ token: string; }>('http://10.192.100.82:8080/auth', user)
+    return this.http.post<{ token: string; }>('http://localhost:8081/auth', user)
       .pipe(
         tap(
           ({token}) => {

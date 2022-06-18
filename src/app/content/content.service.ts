@@ -34,7 +34,7 @@ export class ContentService {
   }
 
   getEmployeeFromServer() {
-    return this.http.get(this.baseApiUrl + '/api/user/me', {  observe: 'response' });
+    return this.http.get(this.baseApiUrl + '/api/user/me');
   }
 
   getAlarmFromServer() {

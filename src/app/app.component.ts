@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
-import {AngularFireMessaging} from '@angular/fire/compat/messaging';
-import {mergeMap} from 'rxjs';
+import { getMessaging, getToken, onMessage, } from "firebase/messaging";
+// import { onBackgroundMessage } from "firebase/messaging/sw";
+// import {mergeMap} from 'rxjs';
+import {environment} from "../environments/environment";
+import {initializeApp} from "firebase/app";
 
 @Component({
   selector: 'app-root',
@@ -9,42 +12,65 @@ import {mergeMap} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-
-  readonly VAPID_PUBLIC_KEY = "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
-
-  constructor(private auth: AuthService, private afMessaging: AngularFireMessaging) {
+// private afMessaging: AngularFireMessaging
+  constructor(private auth: AuthService) {
   }
+
+
 
   title = 'Dino-Front';
   options = {
     timeOut: 3000
   }
 
-  ngOnInit() {
-    const potentialToken = localStorage.getItem('auth-token')
-    if (potentialToken !== null) {
-      this.auth.setToken(potentialToken);
-    }
+  ngOnInit(): void {
+    const firebaseApp = initializeApp(environment.firebase);
+    this.requestPermission(firebaseApp);
+    setInterval( () => { this.listen(firebaseApp); }, 3000);
   }
 
-  requestPermission() {
-    this.afMessaging.requestToken
-      .subscribe(
-        (token) => { console.log('Permission granted! Save to the server!', token); },
-        (error) => { console.error(error); },
-      );
+  requestPermission(firebaseApp: any) {
+    const messaging = getMessaging(firebaseApp);
+    getToken(messaging,
+      { vapidKey: environment.firebase.vapidKey}).then(
+      (currentToken) => {
+        if (currentToken) {
+          console.log("Hurraaa!!! we got the token.....");
+          console.log(currentToken);
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+        }
+      }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+  }
+  listen(firebaseApp: any) {
+    const messaging = getMessaging(firebaseApp);
+    console.log("Receiving messages...")
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      // this.message=payload;
+    });
   }
 
-  deleteToken() {
-    this.afMessaging.getToken
-      .pipe(mergeMap(token => this.afMessaging.deleteToken(token!)))
-      .subscribe(
-        (token) => { console.log('Token deleted!'); },
-      );
-  }
+  // requestPermission() {
+  //   this.afMessaging.requestToken
+  //     .subscribe(
+  //       (token) => { console.log('Permission granted! Save to the server!', token); },
+  //       (error) => { console.error(error); },
+  //     );
+  // }
 
-  listen() {
-    this.afMessaging.messages
-      .subscribe((message) => { console.log(message); });
-  }
+  // deleteToken() {
+  //   this.afMessaging.getToken
+  //     .pipe(mergeMap(token => this.afMessaging.deleteToken(token!)))
+  //     .subscribe(
+  //       (token) => { console.log('Token deleted!'); },
+  //     );
+  // }
+
+  // listen() {
+  //   this.afMessaging.messages
+  //     .subscribe((message) => { console.log(message); });
+  // }
 }

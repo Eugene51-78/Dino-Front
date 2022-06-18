@@ -29,7 +29,7 @@ export class TaskService {
   }
 
   refuseMomentumTask(id: number) {
-    return this.http.post('baseApiUrl' + '/momentum', id)
+    return this.http.post(this.baseApiUrl + '/momentum', id)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);
