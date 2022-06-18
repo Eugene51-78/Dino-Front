@@ -5,6 +5,7 @@ import { getMessaging, getToken, onMessage, } from "firebase/messaging";
 // import {mergeMap} from 'rxjs';
 import {environment} from "../environments/environment";
 import {initializeApp} from "firebase/app";
+import {parseJson} from "@angular/cli/utilities/json-file";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     const firebaseApp = initializeApp(environment.firebase);
     this.requestPermission(firebaseApp);
-    setInterval( () => { this.listen(firebaseApp); }, 3000);
+    this.listen(firebaseApp);
+    // setInterval( () => { this.listen(firebaseApp); }, 3000);
   }
 
   requestPermission(firebaseApp: any) {
@@ -50,6 +52,7 @@ export class AppComponent implements OnInit{
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
       // this.message=payload;
+      // const f = parseJson(payload.toString())
     });
   }
 
