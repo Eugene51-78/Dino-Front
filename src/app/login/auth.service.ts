@@ -3,6 +3,11 @@ import {User} from './user.interface';
 import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {combineChange} from '@angular/fire/compat/firestore';
+import {ContentService} from "../content/content.service";
+import {ContentComponent} from "../content/content.component";
+import {initializeApp} from "firebase/app";
+import {environment} from "../../environments/environment";
+import {deleteToken, getMessaging} from "firebase/messaging";
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +44,17 @@ export class AuthService{
     return !!this.token;
   }
 
+  revokeToken(){
+    const firebaseApp = initializeApp(environment.firebase);
+    const messaging = getMessaging(firebaseApp);
+    deleteToken(messaging).then(r => {
+      console.log("Token deleted")
+    })
+  }
+
   logout() {
     this.setToken(null);
+    this.revokeToken()
     localStorage.removeItem('auth-token');
   }
 }

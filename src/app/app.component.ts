@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
 import { getMessaging, getToken, onMessage, } from "firebase/messaging";
-// import { onBackgroundMessage } from "firebase/messaging/sw";
-// import {mergeMap} from 'rxjs';
 import {environment} from "../environments/environment";
 import {initializeApp} from "firebase/app";
 import {parseJson} from "@angular/cli/utilities/json-file";
@@ -23,16 +21,13 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
     // setInterval( () => { this.listen(firebaseApp); }, 3000);
   }
-
-  ngAfterViewInit(): void {
-    if (this.auth.isAuthenticated()) {
-      const firebaseApp = initializeApp(environment.firebase);
-      this.requestPermission(firebaseApp);
-      this.listen(firebaseApp);
-    }
-  }
+  //
+  // ngAfterViewInit(): void {
+  //
+  // }
 
   requestPermission(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);

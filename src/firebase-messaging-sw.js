@@ -18,10 +18,23 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  console.log('Message received. ', payload);
-  // this.message=payload;
-});
+// messaging.onBackgroundMessage((payload) => {
+//   console.log('Message received. ', payload);
+//   // this.message=payload;
+// });
+// messaging.onBackgroundMessage((payload) => {
+//   var dataFromServer = JSON.parse(payload.data.notification);
+//   var notificationTitle = dataFromServer.title;
+//   var notificationOptions = {
+//     body: dataFromServer.body + "123",
+//     icon: dataFromServer.icon,
+//     data: {
+//       url: dataFromServer.url
+//     }
+//   };
+//   return self.registration.showNotification(notificationTitle, notificationOptions);
+// });
+
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 //

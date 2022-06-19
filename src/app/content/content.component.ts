@@ -4,6 +4,10 @@ import {NotificationsService} from 'angular2-notifications';
 import {NgForm} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Employee} from './employee.interface';
+import {initializeApp} from "firebase/app";
+import {environment} from "../../environments/environment";
+import {AuthService} from "../login/auth.service";
+import {getMessaging, getToken, onMessage, deleteToken} from "firebase/messaging";
 
 @Component({
   selector: 'app-content',
@@ -19,7 +23,7 @@ export class ContentComponent implements OnInit {
   progressStatus: number | undefined;
   currentHunterID: number | null;
 
-  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService) {
+  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService) {
 
     this.employee = contentService.getEmployee();
     //this.employee.role = 'Medic';
@@ -38,9 +42,42 @@ export class ContentComponent implements OnInit {
   ngOnInit() {
     //this.employeeType = this.contentService.getEmployeeRole();
     //this.isAlarmOn = this.contentService.getIsAlarmOn();
+    if (this.auth.isAuthenticated()) {
+      const firebaseApp = initializeApp(environment.firebase);
+      this.requestPermission(firebaseApp);
+      this.listen(firebaseApp);
+    }
     this.getEmployeeFromServer();
     this.initAlarm();
     this.getAlarmFromServer();
+  }
+
+  requestPermission(firebaseApp: any) {
+    const messaging = getMessaging(firebaseApp);
+    getToken(messaging,
+      { vapidKey: environment.firebase.vapidKey}).then(
+      (currentToken) => {
+        if (currentToken) {
+          console.log("Hurraaa!!! we got the token.....");
+          console.log(currentToken);
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+        }
+      }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+  }
+
+
+
+  listen(firebaseApp: any) {
+    const messaging = getMessaging(firebaseApp);
+    console.log("Receiving messages...")
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      // this.message=payload;
+      // const f = parseJson(payload.toString())
+    });
   }
 
   getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
