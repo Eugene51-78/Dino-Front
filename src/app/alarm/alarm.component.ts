@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ContentComponent} from '../content/content.component';
 import {ContentService} from '../content/content.service';
 import {NotificationsService} from 'angular2-notifications';
+import { Alarm } from './alarm.interface';
 
 @Component({
   selector: 'app-alarm',
@@ -10,20 +11,20 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class AlarmComponent implements OnInit {
 
-  isAlarmOn: boolean;
+  alarm!: Alarm;
   employeeType: String | undefined;
 
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
   constructor(public contentService: ContentService, private notificationService: NotificationsService) {
     this.employeeType = this.contentService.getEmployeeRole();
     console.log(this.employeeType);
-    // this.isAlarmOn = this.contentService.getIsAlarmOn();
-    if (localStorage.getItem('alarm') === 'true')
-      this.isAlarmOn = true;
-    else {
-      this.isAlarmOn = false;
-    }
-    console.log(this.isAlarmOn);
+    // // this.isAlarmOn = this.contentService.getIsAlarmOn();
+    // if (localStorage.getItem('alarm') === 'true')
+    //   this.isAlarmOn = true;
+    // else {
+    //   this.isAlarmOn = false;
+    // }
+    // console.log(this.isAlarmOn);
   }
 
   ngOnInit() {
@@ -32,17 +33,23 @@ export class AlarmComponent implements OnInit {
 
   changeAlarm(type: number) {
     if (type == 0)
-      this.contentService.setAlarmType("Attack");
+      this.sendAlarm({name: 'Attack', value: true});
     if (type == 1)
-      this.contentService.setAlarmType("Escape");
+      this.sendAlarm({name: 'Escape', value: true});
     if (type == 2)
-      this.contentService.setAlarmType("None");
-    this.isAlarmOn = !this.isAlarmOn;
-    this.contentService.setIsAlarmOn(this.isAlarmOn);
-    localStorage.setItem('alarm', String(this.contentService.getAlarm().isOn));
-    localStorage.setItem('alarmType', (this.contentService.getAlarm().type));
-    this.notificationService.success("Успех", "Все нормас");
-    this.notificationService.info("Инфо", "Такого нет");
-    this.notificationService.error("Ошибка", "Не удалось что-то");
+      this.sendAlarm({name: 'None', value: false});
+
+    // localStorage.setItem('alarm', String(this.contentService.getAlarm().isOn));
+    // localStorage.setItem('alarmType', (this.contentService.getAlarm().type));
+  }
+
+  sendAlarm(alarm: Alarm) {
+    this.contentService.sendAlarm(alarm).subscribe((res) => {
+      console.log('Тревога отправлена успешно');
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err);
+      // this.notificationService.error('Ошибка получения')
+      return null;
+    });
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {Employee} from './employee.interface';
+import {Alarm} from '../alarm/alarm.interface';
 
 @Injectable()
 export class ContentService {
@@ -24,6 +25,15 @@ export class ContentService {
 
   sendFireBaseToken(token: string){
     return this.http.post(`${this.baseApiUrl}/api/notification/token`, token)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
+
+  sendAlarm(alarm: Alarm){
+    return this.http.post(`${this.baseApiUrl}/api/alarm`, alarm)
       .pipe(
         catchError(errorRes =>{
           return throwError(errorRes);

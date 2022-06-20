@@ -4,6 +4,7 @@ import {NotificationsService} from 'angular2-notifications';
 import {NotificationService} from './notification.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {Alarm} from '../alarm/alarm.interface';
 
 export interface PeriodicElement {
   id: number;
@@ -33,6 +34,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  alarm!: Alarm;
   notifications: any;
   columnsToDisplay = ['id', 'from', 'message'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);

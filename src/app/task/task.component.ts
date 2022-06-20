@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MomentumTask} from './momentum-task.interface';
 import {TaskService} from './task.service';
 import {NotificationsService} from 'angular2-notifications';
+import {Alarm} from '../alarm/alarm.interface';
 
 @Component({
   selector: 'app-task',
@@ -10,6 +11,7 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class TaskComponent implements OnInit {
 
+  alarm!: Alarm;
   momentumTask!: MomentumTask;
 
   constructor(private taskService: TaskService, private notificationService: NotificationsService) {

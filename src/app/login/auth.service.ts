@@ -41,7 +41,7 @@ export class AuthService{
   }
 
   isAuthenticated(): boolean {
-    return !!this.token;
+    return !!this.token && !!localStorage.getItem('auth-token');
   }
 
   revokeToken(){

@@ -8,6 +8,8 @@ import {initializeApp} from "firebase/app";
 import {environment} from "../../environments/environment";
 import {AuthService} from "../login/auth.service";
 import {getMessaging, getToken, onMessage, deleteToken} from "firebase/messaging";
+import {AppService} from '../app.service';
+import {Alarm} from '../alarm/alarm.interface';
 
 @Component({
   selector: 'app-content',
@@ -16,23 +18,19 @@ import {getMessaging, getToken, onMessage, deleteToken} from "firebase/messaging
 })
 export class ContentComponent implements OnInit {
 
-  alarm!: {isOn: boolean, type:string};
-  fbToken!: string;
+  alarm!: Alarm;
   employee!: Employee;
 
   hunterList: number[];
   progressStatus: number | undefined;
   currentHunterID: number | null;
 
-  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService) {
+  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService, private appService: AppService) {
     this.employee = contentService.getEmployee();
     //this.employee.role = 'Medic';
     //this.employee.role = 'Manager';
     //this.employee.role = 'Hunter';
     this.contentService.setEmployee(this.employee);
-
-
-    this.alarm = contentService.getAlarm();
 
     this.hunterList = [1, 11, 12];
     this.progressStatus = 0;
@@ -48,8 +46,8 @@ export class ContentComponent implements OnInit {
       this.listen(firebaseApp);
     }
     this.getEmployeeFromServer();
-    this.initAlarm();
-    this.getAlarmFromServer();
+    //this.initAlarm();
+    this.alarm = this.appService.alarm;
   }
 
   requestPermission(firebaseApp: any) {
@@ -100,29 +98,29 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  getAlarmFromServer() {  // flag for getData() call without rerender in NgOnInit()
-    this.contentService.getAlarmFromServer().subscribe((res: any) => {
-      if (res === null) {
-        console.log('res is null');
-        //this.rerender();
-        return;
-      }
-      this.alarm = res;
-      if (this.alarm.isOn) {
-        localStorage.setItem('alarm', 'true');
-      } else {
-        localStorage.setItem('alarm', 'false');
-      }
-      this.contentService.setAlarm(this.alarm);
-      console.log(this.alarm);
-      //this.notificationService.success('Получено')
-    }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения тревоги')
-    });
-  }
+  // getAlarmFromServer() {  // flag for getData() call without rerender in NgOnInit()
+  //   this.contentService.getAlarmFromServer().subscribe((res: any) => {
+  //     if (res === null) {
+  //       console.log('res is null');
+  //       //this.rerender();
+  //       return;
+  //     }
+  //     this.alarm = res;
+  //     if (this.alarm.isOn) {
+  //       localStorage.setItem('alarm', 'true');
+  //     } else {
+  //       localStorage.setItem('alarm', 'false');
+  //     }
+  //     this.contentService.setAlarm(this.alarm);
+  //     console.log(this.alarm);
+  //     //this.notificationService.success('Получено')
+  //   }, (err: { message: any; }) => {
+  //     console.log('Ошибка', err.message);
+  //     this.notificationService.error('Ошибка получения тревоги')
+  //   });
+  // }
 
-  sendFireBaseToken(token: string) {  // flag for getData() call without rerender in NgOnInit()
+  sendFireBaseToken(token: string) {
     this.contentService.sendFireBaseToken(token).subscribe((res) => {
       console.log('Токен сохранен успешно');
     }, (err: { message: any; }) => {
@@ -132,18 +130,18 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  initAlarm(){
-    if (localStorage.getItem('alarm') === 'true') {
-      this.alarm.isOn = true;
-      if (localStorage.getItem('alarmType')) {
-        this.alarm.type = localStorage.getItem('alarmType')!;
-      }
-    } else {
-      localStorage.setItem('alarm', 'false');
-      this.alarm.isOn = false;
-    }
-    this.contentService.setAlarm(this.alarm);
-  }
+  // initAlarm(){
+  //   if (localStorage.getItem('alarm') === 'true') {
+  //     this.alarm.isOn = true;
+  //     if (localStorage.getItem('alarmType')) {
+  //       this.alarm.type = localStorage.getItem('alarmType')!;
+  //     }
+  //   } else {
+  //     localStorage.setItem('alarm', 'false');
+  //     this.alarm.isOn = false;
+  //   }
+  //   this.contentService.setAlarm(this.alarm);
+  // }
 
   openGuardModal(guardModal: any) {
     console.log(guardModal);

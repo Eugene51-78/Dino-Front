@@ -3,6 +3,7 @@ import {ContentService} from '../content/content.service';
 import {ContentComponent} from '../content/content.component';
 import {AuthService} from '../login/auth.service';
 import {Employee} from '../content/employee.interface';
+import {Alarm} from '../alarm/alarm.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ import {Employee} from '../content/employee.interface';
 })
 export class NavbarComponent implements OnInit {
 
-  alarm!: {isOn: boolean, type:string};
+  alarm!: Alarm;
   employee!: Employee;
 
   isFixedNavbar: boolean | undefined;
@@ -20,12 +21,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(public contentService: ContentService, public auth: AuthService) {
     this.employee = this.contentService.employee;
-    this.alarm = this.contentService.getAlarm();
   }
 
   ngOnInit() {
-    this.getEmployeeFromServer()
-    console.log(this.alarm.isOn);
+    this.getEmployeeFromServer();
   }
 
   getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()

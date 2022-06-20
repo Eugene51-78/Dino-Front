@@ -1,4 +1,4 @@
-<header class="navbar"  [ngClass]="{'navbar-fixed': isFixedNavbar, 'alarm': alarm.isOn}">
+<header class="navbar"  [ngClass]="{'navbar-fixed': isFixedNavbar, 'alarm': alarm.value}">
   <div class="container" fxLayout="row wrap" fxLayoutAlign="start center">
     <div class="navbar-mobile-top" fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="navbar-logo">
@@ -10,8 +10,8 @@
         <p class="role" *ngIf="employee?.role?.name=='DinoTrainer'">Дрессировщик {{employee?.firstName}}</p>
         <p class="role" *ngIf="employee?.role?.name=='Driver'">Водитель {{employee?.firstName}}</p>
 
-        <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Attack'">Внимание, нападение дино!</p>
-        <p class="alarm-text" *ngIf="alarm.isOn && alarm.type=='Escape'">Внимание, сбежал дино!</p>
+        <p class="alarm-text" *ngIf="alarm.value && alarm.name=='Attack'">Внимание, нападение дино!</p>
+        <p class="alarm-text" *ngIf="alarm.value && alarm.name=='Escape'">Внимание, сбежал дино!</p>
       </div>
       <button mat-icon-button color="accent" class="navbar-toggle" (click)="toggleNavbar()">
         <mat-icon>{{!navbarOpened ? 'menu': 'close'}}</mat-icon>
