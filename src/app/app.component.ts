@@ -23,8 +23,8 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    setTimeout(this.getAlarmFromServer(),1000);
-    setInterval( () => { console.log("123"); }, 3000);
+    setInterval(()=> {this.getAlarmFromServer();},1000);
+    //setInterval( () => { console.log("123"); }, 3000);
   }
 
   requestPermission(firebaseApp: any) {
@@ -59,10 +59,11 @@ export class AppComponent implements OnInit{
         console.log('res is null');
         return null;
       }
-      this.appService.alarm = res;
+      var alarmRes = (res["value"] === 'true');
+      this.appService.alarm = res["value"];
       console.log(this.appService.alarm);
-      if (res.status===true) {
-        this.notificationService.warn('Включен режим тревоги!');
+      if (alarmRes) {
+        //this.notificationService.warn('Включен режим тревоги!');
       }
       return res;
     }, (err: { message: any; }) => {

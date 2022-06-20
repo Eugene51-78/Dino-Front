@@ -13,6 +13,6 @@ export class AppService {
   }
 
   getAlarmStatus() {
-    return this.http.get(this.baseApiUrl + '/api/alarm');
+    return this.http.get(this.baseApiUrl + '/alarm');
   }
 }
