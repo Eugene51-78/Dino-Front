@@ -59,7 +59,7 @@ export class AppComponent implements OnInit{
         return null;
       }
       var alarmRes = (res["value"] === 'true');
-      this.appService.alarm = res["value"];
+      this.appService.alarm = res;
       console.log(this.appService.alarm);
       if (alarmRes) {
         //this.notificationService.warn('Включен режим тревоги!');

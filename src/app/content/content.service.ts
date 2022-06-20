@@ -23,7 +23,7 @@ export class ContentService {
     this.alarm = {isOn: false, type: "None"};
   }
 
-  sendFireBaseToken(token: string){
+  sendFireBaseToken(token: any){
     return this.http.post(`${this.baseApiUrl}/api/notification/token`, token)
       .pipe(
         catchError(errorRes =>{

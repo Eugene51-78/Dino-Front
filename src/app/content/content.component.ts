@@ -58,8 +58,12 @@ export class ContentComponent implements OnInit {
         if (currentToken) {
           console.log("Hurraaa!!! we got the token.....");
           console.log(currentToken);
+          let token = {
+            token: currentToken
+          }
+          console.log()
           this.contentService.setFbToken(currentToken);
-          this.contentService.sendFireBaseToken(currentToken);
+          this.sendFireBaseToken(token);
         } else {
           console.log('No registration token available. Request permission to generate one.');
         }
@@ -75,6 +79,7 @@ export class ContentComponent implements OnInit {
     console.log("Receiving messages...")
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
+      this.notificationService.info(payload.notification?.title, payload.notification?.body)
       // this.message=payload;
       // const f = parseJson(payload.toString())
     });
@@ -120,7 +125,7 @@ export class ContentComponent implements OnInit {
   //   });
   // }
 
-  sendFireBaseToken(token: string) {
+  sendFireBaseToken(token: any) {
     this.contentService.sendFireBaseToken(token).subscribe((res) => {
       console.log('Токен сохранен успешно');
     }, (err: { message: any; }) => {
