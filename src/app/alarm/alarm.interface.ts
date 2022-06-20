@@ -1,4 +1,4 @@
 export interface Alarm{
-  name: string,
+  type: string,
   value: boolean
 }

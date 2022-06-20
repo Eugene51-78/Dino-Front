@@ -33,11 +33,11 @@ export class AlarmComponent implements OnInit {
 
   changeAlarm(type: number) {
     if (type == 0)
-      this.sendAlarm({name: 'Attack', value: true});
+      this.sendAlarm({type: 'Attack', value: true});
     if (type == 1)
-      this.sendAlarm({name: 'Escape', value: true});
+      this.sendAlarm({type: 'Escape', value: true});
     if (type == 2)
-      this.sendAlarm({name: 'None', value: false});
+      this.sendAlarm({type: 'Attack', value: false});
 
     // localStorage.setItem('alarm', String(this.contentService.getAlarm().isOn));
     // localStorage.setItem('alarmType', (this.contentService.getAlarm().type));

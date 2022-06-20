@@ -15,7 +15,6 @@ export class TaskComponent implements OnInit {
   momentumTask!: MomentumTask;
 
   constructor(private taskService: TaskService, private notificationService: NotificationsService) {
-    //this.momentumTask = {id:1}
   }
 
   ngOnInit(): void {
