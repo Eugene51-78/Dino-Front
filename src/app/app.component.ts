@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
 import { getMessaging, getToken, onMessage, } from "firebase/messaging";
 import {environment} from "../environments/environment";
-import {initializeApp} from "firebase/app";
-import {parseJson} from "@angular/cli/utilities/json-file";
+import {interval, switchMap} from 'rxjs';
+import {AppService} from './app.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import {parseJson} from "@angular/cli/utilities/json-file";
 })
 export class AppComponent implements OnInit{
 // private afMessaging: AngularFireMessaging
-  constructor(private auth: AuthService) {
+
+  constructor(private auth: AuthService, private appService: AppService, private notificationService: NotificationsService) {
   }
 
   title = 'Dino-Front';
@@ -21,13 +23,9 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
-    // setInterval( () => { this.listen(firebaseApp); }, 3000);
+    setTimeout(this.getAlarmFromServer(),1000);
+    setInterval( () => { console.log("123"); }, 3000);
   }
-  //
-  // ngAfterViewInit(): void {
-  //
-  // }
 
   requestPermission(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);
@@ -44,6 +42,7 @@ export class AppComponent implements OnInit{
       console.log('An error occurred while retrieving token. ', err);
     });
   }
+
   listen(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);
     console.log("Receiving messages...")
@@ -51,6 +50,24 @@ export class AppComponent implements OnInit{
       console.log('Message received. ', payload);
       // this.message=payload;
       // const f = parseJson(payload.toString())
+    });
+  }
+
+  getAlarmFromServer() : any{
+    this.appService.getAlarmStatus().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return null;
+      }
+      this.appService.alarm = res;
+      console.log(this.appService.alarm);
+      if (res.status===true) {
+        this.notificationService.warn('Включен режим тревоги!');
+      }
+      return res;
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err);
+      // this.notificationService.error('Ошибка получения')
     });
   }
 

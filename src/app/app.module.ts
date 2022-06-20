@@ -28,6 +28,7 @@ import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
 import {AngularFireModule} from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { initializeApp } from "firebase/app";
+import {AppService} from './app.service';
 
 
 // initializeApp(environment.firebase);
@@ -78,7 +79,7 @@ import { initializeApp } from "firebase/app";
         MatTableModule,
         MatPaginatorModule
     ],
-  providers: [ContentService, NotificationService,
+  providers: [ContentService, NotificationService, AppService,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,
                 useClass: TokenInterceptor}],
