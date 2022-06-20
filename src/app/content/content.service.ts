@@ -11,6 +11,7 @@ export class ContentService {
 
   alarm!: {isOn: boolean, type:string};
   employee!: Employee;
+  fbToken!: string;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = "http://localhost:8081"
@@ -21,12 +22,29 @@ export class ContentService {
     this.alarm = {isOn: false, type: "None"};
   }
 
+  sendFireBaseToken(token: string){
+    return this.http.post(`${this.baseApiUrl}/api/notification/token`, token)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
+
   getEmployee(): { id: number; email: string; firstName: string; secondName: string; middleName: string; role: { id: number; name: string }; age: number; location: { id: number; name: string; longitude: number; latitude: number }; isBusy: boolean } {
     return this.employee;
   }
 
   setEmployee(value: { id: number; email: string; firstName: string; secondName: string; middleName: string; role: { id: number; name: string }; age: number; location: { id: number; name: string; longitude: number; latitude: number }; isBusy: boolean }) {
     this.employee = value;
+  }
+
+  getFbToken(){
+    return this.fbToken;
+  }
+
+  setFbToken(token: string){
+    this.fbToken = token;
   }
 
   addPushSubscriber(sub:any) {
@@ -72,5 +90,4 @@ export class ContentService {
  setAlarmType(type: string){
    this.alarm.type = type;
  }
-
 }

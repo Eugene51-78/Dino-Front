@@ -12,7 +12,6 @@ import {NotificationsService} from 'angular2-notifications';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-// private afMessaging: AngularFireMessaging
 
   constructor(private auth: AuthService, private appService: AppService, private notificationService: NotificationsService) {
   }

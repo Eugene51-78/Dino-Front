@@ -17,6 +17,7 @@ import {getMessaging, getToken, onMessage, deleteToken} from "firebase/messaging
 export class ContentComponent implements OnInit {
 
   alarm!: {isOn: boolean, type:string};
+  fbToken!: string;
   employee!: Employee;
 
   hunterList: number[];
@@ -24,7 +25,6 @@ export class ContentComponent implements OnInit {
   currentHunterID: number | null;
 
   constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService) {
-
     this.employee = contentService.getEmployee();
     //this.employee.role = 'Medic';
     //this.employee.role = 'Manager';
@@ -60,6 +60,8 @@ export class ContentComponent implements OnInit {
         if (currentToken) {
           console.log("Hurraaa!!! we got the token.....");
           console.log(currentToken);
+          this.contentService.setFbToken(currentToken);
+          this.contentService.sendFireBaseToken(currentToken);
         } else {
           console.log('No registration token available. Request permission to generate one.');
         }
@@ -117,6 +119,16 @@ export class ContentComponent implements OnInit {
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения тревоги')
+    });
+  }
+
+  sendFireBaseToken(token: string) {  // flag for getData() call without rerender in NgOnInit()
+    this.contentService.sendFireBaseToken(token).subscribe((res) => {
+      console.log('Токен сохранен успешно');
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err);
+      // this.notificationService.error('Ошибка получения')
+      return null;
     });
   }
 
