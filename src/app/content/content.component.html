@@ -79,7 +79,7 @@
 <ng-template #guardModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Вызов хантера</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="onClose(modal)">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -123,8 +123,11 @@
       </div>
     </form>
   </div>
-  <div *ngIf="progressStatus === 3 || progressStatus === 4" class="modal-footer">
-<!--    <button data-dismiss="modal" class="btn btn-primary" (click)="clearMomentumTask(f)">Новый запрос</button>-->
+  <div *ngIf="progressStatus === 2" class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Завершить задачу</button>
+  </div>
+  <div *ngIf="progressStatus === 3" class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Начать заново</button>
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>

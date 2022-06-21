@@ -75,7 +75,8 @@ import {getRussianPaginatorIntl} from './notification/russian-paginator-intl';
             showSubtitle: false,
             showBackground: true,
             showInnerStroke: false,
-            //showZeroOuterStroke: false
+            showZeroOuterStroke: false
+
         }),
         MatTableModule,
         MatPaginatorModule

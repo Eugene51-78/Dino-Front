@@ -62,6 +62,10 @@ export class ContentService {
     return this.http.post('/notifications', sub);
   }
 
+  stopMomentumTask(id: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/end?taskId='+id, null);
+  }
+
   getEmployeeFromServer() {
     return this.http.get(this.baseApiUrl + '/api/user/me');
   }

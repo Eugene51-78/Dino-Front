@@ -25,6 +25,7 @@ export class ContentComponent implements OnInit {
   currentHunterID!: number | null;     // текущий вызванный Хантер, если задача в стаутсах Yellow, Green, Red, иначе он пустой
 
   momentumTask!: MomentumTask;
+  interval: number | undefined;
 
   constructor(private modalService: NgbModal,
               public contentService: ContentService,
@@ -32,14 +33,9 @@ export class ContentComponent implements OnInit {
               private auth: AuthService,
               public appService: AppService) {
     this.employee = contentService.getEmployee();
-    //this.employee.role = 'Medic';
-    //this.employee.role = 'Manager';
-    //this.employee.role = 'Hunter';
     this.contentService.setEmployee(this.employee);
 
-    // this.hunterList = [1, 11, 12];
     this.progressStatus = 0;
-    // this.currentHunterID = null;
   }
 
   ngOnInit() {
@@ -117,16 +113,24 @@ export class ContentComponent implements OnInit {
 
   openGuardModal(guardModal: any) {
     this.getCurrentTask();
-    console.log(this.momentumTask);
-
+    this.interval = setInterval(() => {this.getCurrentTask(); console.log("int start")}, 5000);
 
     // this.getHunterList();
     // Get there current Hunter ID
     // else If none than get list of available Hunters
 
     this.modalService.open(guardModal).result
-      .then((result) => console.log('Modal closed'))
+      .then((result) => {
+        console.log('Modal closed');
+      })
       .catch(err => '');
+  }
+
+  onClose(modal: any){
+    modal.dismiss('Cross click');
+    console.log('tets')
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   onSubmit(f: NgForm) {
@@ -141,7 +145,6 @@ export class ContentComponent implements OnInit {
     this.hunterRequest(task);
 
     this.modalService.dismissAll(); //dismiss the modal
-    this.progressStatus = 1;
   }
 
   private hunterRequest(task: any) {
@@ -182,18 +185,18 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  private getCurrentHunterID() {
-    this.contentService.getCurrentHunterID().subscribe((res: any) => {
-      if (res === null) {
-        console.log('res is null');
-        return;
+  stopMomentumTask() {
+    this.contentService.stopMomentumTask(this.momentumTask.id).subscribe(
+      () => {
+        this.getCurrentTask();
+        this.progressStatus = 0;
+        this.notificationService.success("Успех", "Задача завершена успешно");
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка завершения задачи");
       }
-      this.currentHunterID = res;
-      console.log(this.currentHunterID);
-    }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения вызванного Хантера')
-    });
+    );
   }
 
   private getCurrentTask() {
@@ -212,4 +215,6 @@ export class ContentComponent implements OnInit {
       this.notificationService.error('Ошибка получения текущей задачи')
     });
   }
+
+
 }
