@@ -9,7 +9,7 @@ import {environment} from "../../environments/environment";
 import {AuthService} from "../login/auth.service";
 import {getMessaging, getToken, onMessage, deleteToken} from "firebase/messaging";
 import {AppService} from '../app.service';
-import {Alarm} from '../alarm/alarm.interface';
+import {MomentumTask} from '../task/momentum-task.interface';
 
 @Component({
   selector: 'app-content',
@@ -20,20 +20,26 @@ export class ContentComponent implements OnInit {
 
   employee!: Employee;
 
-  hunterList: number[];
-  progressStatus: number | undefined;
-  currentHunterID: number | null;
+  hunterList!: number[];               // список доступных Хантеров, если задача в Gray статусе, иначе он пустой
+  progressStatus: number | undefined; // статус Прогресса задачи, если задача в статусах Yellow, Green, Red, иначе он пустой
+  currentHunterID!: number | null;     // текущий вызванный Хантер, если задача в стаутсах Yellow, Green, Red, иначе он пустой
 
-  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService, public appService: AppService) {
+  momentumTask!: MomentumTask;
+
+  constructor(private modalService: NgbModal,
+              public contentService: ContentService,
+              private notificationService: NotificationsService,
+              private auth: AuthService,
+              public appService: AppService) {
     this.employee = contentService.getEmployee();
     //this.employee.role = 'Medic';
     //this.employee.role = 'Manager';
     //this.employee.role = 'Hunter';
     this.contentService.setEmployee(this.employee);
 
-    this.hunterList = [1, 11, 12];
-    this.progressStatus = 0;
-    this.currentHunterID = null;
+    // this.hunterList = [1, 11, 12];
+    // this.progressStatus = 0;
+    // this.currentHunterID = null;
   }
 
   ngOnInit() {
@@ -70,8 +76,6 @@ export class ContentComponent implements OnInit {
     });
   }
 
-
-
   listen(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);
     console.log("Receiving messages...")
@@ -101,28 +105,6 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  // getAlarmFromServer() {  // flag for getData() call without rerender in NgOnInit()
-  //   this.contentService.getAlarmFromServer().subscribe((res: any) => {
-  //     if (res === null) {
-  //       console.log('res is null');
-  //       //this.rerender();
-  //       return;
-  //     }
-  //     this.alarm = res;
-  //     if (this.alarm.isOn) {
-  //       localStorage.setItem('alarm', 'true');
-  //     } else {
-  //       localStorage.setItem('alarm', 'false');
-  //     }
-  //     this.contentService.setAlarm(this.alarm);
-  //     console.log(this.alarm);
-  //     //this.notificationService.success('Получено')
-  //   }, (err: { message: any; }) => {
-  //     console.log('Ошибка', err.message);
-  //     this.notificationService.error('Ошибка получения тревоги')
-  //   });
-  // }
-
   sendFireBaseToken(token: any) {
     this.contentService.sendFireBaseToken(token).subscribe((res) => {
       console.log('Токен сохранен успешно');
@@ -135,8 +117,9 @@ export class ContentComponent implements OnInit {
 
   openGuardModal(guardModal: any) {
     console.log(guardModal);
-    this.getHunterList();
-    this.getCurrentHunterID();
+    this.getCurrentTask();
+    // this.getHunterList();
+    // this.getCurrentHunterID();
     // Get there current Hunter ID
     // else If none than get list of available Hunters
 
@@ -147,15 +130,15 @@ export class ContentComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     console.log(f.value);
-    if (this.currentHunterID === null) {
-      this.postHunterRequest(f.value);
+    if (this.momentumTask.to === null) {
+      this.hunterRequest(f.value);
     }
     this.modalService.dismissAll(); //dismiss the modal
     this.progressStatus = 1;
   }
 
-  private postHunterRequest(id: number) {
-    this.contentService.postHunterRequest(id).subscribe(
+  private hunterRequest(id: number) {
+    this.contentService.hunterRequest(id).subscribe(
       () => {
         console.log("login success");
         this.notificationService.success("Успех", "");
@@ -192,6 +175,19 @@ export class ContentComponent implements OnInit {
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения вызванного Хантера')
+    });
+  }
+
+  private getCurrentTask() {
+    this.contentService.getMomentumTask().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      this.momentumTask = res;
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения текущей задачи')
     });
   }
 }

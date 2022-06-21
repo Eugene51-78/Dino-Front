@@ -74,12 +74,21 @@ export class ContentService {
     return this.http.get(this.baseApiUrl + '/hunter');
   }
 
+  getMomentumTask() {
+    return this.http.get(this.baseApiUrl + '/task');
+  }
+
   getCurrentHunterID() {
     return this.http.get(this.baseApiUrl + '/curhunter');
   }
 
-  postHunterRequest(id: number) {
-    return this.http.post(this.baseApiUrl + '/hunter', id);
+  hunterRequest(id: number) {
+    return this.http.post(`${this.baseApiUrl}/hunter`, id)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
   }
 
  getEmployeeRole(): string{

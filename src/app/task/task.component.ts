@@ -17,27 +17,26 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMomentumTask();
+    setInterval(() => {this.getMomentumTask();},1000);
   }
 
   getMomentumTask() {
     this.taskService.getMomentumTask().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
-        //this.rerender();
         return;
       }
       this.momentumTask = res;
       console.log(this.momentumTask);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения')
+      this.notificationService.error('Ошибка получения');
     });
   }
 
   hasMomentum() {
     // Если у пользователя есть моментальная задача,
-    // то он не может получить другие моментальные задачи до разрешения текущей
+    // то он не может получить другие моментальные задачи до разрешения текущей.
     return !!this.momentumTask;
   }
 
