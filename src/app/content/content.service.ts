@@ -4,6 +4,7 @@ import { catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {Employee} from './employee.interface';
 import {Alarm} from '../alarm/alarm.interface';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ContentService {
@@ -15,7 +16,7 @@ export class ContentService {
   fbToken!: string;
 
   constructor(private http: HttpClient) {
-    this.baseApiUrl = "http://localhost:8081"
+    this.baseApiUrl = environment.baseApi;
     // this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
     //   secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
     //   age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
@@ -33,7 +34,7 @@ export class ContentService {
   }
 
   sendAlarm(alarm: Alarm){
-    return this.http.post(`${this.baseApiUrl}/api/alarm`, alarm)
+    return this.http.post(`${this.baseApiUrl}/alarm`, alarm)
       .pipe(
         catchError(errorRes =>{
           return throwError(errorRes);

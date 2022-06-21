@@ -15,13 +15,15 @@ import {deleteToken, getMessaging} from "firebase/messaging";
 export class AuthService{
 
   private token: null | string | undefined = null;
+  private baseApiUrl!: string;
 
   constructor(private http: HttpClient) {
+    this.baseApiUrl = environment.baseApi;
   }
 
   login(user: User): Observable<{token: string}> {
     console.log(user);
-    return this.http.post<{ token: string; }>('http://localhost:8081/auth', user)
+    return this.http.post<{ token: string; }>(this.baseApiUrl+'/auth', user)
       .pipe(
         tap(
           ({token}) => {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class NotificationService {
@@ -9,7 +10,7 @@ export class NotificationService {
   baseApiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseApiUrl = "localhost:8080"
+    this.baseApiUrl = environment.baseApi;
   }
 
   getNotifications() {

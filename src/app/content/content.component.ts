@@ -18,14 +18,13 @@ import {Alarm} from '../alarm/alarm.interface';
 })
 export class ContentComponent implements OnInit {
 
-  alarm!: Alarm;
   employee!: Employee;
 
   hunterList: number[];
   progressStatus: number | undefined;
   currentHunterID: number | null;
 
-  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService, private appService: AppService) {
+  constructor(private modalService: NgbModal, public contentService: ContentService, private notificationService: NotificationsService, private auth: AuthService, public appService: AppService) {
     this.employee = contentService.getEmployee();
     //this.employee.role = 'Medic';
     //this.employee.role = 'Manager';
@@ -47,7 +46,6 @@ export class ContentComponent implements OnInit {
     }
     this.getEmployeeFromServer();
     //this.initAlarm();
-    this.alarm = this.appService.alarm;
   }
 
   requestPermission(firebaseApp: any) {
@@ -134,19 +132,6 @@ export class ContentComponent implements OnInit {
       return null;
     });
   }
-
-  // initAlarm(){
-  //   if (localStorage.getItem('alarm') === 'true') {
-  //     this.alarm.isOn = true;
-  //     if (localStorage.getItem('alarmType')) {
-  //       this.alarm.type = localStorage.getItem('alarmType')!;
-  //     }
-  //   } else {
-  //     localStorage.setItem('alarm', 'false');
-  //     this.alarm.isOn = false;
-  //   }
-  //   this.contentService.setAlarm(this.alarm);
-  // }
 
   openGuardModal(guardModal: any) {
     console.log(guardModal);

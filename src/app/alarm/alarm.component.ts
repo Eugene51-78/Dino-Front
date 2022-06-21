@@ -3,6 +3,7 @@ import {ContentComponent} from '../content/content.component';
 import {ContentService} from '../content/content.service';
 import {NotificationsService} from 'angular2-notifications';
 import { Alarm } from './alarm.interface';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-alarm',
@@ -11,11 +12,10 @@ import { Alarm } from './alarm.interface';
 })
 export class AlarmComponent implements OnInit {
 
-  alarm!: Alarm;
   employeeType: String | undefined;
 
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
-  constructor(public contentService: ContentService, private notificationService: NotificationsService) {
+  constructor(public contentService: ContentService, private notificationService: NotificationsService, public appService: AppService) {
     this.employeeType = this.contentService.getEmployeeRole();
     console.log(this.employeeType);
     // // this.isAlarmOn = this.contentService.getIsAlarmOn();

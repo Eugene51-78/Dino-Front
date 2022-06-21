@@ -3,6 +3,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
 import {Alarm} from '../alarm/alarm.interface';
+import {AppService} from '../app.service';
 
 
 @Component({
@@ -13,9 +14,8 @@ import {Alarm} from '../alarm/alarm.interface';
 export class MedicPageComponent implements OnInit {
 
   currentOperation: any;
-  alarm!: Alarm;
 
-  constructor(private modalService: NgbModal, private notificationService: NotificationsService) {
+  constructor(private modalService: NgbModal, private notificationService: NotificationsService, public appService: AppService) {
 
   }
 

@@ -4,6 +4,7 @@ import {ContentComponent} from '../content/content.component';
 import {AuthService} from '../login/auth.service';
 import {Employee} from '../content/employee.interface';
 import {Alarm} from '../alarm/alarm.interface';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,14 +13,13 @@ import {Alarm} from '../alarm/alarm.interface';
 })
 export class NavbarComponent implements OnInit {
 
-  alarm!: Alarm;
   employee!: Employee;
 
   isFixedNavbar: boolean | undefined;
   @HostBinding('class.navbar-opened') navbarOpened = false;
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
 
-  constructor(public contentService: ContentService, public auth: AuthService) {
+  constructor(public contentService: ContentService, public auth: AuthService, public appService: AppService) {
     this.employee = this.contentService.employee;
   }
 

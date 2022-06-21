@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseApi: "http://10.192.100.82:8080",
   firebase: {
     apiKey: "AIzaSyCxpLHgLP_mQAXI1piqedj_GcfSUjfoEoI",
     authDomain: "dinoproject-6e0d1.firebaseapp.com",

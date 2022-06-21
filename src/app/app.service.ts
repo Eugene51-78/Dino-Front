@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Alarm} from "./alarm/alarm.interface";
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class AppService {
@@ -10,7 +11,7 @@ export class AppService {
   alarm!: Alarm;
 
   constructor(private http: HttpClient) {
-    this.baseApiUrl = "http://localhost:8081";
+    this.baseApiUrl = environment.baseApi;
   }
 
   getAlarmStatus() {
