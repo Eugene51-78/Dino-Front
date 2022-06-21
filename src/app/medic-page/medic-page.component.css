@@ -19,3 +19,7 @@ button{
   font-family: Roboto;
   height: 3rem;
 }
+
+.alarm {
+  background-color: red;
+}

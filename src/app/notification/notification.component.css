@@ -16,6 +16,10 @@ button{
   font-family: Roboto;
 }
 
+.alarm {
+  background-color: red;
+}
+
 /*header {*/
 /*  height: 4rem;*/
 /*  justify-content: space-between;*/
