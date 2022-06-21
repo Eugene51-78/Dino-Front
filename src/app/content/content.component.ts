@@ -39,15 +39,12 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.employeeType = this.contentService.getEmployeeRole();
-    //this.isAlarmOn = this.contentService.getIsAlarmOn();
     if (this.auth.isAuthenticated()) {
       const firebaseApp = initializeApp(environment.firebase);
       this.requestPermission(firebaseApp);
       this.listen(firebaseApp);
     }
     this.getEmployeeFromServer();
-    //this.initAlarm();
   }
 
   requestPermission(firebaseApp: any) {
@@ -215,6 +212,4 @@ export class ContentComponent implements OnInit {
       this.notificationService.error('Ошибка получения текущей задачи')
     });
   }
-
-
 }

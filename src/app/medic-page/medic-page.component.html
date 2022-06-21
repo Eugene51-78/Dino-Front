@@ -42,12 +42,14 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
         <label for="dinoID">Дино ИД</label>
-        <div class="input-group">
-          <input id="dinoID" type="number" min="0" name="id" class="form-control" #id="ngModel" required ngModel>
-        </div>
+        <select id="dinoID" type=number name="id" class="form-select" #sel="ngModel" required ngModel>
+          <option></option>
+          <option *ngFor="let dinoItem of dinoList">
+            {{dinoItem}}
+          </option>
+        </select>
         <div class="text-danger">
-          <div *ngIf="id?.invalid && id?.touched && id?.value === ''">Это поле обязательное</div>
-          <div *ngIf="id?.invalid && id?.touched && id?.dirty">ИД должен быть неотрицательным</div>
+          <div *ngIf="sel?.invalid && sel?.touched && sel?.value === ''">Это поле обязательное</div>
         </div>
         <div *ngIf="currentOperation === 'Отчет о медосмотре'">
           <label for="height">Рост (см)</label>

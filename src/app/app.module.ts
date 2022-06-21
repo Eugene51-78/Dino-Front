@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
 
 import {AppService} from './app.service';
 import {getRussianPaginatorIntl} from './notification/russian-paginator-intl';
+import {MedicPageService} from './medic-page/medic-page.service';
 
 
 // initializeApp(environment.firebase);
@@ -76,12 +77,11 @@ import {getRussianPaginatorIntl} from './notification/russian-paginator-intl';
             showBackground: true,
             showInnerStroke: false,
             showZeroOuterStroke: false
-
         }),
         MatTableModule,
         MatPaginatorModule
     ],
-  providers: [ ContentService, NotificationService, AppService,
+  providers: [ ContentService, NotificationService, MedicPageService, AppService,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,
                 useClass: TokenInterceptor},

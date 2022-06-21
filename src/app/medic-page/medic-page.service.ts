@@ -7,21 +7,20 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class MedicPageService {
 
   baseApiUrl: string;
-  // employeeRole: string | undefined;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;
   }
 
-  getMomentumTask() {
-    return this.http.get(this.baseApiUrl + '/api/task/last');
+  getDinoList() {
+    return this.http.get(this.baseApiUrl + '/api/dino');
   }
 
-  acceptMomentumTask(id: number) {
-    return this.http.post(this.baseApiUrl + `/api/task/confirm?taskId=${id}`, null)
+  sendReport(id: number) {
+    return this.http.post(this.baseApiUrl + `/api/dino/healthy?dinoId=${id}&healthy=false`, null)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);
@@ -29,8 +28,8 @@ export class TaskService {
       );
   }
 
-  refuseMomentumTask(id: number) {
-    return this.http.post(this.baseApiUrl + '/momentum', id)
+  sendRequestUnhealthy(id: number) {
+    return this.http.post(this.baseApiUrl + `/api/dino/healthy?dinoId=${id}&healthy=false`, null)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);
