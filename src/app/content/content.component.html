@@ -124,7 +124,7 @@
     </form>
   </div>
   <div *ngIf="progressStatus === 3 || progressStatus === 4" class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-primary" (click)="onSubmit(f)">Новый запрос</button>
+<!--    <button data-dismiss="modal" class="btn btn-primary" (click)="clearMomentumTask(f)">Новый запрос</button>-->
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>

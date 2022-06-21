@@ -17,7 +17,7 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(() => {this.getMomentumTask();},1000);
+    this.getMomentumTask();
   }
 
   getMomentumTask() {

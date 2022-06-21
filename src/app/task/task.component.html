@@ -27,12 +27,12 @@
           <div class="row gx-1">
             <div class="col">
               <div class="p-2 text-center">
-                <button type="button" [disabled]="appService.alarm?.value || momentumTask?.status?.id !== 0" class="btn btn-info col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="acceptMomentumTask()">Принять</button>
+                <button type="button" [disabled]="appService.alarm?.value || momentumTask!.status!.id > 1" class="btn btn-info col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="acceptMomentumTask()">Принять</button>
               </div>
             </div>
             <div class="col">
               <div class="p-2 text-center">
-                <button type="button" [disabled]="appService.alarm?.value || momentumTask?.status?.id !== 0" class="btn btn-warning col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="refuseMomentumTask()">Отказать</button>
+                <button type="button" [disabled]="appService.alarm?.value || momentumTask!.status!.id > 1" class="btn btn-warning col-12 col-sm-11 col-md-10 col-lg-10 col-xl-10" (click)="refuseMomentumTask()">Отказать</button>
               </div>
             </div>
           </div>
