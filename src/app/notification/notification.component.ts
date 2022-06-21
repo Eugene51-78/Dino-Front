@@ -4,6 +4,7 @@ import {NotificationService} from './notification.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {AppService} from '../app.service';
+import {Employee} from '../content/employee.interface';
 
 export interface PeriodicElement {
   id: number;
@@ -13,9 +14,13 @@ export interface PeriodicElement {
 }
 
 export interface Notification {
-  id: number;
-  from: string;
-  message: string;
+  id: number | undefined;
+  header: string | undefined;
+  body: string | undefined;
+  user: Employee | undefined;
+  imageUrl: string | undefined;
+  isSend: boolean | undefined;
+  isAlert: boolean | undefined;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -41,16 +46,16 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   notifications!: Notification[];
-  columnsToDisplay = ['id', 'from', 'message'];
+  columnsToDisplay = ['id', 'header', 'body'];
   dataSource: any;
 
   constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService) { }
 
   ngOnInit() {
-    this.getNotifications();
-    this.notifications = [{id: 1, from: 'Hydrogen', message: 'Hydrogen'},
-                          {id: 2, from: 'Helium', message: 'Hydrogen'},
-                          {id: 3, from: 'Lithium', message: 'Hello'}];
+    //this.getNotifications();
+    this.notifications = [{id: 1, header: 'Hydrogen', body: 'Hydrogen'},
+                          {id: 2, header: 'Helium', body: 'Hydrogen'},
+                          {id: 3, header: 'Lithium', body: 'Hello'}];
     this.dataSource = new MatTableDataSource<Notification>(this.notifications);
   }
   ngAfterViewInit() {
@@ -63,7 +68,10 @@ export class NotificationComponent implements OnInit, AfterViewInit {
         console.log('res is null');
         return;
       }
-      this.notifications = res; // получаем массив уведомлений
+      // for (let i = 0; i < res.length; i++) {
+      //   this.notifications.push({id: res[i].id, header: res[i].header, body: res[i].body});
+      // }
+      this.notifications = res;
       console.log(this.notifications);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);

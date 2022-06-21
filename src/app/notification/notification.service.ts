@@ -14,6 +14,6 @@ export class NotificationService {
   }
 
   getNotifications() {
-    return this.http.get(this.baseApiUrl + '/notification');
+    return this.http.get(this.baseApiUrl + '/api/notification');
   }
 }

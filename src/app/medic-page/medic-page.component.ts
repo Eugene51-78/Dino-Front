@@ -44,7 +44,7 @@ export class MedicPageComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     if (this.currentOperation === 'Отчет о медосмотре') {
-      this.sendReport(f.value.id);
+      this.sendReport(f.value);
     }
     else {
       this.sendRequestUnhealthy(f.value.id);
@@ -74,9 +74,15 @@ export class MedicPageComponent implements OnInit {
     });
   }
 
-  sendReport(id: number) {
-    this.medicPageService.sendReport(id).subscribe((res) => {
-      this.notificationService.success('Успех','Информация о заболевании дино отправлена.')
+  sendReport(form: any) {
+    form = {  dinoId: form.id,
+              age: form.age,
+              isHealthy: true,
+              height: form.height,
+              weight: form.weight};
+    console.log(form);
+    this.medicPageService.sendReport(form).subscribe((res) => {
+      this.notificationService.success('Успех','Информация о медосмотре дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
       // this.notificationService.error('Ошибка получения')

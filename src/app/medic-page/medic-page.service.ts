@@ -19,8 +19,8 @@ export class MedicPageService {
     return this.http.get(this.baseApiUrl + '/api/dino');
   }
 
-  sendReport(id: number) {
-    return this.http.post(this.baseApiUrl + `/api/dino/healthy?dinoId=${id}&healthy=false`, null)
+  sendReport(dino: any) {
+    return this.http.post(this.baseApiUrl + `/api/dino/report`, dino)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);
