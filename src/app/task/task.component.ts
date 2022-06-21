@@ -43,7 +43,7 @@ export class TaskComponent implements OnInit {
   acceptMomentumTask() {
     this.taskService.acceptMomentumTask(this.momentumTask.id).subscribe((res: any) => {
       console.log(res);
-      this.notificationService.success('Задача подтверждена!')
+      this.notificationService.success('Задача подтверждена!');
       // Изменить состояние задачи и приложения или бэк сам все сделает
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);

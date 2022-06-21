@@ -21,14 +21,15 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import {MatTableModule} from '@angular/material/table';
 import {NotificationService} from './notification/notification.service';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptor} from './login/token.interceptor';
 import {AngularFireMessagingModule} from '@angular/fire/compat/messaging';
 import {AngularFireModule} from '@angular/fire/compat';
 import { environment } from '../environments/environment';
-import { initializeApp } from "firebase/app";
+
 import {AppService} from './app.service';
+import {getRussianPaginatorIntl} from './notification/russian-paginator-intl';
 
 
 // initializeApp(environment.firebase);
@@ -79,10 +80,13 @@ import {AppService} from './app.service';
         MatTableModule,
         MatPaginatorModule
     ],
-  providers: [ContentService, NotificationService, AppService,
+  providers: [ ContentService, NotificationService, AppService,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,
-                useClass: TokenInterceptor}],
+                useClass: TokenInterceptor},
+              { provide: MatPaginatorIntl,
+                useValue: getRussianPaginatorIntl() }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
