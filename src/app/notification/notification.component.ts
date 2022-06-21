@@ -52,15 +52,19 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService) { }
 
   ngOnInit() {
-    //this.getNotifications();
-    this.notifications = [{id: 1, header: 'Hydrogen', body: 'Hydrogen'},
-                          {id: 2, header: 'Helium', body: 'Hydrogen'},
-                          {id: 3, header: 'Lithium', body: 'Hello'}];
-    this.dataSource = new MatTableDataSource<Notification>(this.notifications);
+    this.getNotifications();
+    // this.notifications = [{id: 1, header: 'Hydrogen', body: 'Hydrogen'},
+    //                       {id: 2, header: 'Helium', body: 'Hydrogen'},
+    //                       {id: 3, header: 'Lithium', body: 'Hello'}];
+
   }
+
   ngAfterViewInit() {
+    // this.paginator = this.dataSource.paginator
+    this.dataSource = new MatTableDataSource<Notification>(this.notifications);
     this.dataSource.paginator = this.paginator;
   }
+
 
   getNotifications() {
     this.notificationService.getNotifications().subscribe((res: any) => {
@@ -72,10 +76,13 @@ export class NotificationComponent implements OnInit, AfterViewInit {
       //   this.notifications.push({id: res[i].id, header: res[i].header, body: res[i].body});
       // }
       this.notifications = res;
+      this.dataSource = new MatTableDataSource<Notification>(this.notifications);
+      this.dataSource.paginator = this.paginator;
       console.log(this.notifications);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationsService.error('Ошибка получения')
     });
   }
+
 }

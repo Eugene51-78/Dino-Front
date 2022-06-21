@@ -13,7 +13,7 @@
     <div class="row line1">
       <div class="text-center">
       <button type="button" *ngIf="!appService.alarm?.value" (click)="changeAlarm(0)" class="btn btn-danger col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Нападение динозавра!</button>
-      <button type="button" *ngIf="appService.alarm?.value && employeeType === 'Manager'" (click)="changeAlarm(2)" class="btn btn-warning col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Отключить тревогу!</button>
+      <button type="button" *ngIf="appService.alarm?.value && (employeeType === 'Manager' || employeeType === 'Hunter')" (click)="changeAlarm(2)" class="btn btn-warning col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Отключить тревогу!</button>
       </div>
     </div>
     <div *ngIf="!appService.alarm?.value" class="row line">

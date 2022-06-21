@@ -68,7 +68,7 @@
     <div class="row line2 gx-1">
       <div class="col text-center">
         <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value && employee?.role?.name!=='Manager'" class="btn btn-danger col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" routerLink="/alarm">Тревога</button>
+          <button type="button" [disabled]="appService.alarm?.value && (employee?.role?.name!=='Manager' && employee?.role?.name !=='Hunter')" class="btn btn-danger col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" routerLink="/alarm">Тревога</button>
         </div>
       </div>
     </div>
