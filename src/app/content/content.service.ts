@@ -71,19 +71,19 @@ export class ContentService {
   }
 
   getHunterList() {
-    return this.http.get(this.baseApiUrl + '/hunter');
+    return this.http.get(this.baseApiUrl + '/api/user?role=Hunter');
   }
 
   getMomentumTask() {
-    return this.http.get(this.baseApiUrl + '/task');
+    return this.http.get(this.baseApiUrl + '/api/task/last');
   }
 
   getCurrentHunterID() {
     return this.http.get(this.baseApiUrl + '/curhunter');
   }
 
-  hunterRequest(id: number) {
-    return this.http.post(`${this.baseApiUrl}/hunter`, id)
+  hunterRequest(task: any) {
+    return this.http.post(`${this.baseApiUrl}/api/task`, task)
       .pipe(
         catchError(errorRes =>{
           return throwError(errorRes);

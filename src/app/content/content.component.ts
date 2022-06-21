@@ -20,7 +20,7 @@ export class ContentComponent implements OnInit {
 
   employee!: Employee;
 
-  hunterList!: number[];               // список доступных Хантеров, если задача в Gray статусе, иначе он пустой
+  hunterList!: Employee[];               // список доступных Хантеров, если задача в Gray статусе, иначе он пустой
   progressStatus: number | undefined; // статус Прогресса задачи, если задача в статусах Yellow, Green, Red, иначе он пустой
   currentHunterID!: number | null;     // текущий вызванный Хантер, если задача в стаутсах Yellow, Green, Red, иначе он пустой
 
@@ -38,7 +38,7 @@ export class ContentComponent implements OnInit {
     this.contentService.setEmployee(this.employee);
 
     // this.hunterList = [1, 11, 12];
-    // this.progressStatus = 0;
+    this.progressStatus = 0;
     // this.currentHunterID = null;
   }
 
@@ -116,10 +116,11 @@ export class ContentComponent implements OnInit {
   }
 
   openGuardModal(guardModal: any) {
-    console.log(guardModal);
     this.getCurrentTask();
+    console.log(this.momentumTask);
+
+
     // this.getHunterList();
-    // this.getCurrentHunterID();
     // Get there current Hunter ID
     // else If none than get list of available Hunters
 
@@ -130,17 +131,22 @@ export class ContentComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     console.log(f.value);
-    if (this.momentumTask.to === null) {
-      this.hunterRequest(f.value);
-    }
+    const task = {
+      "from": this.employee.id,
+      "to": f.value.id,
+      "type": 1,
+      "status": 1,
+      "comment": "test"
+    };
+    this.hunterRequest(task);
+
     this.modalService.dismissAll(); //dismiss the modal
     this.progressStatus = 1;
   }
 
-  private hunterRequest(id: number) {
-    this.contentService.hunterRequest(id).subscribe(
+  private hunterRequest(task: any) {
+    this.contentService.hunterRequest(task).subscribe(
       () => {
-        console.log("login success");
         this.notificationService.success("Успех", "");
       },
       error => {
@@ -156,7 +162,19 @@ export class ContentComponent implements OnInit {
         console.log('res is null');
         return;
       }
-      this.hunterList = res;
+      console.log(res);
+      try {
+        //let json = JSON.parse(res);
+        console.log(res);
+        let ids = [];
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i]['id']);
+          ids.push(res[i]['id']);
+        }
+        this.hunterList = ids;
+      } catch (e) {
+
+      }
       console.log(this.hunterList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
@@ -181,10 +199,14 @@ export class ContentComponent implements OnInit {
   private getCurrentTask() {
     this.contentService.getMomentumTask().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        this.currentHunterID = null;
+        this.getHunterList();
         return;
       }
+      this.hunterList = [];
       this.momentumTask = res;
+      this.currentHunterID = this.momentumTask.to.id;
+      this.progressStatus = this.momentumTask.status.id;
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения текущей задачи')

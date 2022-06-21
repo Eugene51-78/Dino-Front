@@ -35,12 +35,12 @@
     <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
       <div class="col text-end">
         <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Управление</button>
+          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Управление</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Персонал</button>
+          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Персонал</button>
         </div>
       </div>
     </div>
@@ -48,12 +48,12 @@
     <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
       <div class="col text-end">
         <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">Динозавры</button>
+          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Динозавры</button>
         </div>
       </div>
       <div class="col">
         <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/">*</button>
+          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">*</button>
         </div>
       </div>
     </div>
@@ -111,14 +111,20 @@
             <circle-progress id="progress1" [backgroundColor]="'yellow'"></circle-progress>
           </span>
           <span class="progress-circle" *ngIf="progressStatus === 2">
-            <circle-progress id="progress2" [backgroundColor]="'green'"></circle-progress>
+            <circle-progress id="progress2" [backgroundColor]="'blue'"></circle-progress>
           </span>
           <span class="progress-circle" *ngIf="progressStatus === 3">
-            <circle-progress id="progress3" [backgroundColor]="'red'"></circle-progress>
+            <circle-progress id="progress3" [backgroundColor]="'green'"></circle-progress>
+          </span>
+          <span class="progress-circle" *ngIf="progressStatus === 4">
+            <circle-progress id="progress4" [backgroundColor]="'red'"></circle-progress>
           </span>
         </div>
       </div>
     </form>
+  </div>
+  <div *ngIf="progressStatus === 3 || progressStatus === 4" class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-primary" (click)="onSubmit(f)">Новый запрос</button>
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>
