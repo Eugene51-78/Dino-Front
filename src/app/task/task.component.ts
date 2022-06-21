@@ -44,6 +44,7 @@ export class TaskComponent implements OnInit {
     this.taskService.acceptMomentumTask(this.momentumTask.id).subscribe((res: any) => {
       console.log(res);
       this.notificationService.success('Задача подтверждена!');
+      this.getMomentumTask();
       // Изменить состояние задачи и приложения или бэк сам все сделает
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
@@ -55,6 +56,7 @@ export class TaskComponent implements OnInit {
     this.taskService.refuseMomentumTask(this.momentumTask.id).subscribe((res: any) => {
       console.log(res);
       this.notificationService.warn('Вы отказались от задачи!')
+      this.getMomentumTask();
       // Изменить состояние задачи и приложения
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
