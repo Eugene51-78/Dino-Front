@@ -60,6 +60,7 @@ export class AppComponent implements OnInit{
       }
       var alarmRes = (res["value"] === 'true');
       this.appService.alarm = res;
+      //localStorage.setItem("alarm", res);
       console.log(this.appService.alarm);
       if (alarmRes) {
         //this.notificationService.warn('Включен режим тревоги!');
