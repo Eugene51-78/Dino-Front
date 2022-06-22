@@ -19,9 +19,15 @@
       <div *ngIf="contentService.employee.role.name !== 'Medic'" class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
         <div class="card-body">
           <h5 class="card-title text-primary">Моментальная задача</h5>
-          <p class="card-text">От: {{momentumTask.from.firstName + ' ' + momentumTask.from.secondName}}</p>
-          <p *ngIf="momentumTask.type.type === 'CALL_HANTER'" class="card-text">
+          <p class="card-text">От: {{momentumTask!.from.firstName + ' ' + momentumTask!.from.secondName}}</p>
+          <p *ngIf="momentumTask!.type.type === 'CALL_HANTER'" class="card-text">
             Тип задачи: Охрана Медика
+          </p>
+          <p *ngIf="momentumTask!.status.id === 2" class="alert-success text-center">
+            Задача подтверждена!
+          </p>
+          <p *ngIf="momentumTask!.status.id === 3" class="alert-danger text-center">
+            Задача отклонена!
           </p>
 <!--          <p *ngIf="momentumTask?.status?.id !== 0">Статус: {{momentumTask?.status?.status}}</p>-->
           <div class="row gx-1">

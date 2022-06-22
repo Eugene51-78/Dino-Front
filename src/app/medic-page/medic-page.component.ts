@@ -64,7 +64,7 @@ export class MedicPageComponent implements OnInit {
       } catch (e) {
 
       }
-      console.log(this.dinoList);
+      //console.log(this.dinoList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения списка доступных Хантеров')
@@ -77,7 +77,7 @@ export class MedicPageComponent implements OnInit {
               isHealthy: true,
               height: form.height,
               weight: form.weight};
-    console.log(form);
+    //console.log(form);
     this.medicPageService.sendReport(form).subscribe((res) => {
       this.notificationService.success('Успех','Информация о медосмотре дино отправлена')
     }, (err: { message: any; }) => {

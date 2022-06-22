@@ -78,7 +78,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
       this.notifications = res;
       this.dataSource = new MatTableDataSource<Notification>(this.notifications);
       this.dataSource.paginator = this.paginator;
-      console.log(this.notifications);
+      //console.log(this.notifications);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationsService.error('Ошибка получения')

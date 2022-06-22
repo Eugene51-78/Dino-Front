@@ -30,7 +30,7 @@ export class TaskService {
   }
 
   refuseMomentumTask(id: number) {
-    return this.http.post(this.baseApiUrl + '/momentum', id)
+    return this.http.post(this.baseApiUrl + '/api/task/cancel?taskId=' + id, null)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);

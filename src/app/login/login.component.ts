@@ -51,15 +51,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form.disable()
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => {
-        console.log("login success");
-        this.notificationService.success("Успех", "Все хорошо");
+        //console.log("login success");
+        this.notificationService.success("Успех", "Вы вошли в систему ПЮР");
         this.router.navigate(['/content']);
       },
       error => {
         console.warn(error);
-        console.log(this.form.value);
-        //this.notificationService.info("Инфо", "Такого нет");
-        this.notificationService.error("Ошибка", error.error);
+        //console.log(this.form.value);
+        this.notificationService.error("Ошибка входа!", 'Проверьте правильность ввода учетных данных.');
         this.form.enable();
       }
     );

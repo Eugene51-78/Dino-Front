@@ -22,7 +22,7 @@ export class AuthService{
   }
 
   login(user: User): Observable<{token: string}> {
-    console.log(user);
+    //console.log(user);
     return this.http.post<{ token: string; }>(this.baseApiUrl+'/auth', user)
       .pipe(
         tap(
@@ -51,7 +51,7 @@ export class AuthService{
     const firebaseApp = initializeApp(environment.firebase);
     const messaging = getMessaging(firebaseApp);
     deleteToken(messaging).then(r => {
-      console.log("Token deleted")
+      //console.log("Token deleted")
     })
   }
 

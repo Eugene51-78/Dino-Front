@@ -19,12 +19,15 @@ export class NavbarComponent implements OnInit {
   @HostBinding('class.navbar-opened') navbarOpened = false;
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
 
-  constructor(public contentService: ContentService, public auth: AuthService, public appService: AppService) {
+  constructor(public contentService: ContentService,
+              public auth: AuthService,
+              public appService: AppService) {
     this.employee = this.contentService.employee;
   }
 
   ngOnInit() {
     this.getEmployeeFromServer();
+    this.appService.getAlarm();
   }
 
   getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
@@ -35,10 +38,9 @@ export class NavbarComponent implements OnInit {
       }
       this.employee = res;
       this.contentService.setEmployee(this.employee);
-      console.log(this.employee);
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err);
+      console.log('Ошибка', 'Не удалось получить сведения об аккаунте!');
     });
   }
 

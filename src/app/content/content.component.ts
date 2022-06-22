@@ -88,12 +88,11 @@ export class ContentComponent implements OnInit {
       }
       this.employee = res;
       this.contentService.setEmployee(this.employee);
-      console.log(this.employee);
+      //console.log(this.employee);
       return this.employee;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err);
-      // this.notificationService.error('Ошибка получения')
+      this.notificationService.error('Ошибка', 'Не удалось получить сведения об аккаунте!')
       return null;
     });
   }
@@ -147,11 +146,11 @@ export class ContentComponent implements OnInit {
   private hunterRequest(task: any) {
     this.contentService.hunterRequest(task).subscribe(
       () => {
-        this.notificationService.success("Успех", "");
+        this.notificationService.success("Успех", "Запрос отправлен Хантеру");
       },
       error => {
         console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка отправки запроса");
+        this.notificationService.error("Ошибка", "Ошибка отправки запроса Хантеру");
       }
     );
   }
@@ -187,11 +186,11 @@ export class ContentComponent implements OnInit {
       () => {
         this.getCurrentTask();
         this.progressStatus = 0;
-        this.notificationService.success("Успех", "Задача завершена успешно");
+        this.notificationService.success("Успех", "Вызов завершен успешно");
       },
       error => {
         console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка завершения задачи");
+        this.notificationService.error("Ошибка", "Ошибка завершения вызова");
       }
     );
   }

@@ -99,7 +99,9 @@
         <div *ngIf="currentHunterID">
           <p id="hunter" type=number name="id" class="form-control" #sel="ngModel" required ngModel>{{currentHunterID}}</p>
           <div class="text-danger" *ngIf="sel?.invalid && sel?.touched">Это поле обязательное</div>
-          <div *ngIf="!sel?.dirty && !sel?.touched" class="text-info">Запрос был отправлен указанному Хантеру</div>
+          <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-success">Хантер успешно вызван!</div>
+          <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-info">Завершите вызов по окончании выполнения задачи!</div>
+          <div *ngIf="progressStatus === 1 && !sel?.dirty && !sel?.touched" class="text-info">Запрос был отправлен указанному Хантеру</div>
         </div>
 
         <div class="progress1">
@@ -111,7 +113,7 @@
             <circle-progress id="progress1" [backgroundColor]="'yellow'"></circle-progress>
           </span>
           <span class="progress-circle" *ngIf="progressStatus === 2">
-            <circle-progress id="progress2" [backgroundColor]="'blue'"></circle-progress>
+            <circle-progress id="progress2" [backgroundColor]="'chartreuse'"></circle-progress>
           </span>
           <span class="progress-circle" *ngIf="progressStatus === 3">
             <circle-progress id="progress3" [backgroundColor]="'green'"></circle-progress>
@@ -124,7 +126,7 @@
     </form>
   </div>
   <div *ngIf="progressStatus === 2" class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Завершить задачу</button>
+    <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Завершить вызов</button>
   </div>
   <div *ngIf="progressStatus === 3" class="modal-footer">
     <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Начать заново</button>

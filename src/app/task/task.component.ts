@@ -12,7 +12,7 @@ import {ContentService} from '../content/content.service';
 })
 export class TaskComponent implements OnInit {
 
-  momentumTask!: MomentumTask;
+  momentumTask!: MomentumTask | null;
   interval: number | undefined;
 
   constructor(private taskService: TaskService,
@@ -33,7 +33,7 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.momentumTask = res;
-      console.log(this.momentumTask);
+      //console.log(this.momentumTask);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения');
@@ -47,7 +47,7 @@ export class TaskComponent implements OnInit {
   }
 
   acceptMomentumTask() {
-    this.taskService.acceptMomentumTask(this.momentumTask.id).subscribe((res: any) => {
+    this.taskService.acceptMomentumTask(this.momentumTask!.id).subscribe((res: any) => {
       console.log(res);
       this.notificationService.success('Задача подтверждена!');
       this.getMomentumTask();
@@ -59,10 +59,10 @@ export class TaskComponent implements OnInit {
   }
 
   refuseMomentumTask() {
-    this.taskService.refuseMomentumTask(this.momentumTask.id).subscribe((res: any) => {
-      console.log(res);
+    this.taskService.refuseMomentumTask(this.momentumTask!.id).subscribe((res: any) => {
       this.notificationService.warn('Вы отказались от задачи!')
       this.getMomentumTask();
+      this.momentumTask = null;
       // Изменить состояние задачи и приложения
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
