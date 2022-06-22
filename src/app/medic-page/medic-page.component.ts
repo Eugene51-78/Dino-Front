@@ -2,11 +2,8 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
-import {Alarm} from '../alarm/alarm.interface';
 import {AppService} from '../app.service';
 import {MedicPageService} from './medic-page.service';
-import {Employee} from '../content/employee.interface';
-
 
 @Component({
   selector: 'app-medic-page',

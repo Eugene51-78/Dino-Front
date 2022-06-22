@@ -16,14 +16,14 @@
       </div>
     </div>
     <div class="row line justify-content-center" *ngIf="hasMomentum()">
-      <div class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
+      <div *ngIf="contentService.employee.role.name !== 'Medic'" class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
         <div class="card-body">
           <h5 class="card-title text-primary">Моментальная задача</h5>
           <p class="card-text">От: {{momentumTask.from.firstName + ' ' + momentumTask.from.secondName}}</p>
-          <p class="card-text">
-            Тип задачи: {{momentumTask.type.type}}
+          <p *ngIf="momentumTask.type.type === 'CALL_HANTER'" class="card-text">
+            Тип задачи: Охрана Медика
           </p>
-          <p *ngIf="momentumTask?.status?.id !== 0">Статус: {{momentumTask?.status?.status}}</p>
+<!--          <p *ngIf="momentumTask?.status?.id !== 0">Статус: {{momentumTask?.status?.status}}</p>-->
           <div class="row gx-1">
             <div class="col">
               <div class="p-2 text-center">

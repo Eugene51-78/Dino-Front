@@ -3,6 +3,7 @@ import {MomentumTask} from './momentum-task.interface';
 import {TaskService} from './task.service';
 import {NotificationsService} from 'angular2-notifications';
 import {AppService} from '../app.service';
+import {ContentService} from '../content/content.service';
 
 @Component({
   selector: 'app-task',
@@ -12,12 +13,17 @@ import {AppService} from '../app.service';
 export class TaskComponent implements OnInit {
 
   momentumTask!: MomentumTask;
+  interval: number | undefined;
 
-  constructor(private taskService: TaskService, private notificationService: NotificationsService, public appService: AppService) {
+  constructor(private taskService: TaskService,
+              public contentService: ContentService,
+              private notificationService: NotificationsService,
+              public appService: AppService) {
   }
 
   ngOnInit(): void {
     this.getMomentumTask();
+    //this.interval = setInterval(() => {this.getMomentumTask();; console.log("int start")}, 5000);
   }
 
   getMomentumTask() {
