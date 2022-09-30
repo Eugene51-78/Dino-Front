@@ -1,4 +1,12 @@
 # DinoFront
+This pet project is dedicated to organizing the work of Jurassic Park.
+
+Available functions:
+1. Raising the alarm and turning it off.
+2. Calling the Guard.
+3. Conducting a dinosaur medical examination report.
+
+[Link to backend](https://github.com/DomerRus/JurassicParcMPI)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7.
 
