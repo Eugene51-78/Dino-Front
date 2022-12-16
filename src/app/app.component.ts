@@ -44,7 +44,7 @@ export class AppComponent implements OnInit{
   getAlarmFromServer() : any{
     this.appService.getAlarmStatus().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        console.log("Can't get alarm status!");
         return null;
       }
       var alarmRes = (res["value"] === 'true');

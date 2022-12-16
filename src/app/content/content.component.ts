@@ -18,6 +18,8 @@ import {MomentumTask} from '../task/momentum-task.interface';
 })
 export class ContentComponent implements OnInit {
 
+  employeeHasLoaded: boolean = false;
+
   employee!: Employee;
 
   hunterList!: Employee[];               // список доступных Хантеров, если задача в Gray статусе, иначе он пустой
@@ -32,9 +34,8 @@ export class ContentComponent implements OnInit {
               private notificationService: NotificationsService,
               private auth: AuthService,
               public appService: AppService) {
-    this.employee = contentService.getEmployee();
-    this.contentService.setEmployee(this.employee);
-
+    this.getEmployeeFromServer()
+    console.log(this.employee)
     this.progressStatus = 0;
   }
 
@@ -44,7 +45,9 @@ export class ContentComponent implements OnInit {
       this.requestPermission(firebaseApp);
       this.listen(firebaseApp);
     }
-    this.getEmployeeFromServer();
+    this.employee = this.contentService.getEmployee();
+    this.contentService.setEmployee(this.employee);
+    console.log(this.employee)
   }
 
   requestPermission(firebaseApp: any) {
@@ -80,7 +83,7 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
+  getEmployeeFromServer() {
     this.contentService.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
@@ -88,6 +91,8 @@ export class ContentComponent implements OnInit {
       }
       this.employee = res;
       this.contentService.setEmployee(this.employee);
+      this.employeeHasLoaded = true;
+      console.log(this.employee);
       //console.log(this.employee);
       return this.employee;
       //this.notificationService.success('Получено')
@@ -208,7 +213,7 @@ export class ContentComponent implements OnInit {
       this.progressStatus = this.momentumTask.status.id;
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения текущей задачи')
+      //this.notificationService.error('Ошибка получения текущей задачи')
     });
   }
 }

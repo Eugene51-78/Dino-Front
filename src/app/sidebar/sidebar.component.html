@@ -1,0 +1,37 @@
+<mat-toolbar class="mat-elevation-z8">
+  Парк Юрского Периода
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav class="mat-elevation-z8" mode="side" opened>
+    <h4 class="name">Евгений</h4>
+    <p class="designation fst-italic">Управляющий</p>
+    <button mat-button class="menu-button" [routerLink]="[{ outlets: { sidebar: ['notificat'] } }]">
+      <span>Уведомления</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button">
+      <span>Расписания</span>
+    </button>
+    <button mat-button class="menu-button">
+      <mat-icon>person</mat-icon>
+      <span>Сотрудники</span>
+    </button>
+    <button mat-button class="menu-button">
+      <mat-icon>info</mat-icon>
+      <span>Хз пока че</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="">
+      <span>Выход</span>
+    </button>
+  </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
+        <router-outlet name='sidebar'></router-outlet>
+  <!--      <ng-content></ng-content>-->
+  <!--      <app-notification></app-notification>-->
+      </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

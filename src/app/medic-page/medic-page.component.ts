@@ -49,7 +49,7 @@ export class MedicPageComponent implements OnInit {
     this.modalService.dismissAll(); //dismiss the modal
   }
 
-  getDinoList(){
+  getDinoList() {
     this.medicPageService.getDinoList().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
@@ -79,20 +79,20 @@ export class MedicPageComponent implements OnInit {
               weight: form.weight};
     //console.log(form);
     this.medicPageService.sendReport(form).subscribe((res) => {
-      this.notificationService.success('Успех','Информация о медосмотре дино отправлена')
+      this.notificationService.success('Успех', 'Информация о медосмотре дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      // this.notificationService.error('Ошибка получения')
+      this.notificationService.error('Ошибка отправки отчета')
       return null;
     });
   }
 
   sendRequestUnhealthy(id: number) {
     this.medicPageService.sendRequestUnhealthy(id).subscribe((res) => {
-      this.notificationService.success('Успех','Информация о заболевании дино отправлена.')
+      this.notificationService.success('Успех','Информация о заболевании дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      // this.notificationService.error('Ошибка получения')
+      this.notificationService.error('Ошибка отправки информации о заболевании')
       return null;
     });
   }

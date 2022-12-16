@@ -10,6 +10,7 @@ import {NotificationsService} from 'angular2-notifications';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit, OnDestroy {
 
   form = this.fb.group({

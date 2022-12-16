@@ -31,6 +31,10 @@ import { environment } from '../environments/environment';
 import {AppService} from './app.service';
 import {getRussianPaginatorIntl} from './notification/russian-paginator-intl';
 import {MedicPageService} from './medic-page/medic-page.service';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 // initializeApp(environment.firebase);
@@ -45,7 +49,8 @@ import {MedicPageService} from './medic-page/medic-page.service';
     MedicPageComponent,
     TaskComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarComponent
   ],
     imports: [
         BrowserModule,
@@ -57,6 +62,9 @@ import {MedicPageService} from './medic-page/medic-page.service';
         ReactiveFormsModule,
         MatButtonModule,
         MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatDividerModule,
         FormsModule,
         NgbModule,
         AngularFireModule.initializeApp(environment.firebase),

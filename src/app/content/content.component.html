@@ -1,81 +1,89 @@
-<app-navbar></app-navbar>
-<div class="main">
+<div *ngIf="employeeHasLoaded">
+  <div *ngIf="employee?.role?.name === 'Manager';then manager_content else content"></div>
+  <ng-template #manager_content>
+    <app-sidebar></app-sidebar>
+  </ng-template>
 
-  <div class="container px-4">
+  <ng-template #content>
+    <app-navbar></app-navbar>
+    <div class="main">
 
-    <div class="row line1 gx-1">
-      <div class="task col text-end">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/tasks">Задачи</button>
+      <div class="container px-4">
+
+        <div class="row line1 gx-1">
+          <div class="task col text-end">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/tasks">Задачи</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/notifications">Уведомления</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/notifications">Уведомления</button>
+
+        <div class="row line gx-1" *ngIf="employee?.role?.name ==='Medic'">
+          <div class="col text-end">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/medicPage">Управление</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
+            </div>
+          </div>
         </div>
+
+        <div class="row line" *ngIf="employee?.role?.name==='Medic'">
+        </div>
+
+        <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
+          <div class="col text-end">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Управление</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Персонал</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
+          <div class="col text-end">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Динозавры</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">*</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row line gx-1" *ngIf="employee?.role?.name ==='Hunter'">
+        </div>
+
+        <div class="row" *ngIf="employee?.role?.name === 'DinoTrainer'">
+          <button class="col-0">Отчет о занятии</button>
+        </div>
+
+        <div class="row line2 gx-1">
+          <div class="col text-center">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value && (employee?.role?.name !== 'Manager' && employee?.role?.name !=='Hunter')" class="btn btn-danger col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" routerLink="/alarm">Тревога</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <div class="row line gx-1" *ngIf="employee?.role?.name ==='Medic'">
-      <div class="col text-end">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/medicPage">Управление</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="row line" *ngIf="employee?.role?.name==='Medic'">
-    </div>
-
-    <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
-      <div class="col text-end">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Управление</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Персонал</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="row line gx-1" *ngIf="employee?.role?.name ==='Manager'">
-      <div class="col text-end">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">Динозавры</button>
-        </div>
-      </div>
-      <div class="col">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/content">*</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="row line gx-1" *ngIf="employee?.role?.name ==='Hunter'">
-    </div>
-
-    <div class="row" *ngIf="employee?.role?.name === 'DinoTrainer'">
-      <button class="col-0">Отчет о занятии</button>
-    </div>
-
-    <div class="row line2 gx-1">
-      <div class="col text-center">
-        <div class="p-2">
-          <button type="button" [disabled]="appService.alarm?.value && (employee?.role?.name!=='Manager' && employee?.role?.name !=='Hunter')" class="btn btn-danger col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" routerLink="/alarm">Тревога</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  </ng-template>
 </div>
-
 <ng-template #guardModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Вызов хантера</h4>
@@ -128,7 +136,7 @@
   <div *ngIf="progressStatus === 2" class="modal-footer">
     <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Завершить вызов</button>
   </div>
-  <div *ngIf="progressStatus === 3" class="modal-footer">
+  <div *ngIf="progressStatus === 4" class="modal-footer">
     <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Начать заново</button>
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
