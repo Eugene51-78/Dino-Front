@@ -1,0 +1,43 @@
+<header xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Управление персоналом</h2>
+      </div>
+    </div>
+  </div>
+</header>
+
+<table mat-table [dataSource]="dataSource">
+  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+    <th mat-header-cell *matHeaderCellDef>
+      {{ col.label }}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+          <button mat-button (click)="element.isEdit = !element.isEdit">Edit</button>
+        </div>
+        <span *ngSwitchDefault>
+          {{ element[col.key] }}
+        </span>
+      </div>
+      <div *ngIf="element.isEdit">
+        <div class="btn-edit" *ngIf="col.key === 'isEdit'; else dataField">
+          <button mat-button (click)="element.isEdit = !element.isEdit">Done</button>
+        </div>
+        <ng-template #dataField>
+          <mat-form-field>
+            <input
+              [type]="col.type"
+              matInput
+              [(ngModel)]="element[col.key]"
+            />
+          </mat-form-field>
+        </ng-template>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
