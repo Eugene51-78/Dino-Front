@@ -10,6 +10,7 @@ import {AuthGuard} from './login/auth.guard';
 import {SidebarComponent} from './content/sidebar/sidebar.component';
 import {PersonalTableService} from './content/sidebar/personal-table/personal-table.service';
 import {PersonalTableComponent} from './content/sidebar/personal-table/personal-table.component';
+import {ScheduleTableComponent} from './content/sidebar/schedule-table/schedule-table.component';
 
 const routes: Routes = [
   { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'content', canActivate:[AuthGuard], component: ContentComponent, children: [
       { path: '', outlet: 'sidebar', component: NotificationComponent },
       { path: 'notifications', outlet: 'sidebar', component: NotificationComponent },
+      { path: 'schedule', outlet: 'sidebar', component: ScheduleTableComponent },
       { path: 'personal', outlet: 'sidebar', component: PersonalTableComponent },
   ]}
   // { path: 'notifications', component: NotificationComponent },

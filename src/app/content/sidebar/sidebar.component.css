@@ -32,3 +32,11 @@ mat-sidenav {
 mat-sidenav-container {
   height: calc(100vh - 65px);
 }
+
+button {
+  width:140px
+}
+
+.alarm {
+  background-color: red;
+}

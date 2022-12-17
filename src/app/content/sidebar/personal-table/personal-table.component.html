@@ -8,6 +8,9 @@
   </div>
 </header>
 
+<article class="table-header">
+  <button class="button-add-row" mat-button (click)="addRow()">Добавить аккаунт</button>
+</article>
 <table mat-table [dataSource]="dataSource">
   <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
     <th mat-header-cell *matHeaderCellDef>
@@ -16,7 +19,8 @@
     <td mat-cell *matCellDef="let element">
       <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
         <div class="btn-edit" *ngSwitchCase="'isEdit'">
-          <button mat-button (click)="element.isEdit = !element.isEdit">Edit</button>
+          <button mat-button (click)="element.isEdit = !element.isEdit">Изменить</button>
+          <button mat-button class="button-remove" (click)="removeRow(element.id)">Удалить</button>
         </div>
         <span *ngSwitchDefault>
           {{ element[col.key] }}
@@ -24,10 +28,10 @@
       </div>
       <div *ngIf="element.isEdit">
         <div class="btn-edit" *ngIf="col.key === 'isEdit'; else dataField">
-          <button mat-button (click)="element.isEdit = !element.isEdit">Done</button>
+          <button mat-button (click)="editRow(element)">Done</button>
         </div>
         <ng-template #dataField>
-          <mat-form-field>
+          <mat-form-field appearance="outline" [style.width.px]="120">
             <input
               [type]="col.type"
               matInput

@@ -37,6 +37,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { SidebarComponent } from './content/sidebar/sidebar.component';
 import {PersonalTableComponent} from './content/sidebar/personal-table/personal-table.component';
 import {MatInputModule} from '@angular/material/input';
+import { ScheduleTableComponent } from './content/sidebar/schedule-table/schedule-table.component';
 
 
 // initializeApp(environment.firebase);
@@ -53,7 +54,8 @@ import {MatInputModule} from '@angular/material/input';
     HeaderComponent,
     LoginComponent,
     SidebarComponent,
-    PersonalTableComponent
+    PersonalTableComponent,
+    ScheduleTableComponent
   ],
   imports: [
     BrowserModule,

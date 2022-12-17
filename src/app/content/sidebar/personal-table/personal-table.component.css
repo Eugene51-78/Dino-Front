@@ -8,3 +8,7 @@ table {
   height: calc(50vh);
   width: calc(120vh);
 }
+
+.mat-form-field-infix {
+  width: 10px;
+}
