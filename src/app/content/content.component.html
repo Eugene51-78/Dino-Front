@@ -42,8 +42,8 @@
         <div class="row line gx-1" *ngIf="employee?.role?.name ==='Hunter'">
         </div>
 
-        <div class="row" *ngIf="employee?.role?.name === 'DinoTrainer'">
-          <button class="col-0">Отчет о занятии</button>
+        <div class="row" *ngIf="employee?.role?.name === 'DinoTrainer'" routerLink="/dinotrainer">
+          <button class="col-0">Управление</button>
         </div>
 
         <div class="row line2 gx-1">

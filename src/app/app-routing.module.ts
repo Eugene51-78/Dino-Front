@@ -11,12 +11,14 @@ import {SidebarComponent} from './content/sidebar/sidebar.component';
 import {PersonalTableService} from './content/sidebar/personal-table/personal-table.service';
 import {PersonalTableComponent} from './content/sidebar/personal-table/personal-table.component';
 import {ScheduleTableComponent} from './content/sidebar/schedule-table/schedule-table.component';
+import {DinoTrainerComponent} from './dino-trainer/dino-trainer.component';
 
 const routes: Routes = [
   { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent },
   { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
   { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
   { path: 'medicPage', canActivate:[AuthGuard], data: {role: 'Medic'}, component: MedicPageComponent },
+  { path: 'dinotrainer', canActivate:[AuthGuard], data: {role: 'DinoTrainer'}, component: DinoTrainerComponent },
   { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },

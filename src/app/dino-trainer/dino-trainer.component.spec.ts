@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MedicPageComponent } from './medic-page.component';
+import { DinotrainerComponent } from './dino-trainer.component';
 
 describe('MedicPageComponent', () => {
-  let component: MedicPageComponent;
-  let fixture: ComponentFixture<MedicPageComponent>;
+  let component: DinotrainerComponent;
+  let fixture: ComponentFixture<DinotrainerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MedicPageComponent ]
+      declarations: [ DinotrainerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MedicPageComponent);
+    fixture = TestBed.createComponent(DinotrainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,21 +3,21 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgForm} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
 import {AppService} from '../app.service';
-import {MedicPageService} from './medic-page.service';
+import {DinoTrainerService} from './dino-trainer.service';
 
 @Component({
-  selector: 'app-medic-page',
-  templateUrl: './medic-page.component.html',
-  styleUrls: ['./medic-page.component.css']
+  selector: 'app-dino-trainer',
+  templateUrl: './dino-trainer.component.html',
+  styleUrls: ['./dino-trainer.component.css']
 })
-export class MedicPageComponent implements OnInit {
+export class DinoTrainerComponent implements OnInit {
 
   currentOperation: any;
   dinoList!: number[];
 
   constructor(private modalService: NgbModal,
               private notificationService: NotificationsService,
-              private medicPageService: MedicPageService,
+              private dinoTrainerService: DinoTrainerService,
               public appService: AppService) {
 
   }
@@ -29,10 +29,10 @@ export class MedicPageComponent implements OnInit {
   openMultiModal(multiModal: any, type: any) {
     this.getDinoList();
     if (type === 1) {
-      this.currentOperation = 'Отчет о медосмотре';
+      this.currentOperation = 'Отчет о занятии';
     }
     else {
-        this.currentOperation = 'Направление дино на лечение';
+      this.currentOperation = 'Направление дино в центр';
     }
     this.modalService.open(multiModal).result
       .then((result) => console.log('Modal closed'))
@@ -40,17 +40,17 @@ export class MedicPageComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    if (this.currentOperation === 'Отчет о медосмотре') {
+    if (this.currentOperation === 'Отчет о занятии') {
       this.sendReport(f.value);
     }
     else {
-      this.sendRequestUnhealthy(f.value.id);
+      this.sendRequestAggressive(f.value.id);
     }
     this.modalService.dismissAll(); //dismiss the modal
   }
 
   getDinoList() {
-    this.medicPageService.getDinoList().subscribe((res: any) => {
+    this.dinoTrainerService.getDinoList().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
         return;
@@ -73,13 +73,12 @@ export class MedicPageComponent implements OnInit {
 
   sendReport(form: any) {
     form = {  dinoId: form.id,
-              age: form.age,
-              isHealthy: true,
-              height: form.height,
-              weight: form.weight};
+              isCalm: true,
+              calm: form.calm,
+              train: form.train};
     //console.log(form);
-    this.medicPageService.sendReport(form).subscribe((res) => {
-      this.notificationService.success('Успех', 'Информация о медосмотре дино отправлена')
+    this.dinoTrainerService.sendReport(form).subscribe((res) => {
+      this.notificationService.success('Успех', 'Информация о занятии дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
       this.notificationService.error('Ошибка отправки отчета')
@@ -87,13 +86,20 @@ export class MedicPageComponent implements OnInit {
     });
   }
 
-  sendRequestUnhealthy(id: number) {
-    this.medicPageService.sendRequestUnhealthy(id).subscribe((res) => {
-      this.notificationService.success('Успех','Информация о заболевании дино отправлена')
+  sendRequestAggressive(id: number) {
+    this.dinoTrainerService.sendRequestAggressive(id).subscribe((res) => {
+      this.notificationService.success('Успех','Информация об агрессивности дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      this.notificationService.error('Ошибка отправки информации о заболевании')
+      this.notificationService.error('Ошибка отправки информации об агрессивности')
       return null;
     });
+  }
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + '%';
+    }
+    return value;
   }
 }

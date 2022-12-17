@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class MedicPageService {
+export class DinoTrainerService {
 
   baseApiUrl: string;
 
@@ -20,7 +20,7 @@ export class MedicPageService {
   }
 
   sendReport(dino: any) {
-    return this.http.post(this.baseApiUrl + `/api/dino/report`, dino)
+    return this.http.post(this.baseApiUrl + `/api/dino/report/train`, dino)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);
@@ -28,8 +28,8 @@ export class MedicPageService {
       );
   }
 
-  sendRequestUnhealthy(id: number) {
-    return this.http.post(this.baseApiUrl + `/api/dino/healthy?dinoId=${id}&healthy=false`, null)
+  sendRequestAggressive(id: number) {
+    return this.http.post(this.baseApiUrl + `/api/dino/calm?dinoId=${id}&calm=false`, null)
       .pipe(
         catchError(errorRes => {
           return throwError(errorRes);

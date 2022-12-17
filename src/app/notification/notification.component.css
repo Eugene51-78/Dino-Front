@@ -55,6 +55,9 @@ button{
   font-style: italic;
 }
 
+.mat-table {
+  width: 70rem;
+}
 /*.col-0 {*/
 /*  font-size: 1.4vw;*/
 /*  height: 3em;*/
