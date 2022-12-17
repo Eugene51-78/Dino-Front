@@ -16,3 +16,24 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
 }
+
+.mat-red {
+  background-color: white;
+  color: red;
+}
+
+.mat-green {
+  background-color: green;
+  color: white;
+}
+
+.alarm {
+  background-color: red;
+}
+
+.alarm:hover {
+  background-color: darkorange;
+  -webkit-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear;
+}

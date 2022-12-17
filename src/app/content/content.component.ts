@@ -35,7 +35,6 @@ export class ContentComponent implements OnInit {
               private auth: AuthService,
               public appService: AppService) {
     this.getEmployeeFromServer()
-    console.log(this.employee)
     this.progressStatus = 0;
   }
 
@@ -47,7 +46,6 @@ export class ContentComponent implements OnInit {
     }
     this.employee = this.contentService.getEmployee();
     this.contentService.setEmployee(this.employee);
-    console.log(this.employee)
   }
 
   requestPermission(firebaseApp: any) {

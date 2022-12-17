@@ -1,0 +1,25 @@
+header{
+  background-color: orange;
+}
+.ng-invalid:not(form).ng-touched{
+  border: 2px solid red;
+}
+.line1{
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+}
+.line{
+  margin-top: 3rem;
+}
+.line2{
+  margin-top: 5rem;
+}
+
+button{
+  font-family: Roboto;
+  height: 3rem;
+}
+
+.alarm {
+  background-color: red;
+}

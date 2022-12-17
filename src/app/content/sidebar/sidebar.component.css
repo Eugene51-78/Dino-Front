@@ -37,6 +37,28 @@ button {
   width:140px
 }
 
+
 .alarm {
   background-color: red;
+}
+
+.alarm:hover {
+  background-color: darkorange;
+  -webkit-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear;
+}
+
+.info-str {
+  padding-top: 1.1rem;
+}
+.alarm-text{
+  font-size: 1.5rem;
+  padding-left: 3em;
+}
+.alarm:hover {
+  background-color: darkorange;
+  -webkit-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+  transition: background-color 1000ms linear;
 }

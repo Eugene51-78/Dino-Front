@@ -9,7 +9,7 @@
 </header>
 
 <article class="table-header">
-  <button class="button-add-row" mat-button (click)="addRow()">Добавить аккаунт</button>
+  <button class="button-add-row" color="green" mat-button (click)="addRow()">Добавить аккаунт</button>
 </article>
 <table mat-table [dataSource]="dataSource">
   <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
@@ -20,7 +20,7 @@
       <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
         <div class="btn-edit" *ngSwitchCase="'isEdit'">
           <button mat-button (click)="element.isEdit = !element.isEdit">Изменить</button>
-          <button mat-button class="button-remove" (click)="removeRow(element.id)">Удалить</button>
+          <button mat-button class="button-remove" color="red" (click)="removeRow(element.id)">Удалить</button>
         </div>
         <span *ngSwitchDefault>
           {{ element[col.key] }}

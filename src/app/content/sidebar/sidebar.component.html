@@ -1,31 +1,33 @@
-<mat-toolbar class="mat-elevation-z8" [ngClass]="{'alarm' : appService.alarm?.value}">
+<mat-toolbar class="mat-elevation-z8" [ngClass]="{'alarm': appService.alarm?.value}">
   Парк Юрского Периода
+  <p class="alarm-text info-str" *ngIf="appService.alarm?.value && appService.alarm?.type=='Attack'">Внимание, нападение дино!</p>
+  <p class="alarm-text info-str" *ngIf="appService.alarm?.value && appService.alarm?.type=='Escape'">Внимание, сбежал дино!</p>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav class="mat-elevation-z8" mode="side" opened>
-    <h4 class="name">Евгений</h4>
+    <h4 class="name">{{this.employee.firstName}}</h4>
     <p class="designation fst-italic">Управляющий</p>
-    <button mat-button class="menu-button" [routerLink]="[{ outlets: { sidebar: ['notifications'] } }]">
+    <button mat-button class="menu-button" [disabled]="appService.alarm?.value" [routerLink]="[{ outlets: { sidebar: ['notifications'] } }]">
       <span>Уведомления</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-button class="menu-button" [routerLink]="[{ outlets: { sidebar: ['schedule'] } }]">
+    <button mat-button class="menu-button" [disabled]="appService.alarm?.value" [routerLink]="[{ outlets: { sidebar: ['schedule'] } }]">
       <span>Расписания</span>
     </button>
-    <button mat-button class="menu-button" [routerLink]="[{ outlets: { sidebar: ['personal'] } }]">
+    <button mat-button class="menu-button" [disabled]="appService.alarm?.value" [routerLink]="[{ outlets: { sidebar: ['personal'] } }]">
       <mat-icon>person</mat-icon>
       <span>Сотрудники</span>
     </button>
-    <button mat-button class="menu-button">
+    <button mat-button class="menu-button" [disabled]="appService.alarm?.value">
       <mat-icon>info</mat-icon>
-      <span>Хз пока че</span>
+      <span>Динозавры</span>
     </button>
-    <button mat-button color='accent' class="mat-button" routerLink="/login">
+    <button mat-button [disabled]="appService.alarm?.value" style="margin-top:20px" color='accent' class="mat-button" routerLink="/login">
       <span>Выход</span>
     </button>
     <mat-divider></mat-divider>
-    <button mat-button color="warn" class="mat-button" routerLink="/alarm">
+    <button mat-button style="margin-top:260px" color="warn" class="mat-flat-button" routerLink="/alarm">
       <span>Тревога</span>
     </button>
   </mat-sidenav>

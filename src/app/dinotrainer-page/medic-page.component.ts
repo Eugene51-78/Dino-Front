@@ -4,8 +4,6 @@ import {NgForm} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
 import {AppService} from '../app.service';
 import {MedicPageService} from './medic-page.service';
-import {ContentService} from '../content/content.service';
-import {Employee} from '../content/employee.interface';
 
 @Component({
   selector: 'app-medic-page',
@@ -16,15 +14,12 @@ export class MedicPageComponent implements OnInit {
 
   currentOperation: any;
   dinoList!: number[];
-  // employee!: Employee;
 
   constructor(private modalService: NgbModal,
               private notificationService: NotificationsService,
               private medicPageService: MedicPageService,
-              // public contentService: ContentService,
               public appService: AppService) {
 
-    // this.employee = contentService.getEmployee();
   }
 
   ngOnInit() {

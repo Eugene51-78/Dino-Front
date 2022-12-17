@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {AppService} from '../app.service';
 import {Employee} from '../content/employee.interface';
+import {ContentService} from '../content/content.service';
 
 export interface PeriodicElement {
   id: number;
@@ -23,19 +24,6 @@ export interface Notification {
   isAlert: boolean | undefined;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, from: 'Hydrogen', message: 1.0079, symbol: 'H'},
-  {id: 2, from: 'Helium', message: 4.0026, symbol: 'He'},
-  {id: 3, from: 'Lithium', message: 6.941, symbol: 'Li'},
-  {id: 4, from: 'Beryllium', message: 9.0122, symbol: 'Be'},
-  {id: 5, from: 'Boron', message: 10.811, symbol: 'B'},
-  {id: 6, from: 'Carbon', message: 12.0107, symbol: 'C'},
-  {id: 7, from: 'Nitrogen', message: 14.0067, symbol: 'N'},
-  {id: 8, from: 'Oxygen', message: 15.9994, symbol: 'O'},
-  {id: 9, from: 'Fluorine', message: 18.9984, symbol: 'F'},
-  {id: 10, from: 'Neon', message: 20.1797, symbol: 'Ne'},
-];
-
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -48,9 +36,12 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   notifications!: Notification[];
   columnsToDisplay = ['id', 'header', 'body'];
   dataSource: any;
+  employee!: Employee
 
-  constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService) { }
-
+  constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService,
+              contentService: ContentService) {
+    this.employee = contentService.getEmployee()
+  }
   ngOnInit() {
     this.getNotifications();
     // this.notifications = [{id: 1, header: 'Hydrogen', body: 'Hydrogen'},

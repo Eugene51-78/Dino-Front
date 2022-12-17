@@ -38,6 +38,8 @@ import { SidebarComponent } from './content/sidebar/sidebar.component';
 import {PersonalTableComponent} from './content/sidebar/personal-table/personal-table.component';
 import {MatInputModule} from '@angular/material/input';
 import { ScheduleTableComponent } from './content/sidebar/schedule-table/schedule-table.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 // initializeApp(environment.firebase);
@@ -55,47 +57,49 @@ import { ScheduleTableComponent } from './content/sidebar/schedule-table/schedul
     LoginComponent,
     SidebarComponent,
     PersonalTableComponent,
-    ScheduleTableComponent
+    ScheduleTableComponent,
+    ConfirmDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FlexModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatDividerModule,
-    FormsModule,
-    NgbModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireMessagingModule,
-    SimpleNotificationsModule.forRoot(),
-    NgCircleProgressModule.forRoot({
-      radius: 30,
-      percent: 100,
-      outerStrokeWidth: 0,
-      innerStrokeWidth: 4,
-      outerStrokeColor: '#FFFFFF',
-      innerStrokeColor: '#FFFFFF',
-      space: -1,
-      animation: false,
-      startFromZero: false,
-      showTitle: false,
-      showUnits: false,
-      showSubtitle: false,
-      showBackground: true,
-      showInnerStroke: true,
-      showZeroOuterStroke: false
-    }),
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FlexModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatDividerModule,
+        FormsModule,
+        NgbModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireMessagingModule,
+        SimpleNotificationsModule.forRoot(),
+        NgCircleProgressModule.forRoot({
+            radius: 30,
+            percent: 100,
+            outerStrokeWidth: 0,
+            innerStrokeWidth: 4,
+            outerStrokeColor: '#FFFFFF',
+            innerStrokeColor: '#FFFFFF',
+            space: -1,
+            animation: false,
+            startFromZero: false,
+            showTitle: false,
+            showUnits: false,
+            showSubtitle: false,
+            showBackground: true,
+            showInnerStroke: true,
+            showZeroOuterStroke: false
+        }),
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatDialogModule
+    ],
   providers: [ ContentService, NotificationService, MedicPageService, AppService,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,

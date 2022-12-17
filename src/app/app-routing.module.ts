@@ -13,12 +13,10 @@ import {PersonalTableComponent} from './content/sidebar/personal-table/personal-
 import {ScheduleTableComponent} from './content/sidebar/schedule-table/schedule-table.component';
 
 const routes: Routes = [
-  { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
-      { path: 'notifications1', outlet: 'sidebar', component: NotificationComponent },
-    ]},
+  { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent },
   { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
   { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
-  { path: 'medicPage', canActivate:[AuthGuard], component: MedicPageComponent },
+  { path: 'medicPage', canActivate:[AuthGuard], data: {role: 'Medic'}, component: MedicPageComponent },
   { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },

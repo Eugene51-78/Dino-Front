@@ -11,6 +11,7 @@
   -webkit-transition: padding 0.3s linear;
   z-index: 999;
 }
+
 .container {
   max-width: 100%;
 }
@@ -66,9 +67,9 @@ a {
   right: 5px;
 }
 .icon-button {
-.mat-icon {
-  font-size: 20px;
-}
+  .mat-icon {
+    font-size: 20px;
+  }
 }
 .alarm-text{
   font-size: 1.5rem;
@@ -122,8 +123,9 @@ a {
 }
 
 .alarm {
-  background-color: orangered;
+  background-color: red;
 }
+
 .alarm:hover {
   background-color: darkorange;
   -webkit-transition: background-color 1000ms linear;

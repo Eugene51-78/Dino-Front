@@ -1,0 +1,89 @@
+<header xmlns="http://www.w3.org/1999/html" [ngClass]="{'alarm' : appService.alarm?.value}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Управление</h2>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="main">
+  <div class="container">
+      <div class="row line1">
+        <div class="text-center">
+          <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" (click)="openMultiModal(multiModal, 1)">Отчитаться о медосмотре</button>
+        </div>
+      </div>
+    <div class="row line">
+      <div class="text-center">
+        <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" (click)="openMultiModal(multiModal, 2)">Направить дино на лечение</button>
+      </div>
+    </div>
+<!--    <div class="row">-->
+<!--&lt;!&ndash;      <div class="col-2">&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </div>-->
+    <div class="row line2">
+      <div class="text-center">
+        <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #multiModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentOperation}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group">
+        <label for="dinoID">Дино ИД</label>
+        <select id="dinoID" type=number name="id" class="form-select" #sel="ngModel" required ngModel>
+          <option></option>
+          <option *ngFor="let dinoItem of dinoList">
+            {{dinoItem}}
+          </option>
+        </select>
+        <div class="text-danger">
+          <div *ngIf="sel?.invalid && sel?.touched && sel?.value === ''">Это поле обязательное</div>
+        </div>
+        <div *ngIf="currentOperation === 'Отчет о медосмотре'">
+          <label for="height">Рост (см)</label>
+          <div class="input-group">
+            <input id="height" type="number" min="10" name="height" class="form-control" #height="ngModel" required ngModel>
+          </div>
+          <div class="text-danger">
+            <div *ngIf="!height?.dirty && height?.touched">Это поле обязательное</div>
+            <div *ngIf="height?.invalid && height?.touched && height?.dirty">Минимальный рост - 10 см</div>
+          </div>
+          <label for="weight">Вес (кг)</label>
+          <div class="input-group">
+            <input id="weight" type="number" min="0.1" name="weight" class="form-control" #weight="ngModel" required ngModel>
+          </div>
+          <div class="text-danger">
+            <div *ngIf="!weight?.dirty && weight?.touched">Это поле обязательное</div>
+            <div *ngIf="weight?.invalid && weight?.touched && weight?.dirty">Минимальный вес - 0.1 кг</div>
+          </div>
+          <label for="weight">Возраст</label>
+          <div class="input-group">
+            <select id="age" name="age" class="form-control" #age="ngModel" required ngModel>
+              <option value="NewBorn">Новорожденный</option>
+              <option value="Young">Молодой</option>
+              <option value="Mature">Зрелый</option>
+              <option value="Old">Пожилой</option>
+            </select>
+          </div>
+          <div *ngIf="!age?.dirty && age?.touched" class="text-danger">Это поле обязательное</div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>
+    <button data-dismiss="modal" [disabled]="f.invalid" class="btn btn-primary" (click)="onSubmit(f)">Подтвердить</button>
+  </div>
+</ng-template>

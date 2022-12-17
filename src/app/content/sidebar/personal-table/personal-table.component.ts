@@ -2,6 +2,8 @@ import {PersonalTableService} from './personal-table.service';
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Employee} from '../../employee.interface';
 import { User, UserColumns } from './user';
+import { MatDialog } from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
 
 const USER_DATA = [
   {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
@@ -9,54 +11,6 @@ const USER_DATA = [
   {"name": "Peter Adams", "occupation": "HR", "age": 20},
   {"name": "Lora Bay", "occupation": "Marketing", "age": 43}
 ];
-
-const COLUMNS_SCHEMA = [
-  {
-    key: "id",
-    type: "number",
-    label: "ИД"
-  },
-  {
-    key: "second_name",
-    type: "text",
-    label: "Фамилия"
-  },
-  {
-    key: "first_name",
-    type: "text",
-    label: "Имя"
-  },
-  {
-    key: "middle_name",
-    type: "text",
-    label: "Отчество"
-  },
-  {
-    key: "role",
-    type: "text",
-    label: "Должность"
-  },
-  {
-    key: "age",
-    type: "number",
-    label: "Возраст"
-  },
-  {
-    key: "email",
-    type: "text",
-    label: "Почта"
-  },
-  {
-    key: "password",
-    type: "text",
-    label: "Пароль"
-  },
-  {
-    key: "isEdit",
-    type: "isEdit",
-    label: ""
-  }
-]
 
 @Component({
   selector: 'app-personal-table',
@@ -70,7 +24,7 @@ export class PersonalTableComponent {
   dataSource: any = USER_DATA;
   columnsSchema: any = UserColumns;
 
-  constructor(private personalTableService: PersonalTableService) {
+  constructor(private personalTableService: PersonalTableService, public dialog: MatDialog) {
 
   }
 
@@ -103,10 +57,17 @@ export class PersonalTableComponent {
   }
 
   removeRow(id: number) {
-    this.personalTableService.deleteUser(id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter(
-        (u: User) => u.id !== id
-      );
-    });
+    this.dialog
+      .open(ConfirmDialogComponent)
+      .afterClosed()
+      .subscribe((confirm) => {
+        if (confirm) {
+          this.personalTableService.deleteUser(id).subscribe(() => {
+            this.dataSource.data = this.dataSource.data.filter(
+              (u: User) => u.id !== id
+            );
+          });
+        }
+      });
   }
 }
