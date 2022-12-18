@@ -1,0 +1,32 @@
+<header xmlns="http://www.w3.org/1999/html" [ngClass]="{'alarm' : appService.alarm?.value}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Транспортировки</h2>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="main">
+  <div class="container">
+    <div class="row line1">
+      <div class="text-center">
+        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Транспортировки</button>
+      </div>
+    </div>
+    <div class="row line">
+      <div class="text-center">
+        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">ХЗ че</button>
+      </div>
+    </div>
+    <!--    <div class="row">-->
+    <!--&lt;!&ndash;      <div class="col-2">&ndash;&gt;-->
+    <!--&lt;!&ndash;      </div>&ndash;&gt;-->
+    <!--    </div>-->
+    <div class="row line2">
+      <div class="text-center">
+        <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      </div>
+    </div>
+  </div>
+</div>

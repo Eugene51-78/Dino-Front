@@ -21,11 +21,10 @@ const USER_DATA = [
 
 export class PersonalTableComponent {
   displayedColumns: string[] = UserColumns.map((col) => col.key);
-  dataSource: any = USER_DATA;
+  dataSource: any;
   columnsSchema: any = UserColumns;
 
   constructor(private personalTableService: PersonalTableService, public dialog: MatDialog) {
-
   }
 
   ngOnInit() {
@@ -34,18 +33,17 @@ export class PersonalTableComponent {
     });
   }
 
-  editRow(row: User) {
+  editUser(row: User) {
     if (row.id === 0) {
       this.personalTableService.addUser(row).subscribe((newUser: User) => {
         row.id = newUser.id;
-        row.isEdit = false;
       });
     } else {
-      this.personalTableService.updateUser(row).subscribe(() => (row.isEdit = false));
+      this.personalTableService.updateUser(row).subscribe();
     }
   }
 
-  addRow() {
+  addUser() {
     const newRow: { firstName: string; isEdit: boolean; middleName: string; id: number; email: string } = {
       id: 0,
       firstName: '',
@@ -56,7 +54,7 @@ export class PersonalTableComponent {
     this.dataSource.data = [newRow, ...this.dataSource.data];
   }
 
-  removeRow(id: number) {
+  deleteUserU(id: number) {
     this.dialog
       .open(ConfirmDialogComponent)
       .afterClosed()

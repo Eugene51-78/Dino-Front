@@ -7,8 +7,6 @@ export interface User {
   role: string;
   age: number;
   email: string;
-  password: string;
-  isEdit: boolean;
 }
 
 export const UserColumns = [
@@ -46,15 +44,5 @@ export const UserColumns = [
     key: "email",
     type: "text",
     label: "Почта"
-  },
-  {
-    key: "password",
-    type: "text",
-    label: "Пароль"
-  },
-  {
-    key: "isEdit",
-    type: "isEdit",
-    label: ""
   }
 ]

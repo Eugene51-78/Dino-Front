@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import {Injectable, OnInit} from '@angular/core';
 import {Alarm} from "./alarm/alarm.interface";
 import {environment} from '../environments/environment';
+import {Employee} from './content/employee.interface';
 
 @Injectable()
 export class AppService {
@@ -9,9 +10,11 @@ export class AppService {
   baseApiUrl: string;
 
   alarm!: Alarm;
+  employee!: Employee;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;
+    this.setEmployeeFromServer();
   }
 
   getAlarmStatus() {
@@ -35,4 +38,23 @@ export class AppService {
     }
   }
 
+  getEmployeeFromServer() {
+    return this.http.get(this.baseApiUrl + '/api/user/me');
+  }
+
+  setEmployeeFromServer() {
+    this.getEmployeeFromServer().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return null;
+      }
+      this.employee = res;
+      console.log(this.employee);
+      return res;
+      //this.notificationService.success('Получено')
+    }, (err: { message: any; }) => {
+      // this.notificationService.error('Ошибка', 'Не удалось получить сведения об аккаунте!')
+      return null;
+    });
+  }
 }

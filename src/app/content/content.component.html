@@ -1,5 +1,6 @@
 <div *ngIf="employeeHasLoaded">
-  <div *ngIf="employee?.role?.name === 'Manager';then manager_content else content"></div>
+  <div *ngIf="employee?.role?.name === 'Manager'; then manager_content else content"></div>
+
   <ng-template #manager_content>
     <app-sidebar></app-sidebar>
   </ng-template>

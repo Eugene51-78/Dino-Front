@@ -42,6 +42,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import {MatDialogModule} from '@angular/material/dialog';
 import {DinoTrainerComponent} from './dino-trainer/dino-trainer.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { NavigatorComponent } from './navigator/navigator.component';
+import { AddUserComponent } from './content/sidebar/personal-table/add-user/add-user.component';
+import { EditUserComponent } from './content/sidebar/personal-table/edit-user/edit-user.component';
 
 // initializeApp(environment.firebase);
 
@@ -60,7 +63,10 @@ import {MatSliderModule} from '@angular/material/slider';
     PersonalTableComponent,
     ScheduleTableComponent,
     ConfirmDialogComponent,
-    DinoTrainerComponent
+    DinoTrainerComponent,
+    NavigatorComponent,
+    AddUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

@@ -8,17 +8,22 @@ import {TaskComponent} from './task/task.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './login/auth.guard';
 import {SidebarComponent} from './content/sidebar/sidebar.component';
-import {PersonalTableService} from './content/sidebar/personal-table/personal-table.service';
 import {PersonalTableComponent} from './content/sidebar/personal-table/personal-table.component';
 import {ScheduleTableComponent} from './content/sidebar/schedule-table/schedule-table.component';
 import {DinoTrainerComponent} from './dino-trainer/dino-trainer.component';
+import {AddUserComponent} from './content/sidebar/personal-table/add-user/add-user.component';
+import {EditUserComponent} from './content/sidebar/personal-table/edit-user/edit-user.component';
+import {NavigatorComponent} from './navigator/navigator.component';
 
 const routes: Routes = [
-  { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent },
+  { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
+      { path: 'editUser', outlet: 'sidebar', component: EditUserComponent },
+    ]},
   { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
   { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
   { path: 'medicPage', canActivate:[AuthGuard], data: {role: 'Medic'}, component: MedicPageComponent },
   { path: 'dinotrainer', canActivate:[AuthGuard], data: {role: 'DinoTrainer'}, component: DinoTrainerComponent },
+  { path: 'navigator', canActivate:[AuthGuard], data: {role: 'Navigator'}, component: NavigatorComponent },
   { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
@@ -26,7 +31,10 @@ const routes: Routes = [
       { path: '', outlet: 'sidebar', component: NotificationComponent },
       { path: 'notifications', outlet: 'sidebar', component: NotificationComponent },
       { path: 'schedule', outlet: 'sidebar', component: ScheduleTableComponent },
-      { path: 'personal', outlet: 'sidebar', component: PersonalTableComponent },
+      { path: 'addUser', outlet: 'sidebar', component: AddUserComponent },
+      { path: 'personal', outlet: 'sidebar', component: PersonalTableComponent, children: [
+          { path: 'addUser', outlet: 'sidebar', component: AddUserComponent },
+        ] },
   ]}
   // { path: 'notifications', component: NotificationComponent },
   // { path: 'alarm', component: AlarmComponent },
