@@ -12,7 +12,7 @@
 <!--  "['./', {outlets: { sidebar: ['addUser'] } }]"-->
 <!--  ['/content', {outlets: {'sidebar': ['personal', {outlets: {'sidebar': ['addUser']}}]}}]);-->
 <!--  (click)="goToAddAccount()"-->
-  <button class="button-add-row" color="green" [routerLink]="'/content/(sidebar:addUser)'">Добавить аккаунт</button>
+  <button class="button-add-row" color="green" (click)="goToAddAccount()">Добавить аккаунт</button>
 </article>
 <table mat-table [dataSource]="dataSource">
   <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">

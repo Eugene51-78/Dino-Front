@@ -24,9 +24,8 @@ export class PersonalTableComponent {
   displayedColumns: string[] = UserColumns.map((col) => col.key);
   dataSource: any;
   columnsSchema: any = UserColumns;
-  private router!: Router;
 
-  constructor(private personalTableService: PersonalTableService, public dialog: MatDialog) {
+  constructor(private router: Router, private personalTableService: PersonalTableService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -72,6 +71,7 @@ export class PersonalTableComponent {
   }
 
   goToAddAccount() {
-    this.router.navigateByUrl('content/(sidebar:addUser)');
+    this.router.navigateByUrl('/content/(sidebar:addUser)');
   }
+
 }

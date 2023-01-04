@@ -21,20 +21,22 @@
 <!--    </div>-->
 
     <form class="naviform row line2 text-center col-8 col-sm-6 col-md-12 col-lg-12 col-xl-12" #naviForm="ngForm" (ngSubmit)="onSubmit(naviForm)">
-      <p class="text-center">
-        <label for="dino">Динозавр:</label>
-        <select *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
-          <option *ngFor="let medicItem of medicList">
-            {{medicItem}}
-          </option>
-        </select>
-        <label for="location">Локация:</label>
-        <select *ngIf="medicList?.length" id="location" type=number name="location" class="form-select" required ngModel>
-          <option *ngFor="let medicItem of medicList">
-            {{medicItem}}
-          </option>
-        </select>
-      </p>
+      <div class="h-100 d-flex align-items-center justify-content-center">
+        <p class="text-center w-50">
+          <label for="dino">Динозавр:</label>
+          <select *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
+            <option *ngFor="let medicItem of medicList">
+              {{medicItem}}
+            </option>
+          </select>
+          <label for="location">Локация:</label>
+          <select *ngIf="medicList?.length" id="location" type=number name="location" class="form-select" required ngModel>
+            <option *ngFor="let medicItem of medicList">
+              {{medicItem}}
+            </option>
+          </select>
+        </p>
+      </div>
       <table>
         <thead>
         <tr>

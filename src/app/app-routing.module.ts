@@ -31,7 +31,6 @@ const routes: Routes = [
       { path: '', outlet: 'sidebar', canActivate:[AuthGuard], component: NotificationComponent },
       { path: 'notifications', outlet: 'sidebar', canActivate:[AuthGuard], component: NotificationComponent },
       { path: 'schedule', outlet: 'sidebar', canActivate:[AuthGuard], component: ScheduleTableComponent },
-      { path: 'addUser', outlet: 'sidebar', canActivate:[AuthGuard], component: AddUserComponent },
       { path: 'personal', outlet: 'sidebar', canActivate:[AuthGuard], component: PersonalTableComponent },
       { path: 'addUser', outlet: 'sidebar', canActivate:[AuthGuard], component: AddUserComponent },
   ]}
