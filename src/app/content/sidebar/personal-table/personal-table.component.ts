@@ -4,6 +4,7 @@ import {Employee} from '../../employee.interface';
 import { User, UserColumns } from './user';
 import { MatDialog } from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
+import {Router} from '@angular/router';
 
 const USER_DATA = [
   {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
@@ -23,6 +24,7 @@ export class PersonalTableComponent {
   displayedColumns: string[] = UserColumns.map((col) => col.key);
   dataSource: any;
   columnsSchema: any = UserColumns;
+  private router!: Router;
 
   constructor(private personalTableService: PersonalTableService, public dialog: MatDialog) {
   }
@@ -67,5 +69,9 @@ export class PersonalTableComponent {
           });
         }
       });
+  }
+
+  goToAddAccount() {
+    this.router.navigateByUrl('content/(sidebar:addUser)');
   }
 }

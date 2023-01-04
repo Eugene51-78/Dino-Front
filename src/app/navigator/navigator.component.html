@@ -9,24 +9,94 @@
 </header>
 <div class="main">
   <div class="container">
-    <div class="row line1">
-      <div class="text-center">
-        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Транспортировки</button>
+<!--    <div class="row line1">-->
+<!--      <div class="text-center">-->
+<!--        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">Транспортировки</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="row line">-->
+<!--      <div class="text-center">-->
+<!--        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">ХЗ че</button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <form class="naviform row line2 text-center col-8 col-sm-6 col-md-12 col-lg-12 col-xl-12" #naviForm="ngForm" (ngSubmit)="onSubmit(naviForm)">
+      <p class="text-center">
+        <label for="dino">Динозавр:</label>
+        <select *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
+          <option *ngFor="let medicItem of medicList">
+            {{medicItem}}
+          </option>
+        </select>
+        <label for="location">Локация:</label>
+        <select *ngIf="medicList?.length" id="location" type=number name="location" class="form-select" required ngModel>
+          <option *ngFor="let medicItem of medicList">
+            {{medicItem}}
+          </option>
+        </select>
+      </p>
+      <table>
+        <thead>
+        <tr>
+          <th colspan="1">Роль</th>
+          <th colspan="1">Сотрудник</th>
+          <th colspan="1">Подтверждение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Медик</td>
+          <td>
+            <select *ngIf="medicList?.length" id="medic" type=number name="medic_id" class="form-select" required ngModel>
+              <option *ngFor="let medicItem of medicList">
+                {{medicItem}}
+              </option>
+            </select>
+          </td>
+          <td>
+              <circle-progress id="medic_0" [backgroundColor]="'gray'"></circle-progress>
+          </td>
+        </tr>
+        <tr>
+          <td>Дрессировщик</td>
+          <td>
+            <select *ngIf="dinoTrainerList?.length" id="dinoTrainer" type=number name="dinoTrainer_id" class="form-select" required ngModel>
+              <option *ngFor="let dinoTrainerItem of dinoTrainerList">
+                {{dinoTrainerItem}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <circle-progress id="dinoTrainer_0" [backgroundColor]="'gray'"></circle-progress>
+          </td>
+        </tr>
+        <tr>
+          <td>Водитель</td>
+          <td>
+            <select *ngIf="driverList?.length" id="driver" type=number name="driver_id" class="form-select" required ngModel>
+              <option *ngFor="let driverItem of driverList">
+                {{driverItem}}
+              </option>
+            </select>
+          </td>
+          <td>
+              <circle-progress id="driver_0" [backgroundColor]="'gray'"></circle-progress>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="medicList?.length" class="modal-footer">
+        <button data-dismiss="modal" id="submit" [disabled]="naviForm.form.invalid" class="btn btn-primary" (click)="onSubmit(naviForm)">Подтвердить</button>
       </div>
-    </div>
-    <div class="row line">
-      <div class="text-center">
-        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">ХЗ че</button>
-      </div>
-    </div>
-    <!--    <div class="row">-->
-    <!--&lt;!&ndash;      <div class="col-2">&ndash;&gt;-->
-    <!--&lt;!&ndash;      </div>&ndash;&gt;-->
-    <!--    </div>-->
+    </form>
+
     <div class="row line2">
       <div class="text-center">
         <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
       </div>
     </div>
   </div>
+
+
+
 </div>

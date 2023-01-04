@@ -28,13 +28,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: 'content', canActivate:[AuthGuard], component: ContentComponent, children: [
-      { path: '', outlet: 'sidebar', component: NotificationComponent },
-      { path: 'notifications', outlet: 'sidebar', component: NotificationComponent },
-      { path: 'schedule', outlet: 'sidebar', component: ScheduleTableComponent },
-      { path: 'addUser', outlet: 'sidebar', component: AddUserComponent },
-      { path: 'personal', outlet: 'sidebar', component: PersonalTableComponent, children: [
-          { path: 'addUser', outlet: 'sidebar', component: AddUserComponent },
-        ] },
+      { path: '', outlet: 'sidebar', canActivate:[AuthGuard], component: NotificationComponent },
+      { path: 'notifications', outlet: 'sidebar', canActivate:[AuthGuard], component: NotificationComponent },
+      { path: 'schedule', outlet: 'sidebar', canActivate:[AuthGuard], component: ScheduleTableComponent },
+      { path: 'addUser', outlet: 'sidebar', canActivate:[AuthGuard], component: AddUserComponent },
+      { path: 'personal', outlet: 'sidebar', canActivate:[AuthGuard], component: PersonalTableComponent },
+      { path: 'addUser', outlet: 'sidebar', canActivate:[AuthGuard], component: AddUserComponent },
   ]}
   // { path: 'notifications', component: NotificationComponent },
   // { path: 'alarm', component: AlarmComponent },

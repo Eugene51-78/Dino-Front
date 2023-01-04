@@ -31,6 +31,11 @@ button{
   font-size: 1rem;
 }
 
+.center{
+  position: absolute;
+  margin-left: 10em;
+}
+
 .form-text{
   text-align: center;
 }
