@@ -6,12 +6,12 @@ import { MatDialog } from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
 import {Router} from '@angular/router';
 
-const USER_DATA = [
-  {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
-  {"name": "Igor Masri", "occupation": "Developer", "age": 28},
-  {"name": "Peter Adams", "occupation": "HR", "age": 20},
-  {"name": "Lora Bay", "occupation": "Marketing", "age": 43}
-];
+// const USER_DATA = [
+//   {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
+//   {"name": "Igor Masri", "occupation": "Developer", "age": 28},
+//   {"name": "Peter Adams", "occupation": "HR", "age": 20},
+//   {"name": "Lora Bay", "occupation": "Marketing", "age": 43}
+// ];
 
 @Component({
   selector: 'app-personal-table',
@@ -55,7 +55,7 @@ export class PersonalTableComponent {
     this.dataSource.data = [newRow, ...this.dataSource.data];
   }
 
-  deleteUserU(id: number) {
+  deleteUser(id: number) {
     this.dialog
       .open(ConfirmDialogComponent)
       .afterClosed()

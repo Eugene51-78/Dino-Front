@@ -17,10 +17,6 @@ export class ContentService {
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;
-    // this.employee = {"id": 1, email: "a@a.ru", firstName: "Karlo",
-    //   secondName: "Karlo", middleName: "Karlo", role: { id: 1, name: "Karlo" },
-    //   age: 20, location:{"id": 1, name: "Karlo", longitude: 10, latitude: 10},
-    //   isBusy: false};
     this.alarm = {isOn: false, type: "None"};
   }
 
@@ -82,8 +78,8 @@ export class ContentService {
     return this.http.get(this.baseApiUrl + '/api/task/last');
   }
 
-  getCurrentHunterID() {
-    return this.http.get(this.baseApiUrl + '/curhunter');
+  getCurrentMedicID() {
+    return this.http.get(this.baseApiUrl + '/curmedic');
   }
 
   hunterRequest(task: any) {

@@ -1,1 +1,58 @@
-<p>Schedule-table works!123</p>
+<div class="container">
+  <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="row justify-content-start">
+      <div class="col-10">
+        <p class="text-center">
+          <label for="employee">Расписание для сотрудника:</label>
+          <select *ngIf="employeeList?.length" id="employee" type=number name="employee_id" class="form-select" required ngModel>
+            <option *ngFor="let employeeItem of employeeList">
+              {{employeeItem}}
+            </option>
+          </select>
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-sm">
+        <div class="col">
+          <p class="text-center">
+            <label for="time">Время:</label>
+            <select *ngIf="employeeList?.length" id="time" type=number name="time" class="form-select" required ngModel>
+              <option *ngFor="let employeeItem of employeeList">
+                {{employeeItem}}
+              </option>
+            </select>
+            <label for="time">Задача:</label>
+            <select *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
+              <option *ngFor="let taskItem of employeeList">
+                {{taskItem}}
+              </option>
+            </select>
+            <label for="time">Локация:</label>
+            <select *ngIf="employeeList?.length" id="location" type=number name="location" class="form-select" required ngModel>
+              <option *ngFor="let locationItem of employeeList">
+                {{locationItem}}
+              </option>
+            </select>
+            <button type="button" class="btn btn-success col-10 col-sm-10 col-md-10 col-lg-8 col-xl-6" (click)="addRow(f)">Добавить</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+    <div class="col-sm">
+      <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+          <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+            <mat-header-cell *matHeaderCellDef> {{ col }} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element[col] }}
+<!--              <button mat-button class="button-remove" (click)="removeRow(element)">Delete</button>-->
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <button mat-button class="button-remove" (click)="removeRow()">Delete</button>
+      </div>
+    </div>
+</div>
