@@ -44,17 +44,6 @@ export class PersonalTableComponent {
     }
   }
 
-  addUser() {
-    const newRow: { firstName: string; isEdit: boolean; middleName: string; id: number; email: string } = {
-      id: 0,
-      firstName: '',
-      middleName: '',
-      email: '',
-      isEdit: true,
-    };
-    this.dataSource.data = [newRow, ...this.dataSource.data];
-  }
-
   deleteUser(id: number) {
     this.dialog
       .open(ConfirmDialogComponent)

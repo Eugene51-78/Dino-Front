@@ -1,2 +1,48 @@
-<p>add-user works!</p>
 <!-- форма Фамилия Имя Отчество Email Пароль Должность -->
+<form #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
+
+  <p>
+    <label for="lastname">Фамилия</label>
+    <input type="text" id="lastname" name="lastname" #lastname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
+  </p>
+  <div *ngIf="!lastname?.valid && (lastname?.dirty || lastname?.touched)">
+<!--      <span style="color: red"> Н</span>-->
+    <div *ngIf="lastname.errors?.['required']">
+      <span style="color: red">Введите фамилию</span>
+    </div>
+    <div *ngIf="lastname.errors?.['pattern']">
+      <span style="color: red">Некорректная фамилия</span>
+    </div>
+  </div>
+
+  <p>
+    <label for="firstname">Имя</label>
+    <input type="text" id="firstname" name="firstname" pattern="^[А-Я][а-я]+$" required ngModel>
+  </p>
+
+  <p>
+    <label for="middlename">Отчество</label>
+    <input type="text" id="middlename" name="middlename" pattern="^[А-Я][а-я]+$" ngModel>
+  </p>
+
+  <select name="role" required ngModel>
+    <option [ngValue]="r" *ngFor="let r of rolesList">
+      {{r}}
+    </option>
+  </select>
+
+  <p>
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" required email ngModel>
+  </p>
+
+  <p>
+    <label for="password">Пароль</label>
+    <input type="text" id="password" name="password" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" ngModel>
+  </p>
+
+  <p>
+    <button type="submit" [disabled]="!accountForm.valid">Добавить</button>
+  </p>
+
+</form>
