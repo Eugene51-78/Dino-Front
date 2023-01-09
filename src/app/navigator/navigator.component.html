@@ -2,12 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2>Транспортировки</h2>
+        <h2>Транспортировка</h2>
       </div>
     </div>
   </div>
 </header>
-<div class="main">
+<div class="main" style="margin-top: 5rem">
   <div class="container">
 <!--    <div class="row line1">-->
 <!--      <div class="text-center">-->
@@ -19,76 +19,123 @@
 <!--        <button type="button" [disabled]="appService.alarm?.value || appService.employee.role.name !== 'Navigator'" class="btn btn-primary col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3">ХЗ че</button>-->
 <!--      </div>-->
 <!--    </div>-->
-
-    <form class="naviform row line2 text-center col-8 col-sm-6 col-md-12 col-lg-12 col-xl-12" #naviForm="ngForm" (ngSubmit)="onSubmit(naviForm)">
-      <div class="h-100 d-flex align-items-center justify-content-center">
-        <p class="text-center w-50">
-          <label for="dino">Динозавр:</label>
-          <select *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
-            <option *ngFor="let medicItem of medicList">
-              {{medicItem}}
-            </option>
-          </select>
-          <label for="location">Локация:</label>
-          <select *ngIf="medicList?.length" id="location" type=number name="location" class="form-select" required ngModel>
-            <option *ngFor="let medicItem of medicList">
-              {{medicItem}}
-            </option>
-          </select>
-        </p>
-      </div>
-      <table>
-        <thead>
-        <tr>
-          <th colspan="1">Роль</th>
-          <th colspan="1">Сотрудник</th>
-          <th colspan="1">Подтверждение</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>Медик</td>
-          <td>
-            <select *ngIf="medicList?.length" id="medic" type=number name="medic_id" class="form-select" required ngModel>
+    <form class="naviform" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <p class="text-center">
+            <label for="location">Локация:</label>
+            <select id="location" type=number name="location" class="form-select" required ngModel>
+              <option *ngFor="let location of medicList" (click)="getRecommendationDino(location)">
+                {{location}}
+              </option>
+            </select>
+          </p>
+        </div>
+        <div class="col-4">
+          <p class="text-center">
+            <label for="dino">Динозавр:</label>
+            <select [disabled]="!f.value.location" *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
               <option *ngFor="let medicItem of medicList">
                 {{medicItem}}
               </option>
             </select>
-          </td>
-          <td>
-              <circle-progress id="medic_0" [backgroundColor]="'gray'"></circle-progress>
-          </td>
-        </tr>
-        <tr>
-          <td>Дрессировщик</td>
-          <td>
-            <select *ngIf="dinoTrainerList?.length" id="dinoTrainer" type=number name="dinoTrainer_id" class="form-select" required ngModel>
-              <option *ngFor="let dinoTrainerItem of dinoTrainerList">
-                {{dinoTrainerItem}}
-              </option>
-            </select>
-          </td>
-          <td>
-            <circle-progress id="dinoTrainer_0" [backgroundColor]="'gray'"></circle-progress>
-          </td>
-        </tr>
-        <tr>
-          <td>Водитель</td>
-          <td>
-            <select *ngIf="driverList?.length" id="driver" type=number name="driver_id" class="form-select" required ngModel>
-              <option *ngFor="let driverItem of driverList">
-                {{driverItem}}
-              </option>
-            </select>
-          </td>
-          <td>
-              <circle-progress id="driver_0" [backgroundColor]="'gray'"></circle-progress>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div *ngIf="medicList?.length" class="modal-footer">
-        <button data-dismiss="modal" id="submit" [disabled]="naviForm.form.invalid" class="btn btn-primary" (click)="onSubmit(naviForm)">Подтвердить</button>
+          </p>
+        </div>
+      </div>
+      <div class="row text-center" style="padding: 0.2rem;">
+        <div class="col mat-title">Роль</div>
+        <div class="col mat-title">Сотрудник</div>
+        <div class="col mat-title">Подтверждение</div>
+      </div>
+      <div class="row text-center justify-content-center card-title">
+        <div class="col" style="margin-top: 1.25rem">Медик</div>
+        <div class="col">
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" *ngIf="medicList?.length" id="medic" type=number name="medic_id" class="form-select" required ngModel>
+            <option *ngFor="let medicItem of medicList">
+              {{medicItem}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <span *ngIf="progressStatus.medic == 0">
+            <circle-progress [backgroundColor]="'gray'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.medic == 1">
+            <circle-progress [backgroundColor]="'yellow'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.medic == 2">
+            <circle-progress [backgroundColor]="'chartreuse'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.medic == 3">
+            <circle-progress [backgroundColor]="'green'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.medic == 4">
+            <circle-progress [backgroundColor]="'red'"></circle-progress>
+          </span>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col" style="margin-top: 1.25rem">Дрессировщик</div>
+        <div class="col">
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" *ngIf="dinoTrainerList?.length" id="trainer" type=number name="trainer_id" class="form-select" required ngModel>
+            <option *ngFor="let dinoTrainerItem of dinoTrainerList">
+              {{dinoTrainerItem}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col">
+          <span *ngIf="progressStatus.dinoTrainer == 0">
+            <circle-progress [backgroundColor]="'gray'"></circle-progress>
+          </span>
+            <span *ngIf="progressStatus.dinoTrainer == 1">
+            <circle-progress [backgroundColor]="'yellow'"></circle-progress>
+          </span>
+            <span *ngIf="progressStatus.dinoTrainer == 2">
+            <circle-progress [backgroundColor]="'chartreuse'"></circle-progress>
+          </span>
+            <span *ngIf="progressStatus.dinoTrainer == 3">
+            <circle-progress [backgroundColor]="'green'"></circle-progress>
+          </span>
+            <span *ngIf="progressStatus.dinoTrainer == 4">
+            <circle-progress [backgroundColor]="'red'"></circle-progress>
+          </span>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center" style="margin-top: 0.25rem">
+        <div class="col" style="margin-top: 1.25rem">Водитель</div>
+        <div class="col">
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1.2rem" *ngIf="dinoTrainerList?.length" id="driver" type=number name="driver_id" class="form-select" required ngModel>
+            <option *ngFor="let driverItem of driverList">
+              {{driverItem}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <span *ngIf="progressStatus.driver == 0">
+            <circle-progress [backgroundColor]="'gray'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.driver == 1">
+            <circle-progress [backgroundColor]="'yellow'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.driver == 2">
+            <circle-progress [backgroundColor]="'chartreuse'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.driver == 3">
+            <circle-progress [backgroundColor]="'green'"></circle-progress>
+          </span>
+          <span *ngIf="progressStatus.driver == 4">
+            <circle-progress [backgroundColor]="'red'"></circle-progress>
+          </span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button *ngIf="!isRecomOn" class="btn btn-warning" style="float:left; margin-right: 60%;" (click)="switchRecommendation()">Использовать рекомендации</button>
+        <button *ngIf="isRecomOn" class="btn btn-warning" style="float:left; margin-right: 61%;" (click)="switchRecommendation()">Выключить рекомендации</button>
+        <button *ngIf="progressStatus.medic == 4 || progressStatus.dinoTrainer == 4 || progressStatus.driver == 4" class="btn btn-primary" (click)="stopTransportation()">Начать заново</button>
+        <button type="submit" data-dismiss="modal" id="submit" [disabled]="f.form.invalid" class="btn btn-primary">Подтвердить</button>
       </div>
     </form>
 
@@ -98,7 +145,5 @@
       </div>
     </div>
   </div>
-
-
 
 </div>

@@ -19,11 +19,12 @@ export class NavigatorComponent implements OnInit {
   dinoTrainerList = [1, 2, 3]
   driverList = [1, 2, 3]
   medicControl!: FormControl;
-  private progressStatus: any;
-  private Transportation: any;
-  private currentMedicID: any;
+  progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
+  Transportation: any;
+  currentMedicID: any;
   // private currentDinoTrainerID: any;
   // private currentDriverID: any;
+  isRecomOn!: boolean;
 
   constructor(public appService: AppService,
               public navigatorService: NavigatorService,
@@ -32,10 +33,12 @@ export class NavigatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentTransportation();
+    this.isRecomOn = false;
   }
 
   onSubmit(naviForm: any) {
     console.log(naviForm);
+    this.transportationRequest(naviForm);
     this.submitted = true;
   }
 
@@ -43,6 +46,7 @@ export class NavigatorComponent implements OnInit {
     this.navigatorService.getTransportTask().subscribe((res: any) => {
       if (res === null) {
         this.currentMedicID = null;
+        this.progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
         this.getMedicList();
         // this.currentDinoTrainerID = null;
         // this.getDinoTrainerList();
@@ -53,7 +57,7 @@ export class NavigatorComponent implements OnInit {
       this.medicList = [];
       this.Transportation = res;
       this.currentMedicID = this.Transportation.medic.id; // нужна такая структура в ответе
-      this.progressStatus = this.Transportation.status; // статусы всех в одной переменной
+      this.progressStatus = this.Transportation.status; // статусы всех в одном поле
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       //this.notificationService.error('Ошибка получения текущей задачи')
@@ -99,9 +103,11 @@ export class NavigatorComponent implements OnInit {
   stopTransportation() {
     this.navigatorService.stopTransportation(this.Transportation.id).subscribe(
       () => {
+        this.progressStatus.medic = 0;
+        this.progressStatus.dinoTrainer = 0;
+        this.progressStatus.driver = 0;
         this.getCurrentTransportation();
-        this.progressStatus = 0;
-        this.notificationService.success("Успех", "Транспортировка завершен успешно");
+        this.notificationService.success("Успех", "Транспортировка завершена успешно");
       },
       error => {
         console.warn(error);
@@ -110,4 +116,31 @@ export class NavigatorComponent implements OnInit {
     );
   }
 
+  switchRecommendation() {
+    this.isRecomOn = !this.isRecomOn;
+    // if (this.isRecomOn) {
+    //   this.getRecommendations();
+    // }
+  }
+
+  getRecommendations() {
+    this.navigatorService.getRecommendations().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      // рекомендации как готовые
+      console.log(res);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Медиков')
+    });
+  }
+
+  getRecommendationDino(location: number) {
+    if (this.isRecomOn) {
+      console.log(location);
+      //   обновить список дино, указав реки
+    }
+  }
 }

@@ -52,4 +52,7 @@ export class NavigatorService {
       );
   }
 
+  getRecommendations() {
+    return this.http.get(this.baseApiUrl + '/api/recommend');
+  }
 }

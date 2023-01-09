@@ -19,11 +19,10 @@ export class DinoTrainerComponent implements OnInit {
               private notificationService: NotificationsService,
               private dinoTrainerService: DinoTrainerService,
               public appService: AppService) {
-
+    appService.setEmployeeFromServer();
   }
 
   ngOnInit() {
-
   }
 
   openMultiModal(multiModal: any, type: any) {

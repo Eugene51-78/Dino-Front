@@ -24,6 +24,7 @@ export class MedicPageComponent implements OnInit {
               private medicPageService: MedicPageService,
               // public contentService: ContentService,
               public appService: AppService) {
+    appService.setEmployeeFromServer();
   }
 
   ngOnInit() {
