@@ -1,58 +1,71 @@
 <div class="container">
   <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <div class="row justify-content-start">
-      <div class="col-10">
+    <div class="row justify-content-center">
+      <div class="col-6">
         <p class="text-center">
           <label for="employee">Расписание для сотрудника:</label>
           <select *ngIf="employeeList?.length" id="employee" type=number name="employee_id" class="form-select" required ngModel>
-            <option *ngFor="let employeeItem of employeeList">
-              {{employeeItem}}
+            <option *ngFor="let employeeItem of employeeList" (click)="onChangeEmployee(employeeItem.role)">
+              {{employeeItem.id}}
             </option>
           </select>
         </p>
       </div>
     </div>
-    <div class="row justify-content-end">
-      <div class="col-sm">
-        <div class="col">
-          <p class="text-center">
-            <label for="time">Время:</label>
-            <select *ngIf="employeeList?.length" id="time" type=number name="time" class="form-select" required ngModel>
-              <option *ngFor="let employeeItem of employeeList">
-                {{employeeItem}}
-              </option>
-            </select>
-            <label for="time">Задача:</label>
-            <select *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
-              <option *ngFor="let taskItem of employeeList">
-                {{taskItem}}
-              </option>
-            </select>
-            <label for="time">Локация:</label>
-            <select *ngIf="employeeList?.length" id="location" type=number name="location" class="form-select" required ngModel>
-              <option *ngFor="let locationItem of employeeList">
-                {{locationItem}}
-              </option>
-            </select>
-            <button type="button" class="btn btn-success col-10 col-sm-10 col-md-10 col-lg-8 col-xl-6" (click)="addRow(f)">Добавить</button>
-          </p>
+
+    <div *ngIf="f.value['employee_id'] != 0" class="row">
+      <div class="col-4">
+        <p class="text-center">
+<!--          <label for="time">Время:</label>-->
+<!--          <select *ngIf="employeeList?.length" id="time" type=number name="time" class="form-select" required ngModel>-->
+<!--            <option *ngFor="let timeItem of timeList">-->
+<!--              {{timeItem}}-->
+<!--            </option>-->
+<!--          </select>-->
+          <span style="display: block;">Время: {{currentTime}}</span>
+          <label for="task">Задача:</label>
+          <select *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
+            <option *ngFor="let taskItem of taskList">
+              {{taskItem}}
+            </option>
+          </select>
+          <label for="location">Локация:</label>
+          <select *ngIf="employeeList?.length" id="location" type=number name="location" class="form-select" required ngModel>
+            <option *ngFor="let locationItem of employeeList">
+              {{locationItem.id}}
+            </option>
+          </select>
+          <button style="margin-top: 1rem" type="button" class="btn btn-success col-10 col-sm-10 col-md-10 col-lg-8 col-xl-6" [disabled]="!f.valid || stopAdd" (click)="addRow(f)">Добавить</button>
+        </p>
+      </div>
+
+      <div class="col-md">
+        <div class="example-container">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="Время">
+              <th mat-header-cell *matHeaderCellDef> Время </th>
+              <td mat-cell *matCellDef="let i = index"> {{timeList[i]}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Задача">
+              <th mat-header-cell *matHeaderCellDef> Задача </th>
+              <td mat-cell *matCellDef="let element"> {{element.task}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Локация">
+              <th mat-header-cell *matHeaderCellDef> Локация </th>
+              <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+          <button mat-button class="button-remove" (click)="removeRow()">Удалить последнюю задачу</button>
         </div>
       </div>
     </div>
   </form>
-    <div class="col-sm">
-      <div class="example-container mat-elevation-z8">
-        <mat-table #table [dataSource]="dataSource">
-          <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
-            <mat-header-cell *matHeaderCellDef> {{ col }} </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{ element[col] }}
-<!--              <button mat-button class="button-remove" (click)="removeRow(element)">Delete</button>-->
-            </mat-cell>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <button mat-button class="button-remove" (click)="removeRow()">Delete</button>
-      </div>
-    </div>
 </div>

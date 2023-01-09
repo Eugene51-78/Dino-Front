@@ -10,25 +10,43 @@ import {NgForm} from '@angular/forms';
 export class ScheduleTableComponent implements OnInit {
 
   TASK_DATA: Task[] = [
-    {time: "10:00", task: 'Кормление', location: 1},
-    // {time: "12:00", task: 'Уборка', location: 2},
+    // {time: "10:00", task: "Кормление", location: 1},
+    // {time: "12:00", task: 'Уборка', location: 2}
     // {time: "14:00", task: 'Кормление', location: 3},
     // {time: "15:00", task: 'Уборка', location: 4},
     // {time: "16:00", task: 'Кормление', location: 5},
   ];
 
-  employeeList = [1, 2, 3]
+  employeeList = [{id: 1, role: 'Worker'}, {id: 2, role: 'Medic'}, {id: 3, role: 'DinoTrainer'}]
+  timeList = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
+  taskList!: string[];
   displayedColumns = ['Время', 'Задача', 'Локация'];
   dataSource = this.TASK_DATA;
+  timeIndex = 0
+  currentTime = this.timeList[this.timeIndex];
+  stopAdd = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    console.log(this.dataSource)
   }
 
   addRow(f: NgForm) {
-    const newRow = {time: "10:00", task: 'Кормление', location: 1};
-    this.dataSource = [...this.TASK_DATA, newRow];
+    const newRow = f.value;
+    newRow['time'] = this.currentTime;
+    console.log(this.dataSource);
+    this.dataSource = [...this.dataSource, newRow];
+    if (this.timeIndex == (this.timeList.length - 1)) {
+      this.stopAdd = true;
+    } else {
+      this.timeIndex += 1;
+    }
+    this.currentTime = this.timeList[this.timeIndex];
+    // this.timeList = this.timeList.filter(obj => {return obj !== f.value.time});
+    // console.log(f.value.time)
+    // console.log(this.timeList);
     // this.ELEMENT_DATA.push({time: "10:00", task: 'Кормление', location: 1});
   }
 
@@ -37,8 +55,39 @@ export class ScheduleTableComponent implements OnInit {
   }
 
   removeRow() {
-    // this.dataSource = this.dataSource.filter((u) => u.time !== element.time);
+    if (this.timeIndex == this.timeList.length - 1 && this.stopAdd) {
+      this.dataSource = this.dataSource.splice(0,this.dataSource.length-1);
+      this.stopAdd = false;
+      return
+    }
+    if (this.timeIndex != 0) {
+      this.timeIndex -= 1;
+      this.stopAdd = false;
+    }
+    this.currentTime = this.timeList[this.timeIndex];
     this.dataSource = this.dataSource.splice(0,this.dataSource.length-1)
+  }
+
+  onChangeEmployee(role: string) {
+    // список задач зависит от роли сотрудника
+    if (role == 'Worker') {
+      this.taskList = ['', 'Уборка', 'Кормление'];
+    }
+    if (role == 'Medic') {
+      this.taskList = ['', 'Лечение', 'Медосмотр'];
+    }
+    if (role == 'DinoTrainer') {
+      this.taskList = ['', 'Тренировка', 'Осмотр'];
+    }
+    if (role == 'Driver') {
+      this.taskList = ['', 'Доставка еды', 'Перевозка материалов'];
+    }
+    if (role == 'Hunter') {
+      this.taskList = ['', 'Уборка', 'Кормление'];
+    }
+    this.dataSource = [];
+    this.timeIndex = 0;
+    this.currentTime = this.timeList[this.timeIndex];
   }
 }
 

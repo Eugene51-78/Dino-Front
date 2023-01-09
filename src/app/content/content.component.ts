@@ -34,7 +34,7 @@ export class ContentComponent implements OnInit {
               private notificationService: NotificationsService,
               private auth: AuthService,
               public appService: AppService) {
-    this.getEmployeeFromServer()
+    this.getEmployeeFromServer();
     this.progressStatus = 0;
   }
 

@@ -17,29 +17,72 @@
 
   <p>
     <label for="firstname">Имя</label>
-    <input type="text" id="firstname" name="firstname" pattern="^[А-Я][а-я]+$" required ngModel>
+    <input type="text" id="firstname" name="firstname" #firstname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
   </p>
+  <div *ngIf="!firstname?.valid && (firstname?.dirty || firstname?.touched)">
+    <!--      <span style="color: red"> Н</span>-->
+    <div *ngIf="firstname.errors?.['required']">
+      <span style="color: red">Введите имя</span>
+    </div>
+    <div *ngIf="firstname.errors?.['pattern']">
+      <span style="color: red">Некорректное имя</span>
+    </div>
+  </div>
 
   <p>
     <label for="middlename">Отчество</label>
-    <input type="text" id="middlename" name="middlename" pattern="^[А-Я][а-я]+$" ngModel>
+    <input type="text" id="middlename" name="middlename" #middlename="ngModel" pattern="^[А-Я][а-я]+$" ngModel>
   </p>
+  <div *ngIf="!middlename?.valid && (middlename?.dirty || middlename?.touched)">
+    <div *ngIf="middlename.errors?.['pattern']">
+      <span style="color: red">Некорректное отчество</span>
+    </div>
+  </div>
 
-  <select name="role" required ngModel>
-    <option [ngValue]="r" *ngFor="let r of rolesList">
-      {{r}}
+  <label for="role">Роль</label>
+  <select id="role" name="role" #role="ngModel" required ngModel>
+    <option [ngValue]="role" *ngFor="let role of rolesList">
+      {{role}}
     </option>
   </select>
+  <div *ngIf="!role?.valid && (role?.dirty || role?.touched)">
+    <!--      <span style="color: red"> Н</span>-->
+    <div *ngIf="role.errors?.['required']">
+      <span style="color: red">Выберите роль</span>
+    </div>
+  </div>
 
   <p>
     <label for="email">Email</label>
-    <input type="text" id="email" name="email" required email ngModel>
+    <input type="text" id="email" name="email" #email="ngModel" required email ngModel>
   </p>
+  <div *ngIf="!email?.valid && (email?.dirty || email?.touched)">
+    <div *ngIf="email.errors?.['required']">
+      <span style="color: red">Укажите email</span>
+    </div>
+    <div *ngIf="email.errors?.['email']">
+      <span style="color: red">Некорректный email</span>
+    </div>
+  </div>
 
   <p>
     <label for="password">Пароль</label>
-    <input type="text" id="password" name="password" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" ngModel>
+    <input type="password" id="password" name="password" #password="ngModel" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" ngModel>
   </p>
+  <div *ngIf="!password?.valid && (password?.dirty || password?.touched)">
+    <div *ngIf="password.errors?.['required']">
+      <span style="color: red">Укажите пароль</span>
+    </div>
+    <div *ngIf="password.errors?.['pattern']">
+      <span style="color: orangered">Допустимые символы: цифры, буквы латинского алфавита</span>
+    </div>
+    <div *ngIf="password.errors?.['minlength']">
+      <span style="color: orange">Минимальная длина пароля - 6 символов</span>
+    </div>
+    <div *ngIf="password.errors?.['maxlength']">
+      <span style="color: orange">Максимальная длина пароля - 20 символов</span>
+    </div>
+  </div>
 
   <p>
     <button type="submit" [disabled]="!accountForm.valid">Добавить</button>
