@@ -30,7 +30,7 @@ export class ScheduleTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dataSource)
+    console.log(this.dataSource);
   }
 
   addRow(f: NgForm) {

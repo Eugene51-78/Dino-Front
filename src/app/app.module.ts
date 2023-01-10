@@ -46,6 +46,9 @@ import { NavigatorComponent } from './navigator/navigator.component';
 import { AddUserComponent } from './content/sidebar/personal-table/add-user/add-user.component';
 import { EditUserComponent } from './content/sidebar/personal-table/edit-user/edit-user.component';
 import {MatSelectModule} from '@angular/material/select';
+import { ScheduleComponent } from './schedule/schedule.component';
+import {ScheduleService} from './schedule/schedule.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 // initializeApp(environment.firebase);
 
@@ -67,51 +70,54 @@ import {MatSelectModule} from '@angular/material/select';
     DinoTrainerComponent,
     NavigatorComponent,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    ScheduleComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        FlexModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatDividerModule,
-        FormsModule,
-        NgbModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireMessagingModule,
-        SimpleNotificationsModule.forRoot(),
-        NgCircleProgressModule.forRoot({
-            radius: 30,
-            percent: 100,
-            outerStrokeWidth: 0,
-            innerStrokeWidth: 4,
-            outerStrokeColor: '#FFFFFF',
-            innerStrokeColor: '#FFFFFF',
-            space: -1,
-            animation: false,
-            startFromZero: false,
-            showTitle: false,
-            showUnits: false,
-            showSubtitle: false,
-            showBackground: true,
-            showInnerStroke: true,
-            showZeroOuterStroke: false
-        }),
-        MatTableModule,
-        MatPaginatorModule,
-        MatInputModule,
-        MatDialogModule,
-        MatSliderModule,
-        MatSelectModule
-    ],
-  providers: [ ContentService, NotificationService, MedicPageService, AppService,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FlexModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatDividerModule,
+    FormsModule,
+    NgbModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
+    SimpleNotificationsModule.forRoot(),
+    NgCircleProgressModule.forRoot({
+      radius: 30,
+      percent: 100,
+      outerStrokeWidth: 0,
+      innerStrokeWidth: 4,
+      outerStrokeColor: '#FFFFFF',
+      innerStrokeColor: '#FFFFFF',
+      space: -1,
+      animation: false,
+      startFromZero: false,
+      showTitle: false,
+      showUnits: false,
+      showSubtitle: false,
+      showBackground: true,
+      showInnerStroke: true,
+      showZeroOuterStroke: false
+    }),
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSliderModule,
+    MatSelectModule,
+    MatCheckboxModule
+  ],
+
+  providers: [ ContentService, NotificationService, MedicPageService, AppService, ScheduleService,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,
                 useClass: TokenInterceptor},

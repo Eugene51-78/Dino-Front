@@ -14,6 +14,7 @@ import {DinoTrainerComponent} from './dino-trainer/dino-trainer.component';
 import {AddUserComponent} from './content/sidebar/personal-table/add-user/add-user.component';
 import {EditUserComponent} from './content/sidebar/personal-table/edit-user/edit-user.component';
 import {NavigatorComponent} from './navigator/navigator.component';
+import {ScheduleComponent} from './schedule/schedule.component';
 
 const routes: Routes = [
   { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'medicPage', canActivate:[AuthGuard], data: {role: 'Medic'}, component: MedicPageComponent },
   { path: 'dinotrainer', canActivate:[AuthGuard], data: {role: 'DinoTrainer'}, component: DinoTrainerComponent },
   { path: 'navigator', canActivate:[AuthGuard], data: {role: 'Navigator'}, component: NavigatorComponent },
+  { path: 'schedule', canActivate:[AuthGuard], component: ScheduleComponent },
   { path: 'tasks', canActivate:[AuthGuard], component: TaskComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },

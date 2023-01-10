@@ -1,0 +1,65 @@
+<header [ngClass]="{'alarm' : appService.alarm?.value}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Расписание</h2>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-12 line1">
+      <table mat-table [dataSource]="TASK_DATA" class="mat-elevation-z8 tt">
+
+        <ng-container matColumnDef="Начало">
+          <th mat-header-cell  class="text-center" *matHeaderCellDef> Начало </th>
+          <td mat-cell class="text-center" *matCellDef="let element">
+            <mat-checkbox [disabled]="!checkTimeStart(element.time)" #check1></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Время">
+          <th mat-header-cell *matHeaderCellDef> Время </th>
+          <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Задача">
+          <th mat-header-cell *matHeaderCellDef> Задача </th>
+          <td mat-cell *matCellDef="let element"> {{element.task}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Локация">
+          <th mat-header-cell  class="text-center" *matHeaderCellDef> Локация </th>
+          <td mat-cell class="text-center" *matCellDef="let element"> {{element.location}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Окончание">
+          <th mat-header-cell class="text-center" *matHeaderCellDef> Окончание </th>
+          <td mat-cell class="text-center" *matCellDef="let element">
+            <mat-checkbox [disabled]="!checkTimeEnd(element.time)"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+       ауф
+    </div>
+  </div>
+
+  <div class="row line">
+    <div class="text-center">
+      <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+    </div>
+  </div>
+
+</div>

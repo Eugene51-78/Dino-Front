@@ -40,7 +40,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
 
   constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService,
               contentService: ContentService) {
-    this.employee = contentService.getEmployee()
+    this.employee = contentService.getEmployee();
   }
   ngOnInit() {
     this.getNotifications();
