@@ -63,4 +63,8 @@ export class PersonalTableComponent {
     this.router.navigateByUrl('/content/(sidebar:addUser)');
   }
 
+  goToEditAccount() {
+    this.router.navigateByUrl('/content/(sidebar:editUser)');
+  }
+
 }
