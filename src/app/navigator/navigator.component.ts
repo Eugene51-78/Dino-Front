@@ -15,6 +15,8 @@ export class NavigatorComponent implements OnInit {
   model = {name: 'Karl'}
 
   submitted = false;
+  locationList = [1, 4, 10];
+  dinoList = [1, 2, 5];
   medicList = [1, 2, 3]
   dinoTrainerList = [1, 2, 3]
   driverList = [1, 2, 3]
@@ -22,8 +24,8 @@ export class NavigatorComponent implements OnInit {
   progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
   Transportation: any;
   currentMedicID: any;
-  // private currentDinoTrainerID: any;
-  // private currentDriverID: any;
+  currentDinoTrainerID: any;
+  currentDriverID: any;
   isRecomOn!: boolean;
 
   constructor(public appService: AppService,
@@ -46,8 +48,7 @@ export class NavigatorComponent implements OnInit {
     this.navigatorService.getTransportTask().subscribe((res: any) => {
       if (res === null) {
         this.currentMedicID = null;
-        this.progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
-        this.getMedicList();
+        this.progressStatus = {'medic': 0, 'dinoTrainer': 0, 'driver': 0};
         // this.currentDinoTrainerID = null;
         // this.getDinoTrainerList();
         // this.currentDriverID = null;
@@ -60,17 +61,66 @@ export class NavigatorComponent implements OnInit {
       this.progressStatus = this.Transportation.status; // статусы всех в одном поле
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      //this.notificationService.error('Ошибка получения текущей задачи')
+      this.getLocationList();
+      this.getDinoList();
+      this.getMedicList();
+      this.getDinoTrainerList();
+      this.getDriverList();
+      this.notificationService.error('Ошибка получения текущей задачи');
     });
   }
 
+  private getLocationList() {
+    this.navigatorService.getLocationList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      try {
+        console.log(res);
+        let ids = [];
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i]['id']);
+          ids.push(res[i]['id']);
+        }
+        this.medicList = ids;
+      } catch (e) {
+      }
+      console.log(this.medicList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка локаций')
+    });
+  }
+
+  private getDinoList() {
+    this.navigatorService.getDinoList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      try {
+        console.log(res);
+        let ids = [];
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i]['id']);
+          ids.push(res[i]['id']);
+        }
+        this.medicList = ids;
+      } catch (e) {
+      }
+      console.log(this.medicList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Дино')
+    });
+  }
   private getMedicList() {
     this.navigatorService.getMedicList().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
         return;
       }
-      console.log(res);
       try {
         console.log(res);
         let ids = [];
@@ -85,6 +135,51 @@ export class NavigatorComponent implements OnInit {
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения списка доступных Медиков')
+    });
+  }
+  private getDinoTrainerList() {
+    this.navigatorService.getDinoTrainerList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      try {
+        console.log(res);
+        let ids = [];
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i]['id']);
+          ids.push(res[i]['id']);
+        }
+        this.dinoTrainerList = ids;
+      } catch (e) {
+      }
+      console.log(this.dinoTrainerList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Дрессировщиков')
+    });
+  }
+
+  private getDriverList() {
+    this.navigatorService.getDriverList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      try {
+        console.log(res);
+        let ids = [];
+        for (let i = 0; i < res.length; i++) {
+          console.log(res[i]['id']);
+          ids.push(res[i]['id']);
+        }
+        this.driverList = ids;
+      } catch (e) {
+      }
+      console.log(this.driverList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Водителей')
     });
   }
 

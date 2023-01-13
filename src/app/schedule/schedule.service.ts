@@ -14,4 +14,8 @@ export class ScheduleService {
   getSchedule() {
     return this.http.get(this.baseApiUrl + '/api/schedule');
   }
+
+  getStartStatus(row: string) {
+    return this.http.get(this.baseApiUrl + '/api/schedule?' + row);
+  }
 }

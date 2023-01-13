@@ -21,7 +21,7 @@ export class PersonalTableService {
 
   getUsers(): Observable<User[]> {
     return this.http
-      .get(this.baseApiUrl + '/user')
+      .get(this.baseApiUrl + '/api/user')
       .pipe<User[]>(map((data: any) => data.users));
   }
 

@@ -36,24 +36,19 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   notifications!: Notification[];
   columnsToDisplay = ['id', 'header', 'body'];
   dataSource: any;
-  employee!: Employee
 
-  constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService,
-              contentService: ContentService) {
-    this.employee = contentService.getEmployee();
+  constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService) {
+    appService.setEmployeeFromServer();
   }
+
   ngOnInit() {
     this.getNotifications();
-    // this.notifications = [{id: 1, header: 'Hydrogen', body: 'Hydrogen'},
-    //                       {id: 2, header: 'Helium', body: 'Hydrogen'},
-    //                       {id: 3, header: 'Lithium', body: 'Hello'}];
-
+    this.dataSource = new MatTableDataSource<Notification>(this.notifications);
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
     // this.paginator = this.dataSource.paginator
-    this.dataSource = new MatTableDataSource<Notification>(this.notifications);
-    this.dataSource.paginator = this.paginator;
   }
 
 

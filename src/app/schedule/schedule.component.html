@@ -17,7 +17,7 @@
         <ng-container matColumnDef="Начало">
           <th mat-header-cell  class="text-center" *matHeaderCellDef> Начало </th>
           <td mat-cell class="text-center" *matCellDef="let element">
-            <mat-checkbox [disabled]="!checkTimeStart(element.time)" #check1></mat-checkbox>
+            <mat-checkbox [disabled]="!checkTimeStart(element.time)" (click)="changeStartStatus(element)" ></mat-checkbox>
           </td>
         </ng-container>
 
@@ -39,7 +39,7 @@
         <ng-container matColumnDef="Окончание">
           <th mat-header-cell class="text-center" *matHeaderCellDef> Окончание </th>
           <td mat-cell class="text-center" *matCellDef="let element">
-            <mat-checkbox [disabled]="!checkTimeEnd(element.time)"></mat-checkbox>
+            <mat-checkbox [disabled]="!checkTimeEnd(element.time)" (click)="changeEndStatus(element)"></mat-checkbox>
           </td>
         </ng-container>
 

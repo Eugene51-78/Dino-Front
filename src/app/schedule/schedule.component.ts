@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Task} from '../content/sidebar/schedule-table/schedule-table.component';
 import {AppService} from '../app.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {Notification} from '../notification/notification.component';
@@ -15,12 +14,12 @@ import {DatePipe, formatDate} from '@angular/common';
 })
 export class ScheduleComponent implements OnInit {
 
-  TASK_DATA: Task[] = [
-    {time: "10:00", task: "Кормление", location: 1},
-    {time: "12:00", task: 'Уборка', location: 2},
-    {time: "14:00", task: 'Кормление', location: 3},
-    {time: "15:00", task: 'Уборка', location: 4},
-    {time: "16:00", task: 'Кормление', location: 5},
+  TASK_DATA: UserTask[] = [
+    {start: true, time: "10:00", task: "Кормление", location: 1, end: true},
+    {start: true, time: "12:00", task: 'Уборка', location: 2, end: false},
+    {start: false, time: "14:00", task: 'Кормление', location: 3, end: false},
+    {start: false, time: "15:00", task: 'Уборка', location: 4, end: false},
+    {start: false, time: "16:00", task: 'Кормление', location: 5, end: false},
   ];
   displayedColumns = ['Начало', 'Время', 'Задача', 'Локация', 'Окончание'];
 
@@ -32,7 +31,9 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     // на бэке добавить 2 булевых поля каждой задаче - start и end
-    this.getSchedule();
+    setTimeout(() => {
+      this.getSchedule();
+    }, 1);
   }
 
   getSchedule() {
@@ -47,6 +48,37 @@ export class ScheduleComponent implements OnInit {
       console.log('Ошибка', err.message);
       this.notificationsService.error('Ошибка получения расписания')
     });
+  }
+
+  changeStartStatus(row: any) {
+    console.log(row);
+    //   отправить запрос
+  }
+  changeEndStatus(row: any) {
+    console.log(row);
+    //   отправить запрос
+  }
+
+  checkStartStatus(row: any) {
+    setTimeout(() => {
+      this.scheduleService.getStartStatus(row).subscribe((res: any) => {
+        if (res === null) {
+          console.log('res is null');
+          return;
+        }
+        console.log(res);
+      }, (err: { message: any; }) => {
+        console.log('Ошибка', err.message);
+        this.notificationsService.error('Ошибка получения расписания')
+      });
+    }, 1000);
+    return true;
+  }
+
+  checkEndStatus(row: any) {
+    console.log(row);
+    //   отправить запрос
+    return true;
   }
 
   checkTimeStart(taskTime: string) {
@@ -81,5 +113,12 @@ export class ScheduleComponent implements OnInit {
       return false;
     }
   }
+}
 
+export interface UserTask {
+  start: boolean;
+  time: string;
+  task: string;
+  location: number;
+  end: boolean;
 }

@@ -29,11 +29,15 @@ export class PersonalTableComponent {
   }
 
   ngOnInit() {
-    this.personalTableService.getUsers().subscribe((res: any) => {
-      this.dataSource.data = res;
-    });
+    this.getUsers();
+    console.log(this.dataSource);
   }
 
+  getUsers() {
+    this.personalTableService.getUsers().subscribe((res: any) => {
+      this.dataSource = res;
+    });
+  }
   editUser(row: User) {
     if (row.id === 0) {
       this.personalTableService.addUser(row).subscribe((newUser: User) => {

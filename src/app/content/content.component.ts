@@ -95,7 +95,7 @@ export class ContentComponent implements OnInit {
       return this.employee;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
-      this.notificationService.error('Ошибка', 'Не удалось получить сведения об аккаунте!')
+      // this.notificationService.error('Ошибка', 'Не удалось получить сведения об аккаунте!')
       return null;
     });
   }

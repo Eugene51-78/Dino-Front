@@ -1,35 +1,38 @@
-<header xmlns="http://www.w3.org/1999/html">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2>Управление персоналом</h2>
+<div class="container">
+  <header xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2>Управление персоналом</h2>
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<article class="table-header">
-<!--  "['./', {outlets: { sidebar: ['addUser'] } }]"-->
-<!--  ['/content', {outlets: {'sidebar': ['personal', {outlets: {'sidebar': ['addUser']}}]}}]);-->
-<!--  (click)="goToAddAccount()"-->
-  <button class="btn btn-success" style="margin: 1%" color="green" (click)="goToAddAccount()">Добавить аккаунт</button>
-</article>
-<table mat-table [dataSource]="dataSource">
-  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
-    <th mat-header-cell routerLink="[/editUser, user.id]" *matHeaderCellDef>
-      {{ col.label }}
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <div [ngSwitch]="col.type">
-        <span *ngSwitchDefault>
-          {{ element[col.key] }}
-        </span>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
-<div class="content mat-elevation-z8">
-  <router-outlet name='personal'></router-outlet>
+  <article class="table-header">
+  <!--  "['./', {outlets: { sidebar: ['addUser'] } }]"-->
+  <!--  ['/content', {outlets: {'sidebar': ['personal', {outlets: {'sidebar': ['addUser']}}]}}]);-->
+  <!--  (click)="goToAddAccount()"-->
+    <button class="btn btn-success" style="margin: 1%" color="green" (click)="goToAddAccount()">Добавить аккаунт</button>
+  </article>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+      <th mat-header-cell routerLink="[/editUser, user.id]" *matHeaderCellDef>
+        {{ col.label }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="col.type">
+          <span *ngSwitchDefault>
+            {{ element[col.key] }}
+          </span>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="content mat-elevation-z8">
+    <router-outlet name='personal'></router-outlet>
+  </div>
+
 </div>

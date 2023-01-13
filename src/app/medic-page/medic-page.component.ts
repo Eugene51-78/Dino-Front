@@ -17,14 +17,12 @@ export class MedicPageComponent implements OnInit {
 
   currentOperation: any;
   dinoList!: number[];
-  public employee!: Employee;
 
   constructor(private modalService: NgbModal,
               private notificationService: NotificationsService,
               private medicPageService: MedicPageService,
-              // public contentService: ContentService,
               public appService: AppService) {
-    appService.setEmployeeFromServer();
+    this.appService.setEmployeeFromServer();
   }
 
   ngOnInit() {

@@ -44,12 +44,12 @@
         </div>
         <div class="col text-center">
           <div class="p-2" *ngIf="employee?.role?.name === 'DinoTrainer'" routerLink="/dinotrainer">
-            <button [disabled]="appService.alarm?.value" class="btn btn-warning col-10 col-sm-7 col-md-6 col-lg-5 col-xl-4">Управление</button>
+            <button [disabled]="appService.alarm?.value" class="btn btn-warning col-8 col-sm-4 col-md-4 col-lg-3 col-xl-2">Управление</button>
           </div>
         </div>
         <div class="col text-center">
           <div *ngIf="employee?.role?.name === 'Navigator'">
-            <button [disabled]="appService.alarm?.value" routerLink="/navigator" class="btn btn-warning col-10 col-sm-7 col-md-6 col-lg-5 col-xl-4">Транспортировка</button>
+            <button [disabled]="appService.alarm?.value" routerLink="/navigator" class="btn btn-warning col-8 col-sm-4 col-md-4 col-lg-3 col-xl-2">Транспортировка</button>
           </div>
         </div>
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {NotificationsService} from 'angular2-notifications';
+import {ScheduleTableService} from './schedule-table.service';
 
 @Component({
   selector: 'app-schedule-table',
@@ -26,11 +28,39 @@ export class ScheduleTableComponent implements OnInit {
   currentTime = this.timeList[this.timeIndex];
   stopAdd = false;
 
-  constructor() {
+  constructor(private notificationService: NotificationsService, private scheduleTableService: ScheduleTableService) {
   }
 
   ngOnInit(): void {
     console.log(this.dataSource);
+    this.getEmployeeList();
+  }
+
+  getEmployeeList(){
+    this.scheduleTableService.getEmployeeList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      if (res == undefined) {
+        this.notificationService.warn('Нет сотрудников без расписания');
+      }
+      console.log(res);
+      // try {
+      //   console.log(res);
+      //   let ids = [];
+      //   for (let i = 0; i < res.length; i++) {
+      //     console.log(res[i]['id']);
+      //     ids.push(res[i]['id']);
+      //   }
+      //   this.medicList = ids;
+      // } catch (e) {
+      // }
+      // console.log(this.medicList);
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных Медиков');
+    });
   }
 
   addRow(f: NgForm) {

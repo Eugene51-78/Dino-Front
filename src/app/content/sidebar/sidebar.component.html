@@ -23,7 +23,7 @@
       <mat-icon>info</mat-icon>
       <span>Динозавры</span>
     </button>
-    <button mat-button [disabled]="appService.alarm?.value" style="margin-top:20px" color='accent' class="btn mat-button" routerLink="/login">
+    <button mat-button style="margin-top:20px" color='accent' class="btn mat-button" routerLink="/login">
       <span>Выход</span>
     </button>
     <mat-divider></mat-divider>
@@ -33,7 +33,7 @@
   </mat-sidenav>
 
     <mat-sidenav-content>
-      <div class="content mat-elevation-z8">
+      <div class="container content mat-elevation-z8">
         <router-outlet name='sidebar'></router-outlet>
       </div>
   </mat-sidenav-content>
