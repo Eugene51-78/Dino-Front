@@ -19,21 +19,15 @@ export class PersonalTableService {
     this.baseApiUrl = environment.baseApi;
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http
-      .get(this.baseApiUrl + '/api/user')
-      .pipe<User[]>(map((data: any) => data.users));
+  getUsers() {
+    return this.http.get(this.baseApiUrl + '/api/user');
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<User>(`${this.baseApiUrl}/${user.id}`, user);
+    return this.http.patch<User>(`${this.baseApiUrl}/api/user/${user.id}`, user);
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseApiUrl}/user/add`, user);
-  }
-
-  deleteUser(id: number): Observable<User> {
-    return this.http.delete<User>(`${this.baseApiUrl}/user/${id}`);
+    return this.http.post<User>(`${this.baseApiUrl}/api/user`, user);
   }
 }

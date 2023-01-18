@@ -16,17 +16,17 @@ export const UserColumns = [
     label: "ИД"
   },
   {
-    key: "second_name",
+    key: "secondName",
     type: "text",
     label: "Фамилия"
   },
   {
-    key: "first_name",
+    key: "firstName",
     type: "text",
     label: "Имя"
   },
   {
-    key: "middle_name",
+    key: "middleName",
     type: "text",
     label: "Отчество"
   },

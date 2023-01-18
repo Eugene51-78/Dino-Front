@@ -119,6 +119,10 @@ export class ScheduleTableComponent implements OnInit {
     this.timeIndex = 0;
     this.currentTime = this.timeList[this.timeIndex];
   }
+
+  sendSchedule() {
+    console.log(this.dataSource);
+  }
 }
 
 export interface Task {

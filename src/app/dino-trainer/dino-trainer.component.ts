@@ -87,10 +87,10 @@ export class DinoTrainerComponent implements OnInit {
 
   sendRequestAggressive(id: number) {
     this.dinoTrainerService.sendRequestAggressive(id).subscribe((res) => {
-      this.notificationService.success('Успех','Информация об агрессивности дино отправлена')
+      this.notificationService.success('Успех','Информация об агрессивности дино отправлена');
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      this.notificationService.error('Ошибка отправки информации об агрессивности')
+      this.notificationService.error('Ошибка отправки информации об агрессивности');
       return null;
     });
   }

@@ -2,23 +2,23 @@
 
 <form style="font-size: 1.15rem" #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
   <div class="form-group">
-    <label for="lastname">Фамилия</label>
-    <input type="text" class="form-control" id="lastname" name="lastname" #lastname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
+    <label for="secondName">Фамилия</label>
+    <input type="text" class="form-control" id="secondName" name="secondName" #secondName="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
   </div>
   <div>
-    <div *ngIf="!lastname?.valid && (lastname?.dirty || lastname?.touched)">
+    <div *ngIf="!secondName?.valid && (secondName?.dirty || secondName?.touched)">
   <!--      <span style="color: red"> Н</span>-->
-      <div *ngIf="lastname.errors?.['required']">
+      <div *ngIf="secondName.errors?.['required']">
         <span style="color: red">Введите фамилию</span>
       </div>
-      <div *ngIf="lastname.errors?.['pattern']">
+      <div *ngIf="secondName.errors?.['pattern']">
         <span style="color: red">Некорректная фамилия</span>
       </div>
     </div>
   </div>
   <div class="form-group">
-    <label for="firstname">Имя</label>
-    <input type="text" class="form-control" id="firstname" name="firstname" #firstname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
+    <label for="firstName">Имя</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" #firstname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
   </div>
   <div *ngIf="!firstname?.valid && (firstname?.dirty || firstname?.touched)">
     <!--      <span style="color: red"> Н</span>-->
@@ -31,11 +31,11 @@
   </div>
 
   <div class="form-group">
-    <label for="middlename">Отчество</label>
-    <input type="text" class="form-control" id="middlename" name="middlename" #middlename="ngModel" pattern="^[А-Я][а-я]+$" ngModel>
+    <label for="middleName">Отчество</label>
+    <input type="text" class="form-control" id="middleName" name="middleName" #middleName="ngModel" pattern="^[А-Я][а-я]+$" ngModel>
   </div>
-  <div *ngIf="!middlename?.valid && (middlename?.dirty || middlename?.touched)">
-    <div *ngIf="middlename.errors?.['pattern']">
+  <div *ngIf="!middleName?.valid && (middleName?.dirty || middleName?.touched)">
+    <div *ngIf="middleName.errors?.['pattern']">
       <span style="color: red">Некорректное отчество</span>
     </div>
   </div>
@@ -43,7 +43,7 @@
   <div class="form-group">
     <label for="role">Роль</label>
     <select id="role" class="form-control" name="role" #role="ngModel" required ngModel>
-      <option [ngValue]="role" *ngFor="let role of rolesList">
+      <option [ngValue]="role_to_eng(role)" *ngFor="let role of rolesList">
         {{role}}
       </option>
     </select>
@@ -52,6 +52,19 @@
     <!--      <span style="color: red"> Н</span>-->
     <div *ngIf="role.errors?.['required']">
       <span style="color: red">Выберите роль</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="age">Возраст</label>
+    <input type="number" class="form-control" id="age" name="age" #age="ngModel" required [min]="15" [max]="99" ngModel>
+  </div>
+  <div *ngIf="!age?.valid && (age?.dirty || age?.touched)">
+    <div *ngIf="age.errors?.['required']">
+      <span style="color: red">Укажите возраст</span>
+    </div>
+    <div *ngIf="age.errors?.['min'] || age.errors?.['max']">
+      <span style="color: red">Недопустимый возраст</span>
     </div>
   </div>
 

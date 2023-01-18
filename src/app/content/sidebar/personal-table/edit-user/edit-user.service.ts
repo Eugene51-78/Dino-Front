@@ -9,15 +9,19 @@ import { User, UserColumns } from '../user';
 @Injectable({
   providedIn: 'root',
 })
-export class AddUserService {
+export class EditUserService {
   baseApiUrl: string;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;
   }
 
-  addUser(user: User): Observable<User> {
+  editUser(user: any): Observable<any> {
     console.log(user);
-    return this.http.post<User>(`${this.baseApiUrl}/api/user`, user);
+    return this.http.patch<any>(`${this.baseApiUrl}/api/user`, user);
+  }
+
+  deleteUser(id: number): Observable<User> {
+    return this.http.delete<User>(`${this.baseApiUrl}/api/user/${id}`);
   }
 }

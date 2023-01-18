@@ -34,4 +34,32 @@ export class AddUserComponent implements OnInit {
       }
     );
   }
+
+  role_to_eng(role: string) {
+    let eng_role;
+    switch (role) {
+      case 'Работник':
+        eng_role = 'Worker';
+        break;
+      case 'Медик':
+        eng_role = 'Medic'
+        break;
+      case 'Управляющий':
+        eng_role = 'Manager';
+        break;
+      case 'Дрессировщик':
+        eng_role = 'DinoTrainer';
+        break;
+      case 'Водитель':
+        eng_role = 'Driver';
+        break;
+      case 'Хантер':
+        eng_role = 'Hunter';
+        break;
+      case 'Навигатор':
+        eng_role = 'Navigator';
+        break;
+    }
+    return eng_role;
+  }
 }

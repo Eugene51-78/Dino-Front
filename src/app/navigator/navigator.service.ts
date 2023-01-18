@@ -24,15 +24,15 @@ export class NavigatorService {
   }
 
   getMedicList() {
-    return this.http.get(this.baseApiUrl + '/api/user?role=Medic');
+    return this.http.get(this.baseApiUrl + '/api/user/free?role=Medic');
   }
 
   getDinoTrainerList() {
-    return this.http.get(this.baseApiUrl + '/api/user?role=DinoTrainer');
+    return this.http.get(this.baseApiUrl + '/api/user/free?role=DinoTrainer');
   }
 
   getDriverList() {
-    return this.http.get(this.baseApiUrl + '/api/user?role=Driver');
+    return this.http.get(this.baseApiUrl + '/api/user/free?role=Driver');
   }
 
   getTransportTask() {

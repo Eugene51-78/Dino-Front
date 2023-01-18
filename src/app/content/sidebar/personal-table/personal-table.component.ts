@@ -1,10 +1,13 @@
 import {PersonalTableService} from './personal-table.service';
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Employee} from '../../employee.interface';
 import { User, UserColumns } from './user';
 import { MatDialog } from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
 import {Router} from '@angular/router';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {NgForm} from '@angular/forms';
 
 // const USER_DATA = [
 //   {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
@@ -21,26 +24,35 @@ import {Router} from '@angular/router';
 })
 
 export class PersonalTableComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = UserColumns.map((col) => col.key);
   dataSource: any;
   columnsSchema: any = UserColumns;
 
-  constructor(private router: Router, private personalTableService: PersonalTableService, public dialog: MatDialog) {
+  constructor(private router: Router, private personalTableService: PersonalTableService) {
+    this.getUsers();
   }
 
   ngOnInit() {
     this.getUsers();
-    console.log(this.dataSource);
   }
 
   getUsers() {
     this.personalTableService.getUsers().subscribe((res: any) => {
-      this.dataSource = res;
+      console.log(res);
+      for (let i=0; i < res.length; i++) {
+        res[i]['role'] = res[i]['role'].name;
+      }
+      console.log(res);
+      this.dataSource = new MatTableDataSource<any>(res);
+      this.dataSource.paginator = this.paginator;
     });
   }
-  editUser(row: User) {
-    if (row.id === 0) {
+
+  addUser(row: User) {
+    if (row.id == 0) {
       this.personalTableService.addUser(row).subscribe((newUser: User) => {
+        console.log(newUser);
         row.id = newUser.id;
       });
     } else {
@@ -48,27 +60,13 @@ export class PersonalTableComponent {
     }
   }
 
-  deleteUser(id: number) {
-    this.dialog
-      .open(ConfirmDialogComponent)
-      .afterClosed()
-      .subscribe((confirm) => {
-        if (confirm) {
-          this.personalTableService.deleteUser(id).subscribe(() => {
-            this.dataSource.data = this.dataSource.data.filter(
-              (u: User) => u.id !== id
-            );
-          });
-        }
-      });
-  }
-
   goToAddAccount() {
     this.router.navigateByUrl('/content/(sidebar:addUser)');
   }
 
-  goToEditAccount() {
-    this.router.navigateByUrl('/content/(sidebar:editUser)');
+  goToEditAccount(row: any) {
+    console.log(row);
+    this.router.navigateByUrl('/content/(sidebar:editUser)', { state: {row} });
   }
 
 }

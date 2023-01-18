@@ -68,4 +68,11 @@
       </div>
     </div>
   </form>
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <div class="col-6 text-center align-items-md-end">
+        <button class="btn btn-primary text-center col-6" *ngIf="dataSource.length == 7" [disabled]="dataSource.length != 7" (click)="sendSchedule()">Подтвердить</button>
+      </div>
+    </div>
+  </div>
 </div>
