@@ -44,10 +44,9 @@ export class ScheduleComponent implements OnInit {
         return;
       }
       this.TASK_DATA = res;
-      //console.log(this.notifications);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationsService.error('Ошибка получения расписания')
+      this.notificationsService.error('Ошибка получения расписания');
     });
   }
 

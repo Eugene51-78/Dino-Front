@@ -19,10 +19,10 @@ export class ScheduleTableComponent implements OnInit {
     // {time: "16:00", task: 'Кормление', location: 5},
   ];
 
-  employeeList = [{id: 1, role: 'Worker'}, {id: 2, role: 'Medic'}, {id: 3, role: 'DinoTrainer'}]
+  employeeList = [{id: 1, role: {'name': 'Worker'}}, {id: 2, role: {'name': 'Medic'}}, {id: 3, role: {'name': 'DinoTrainer'}}]
   currentRole!: string;
   timeList = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
-  taskList!: string[];
+  taskList = ['', 'Уборка', 'Кормление'];
   displayedColumns = ['Время', 'Задача', 'Локация'];
   dataSource = this.TASK_DATA;
   timeIndex = 0
@@ -47,6 +47,7 @@ export class ScheduleTableComponent implements OnInit {
         this.notificationService.warn('Нет сотрудников без расписания');
       }
       console.log(res);
+      this.employeeList = res;
       // try {
       //   console.log(res);
       //   let ids = [];

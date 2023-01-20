@@ -5,7 +5,8 @@
         <p class="text-center">
           <label for="employee">Расписание для сотрудника:</label>
           <select *ngIf="employeeList?.length" id="employee" type=number name="employee_id" class="form-select" required ngModel>
-            <option *ngFor="let employeeItem of employeeList" (click)="onChangeEmployee(employeeItem.role)">
+            <option> </option>
+            <option *ngFor="let employeeItem of employeeList" (click)="onChangeEmployee(employeeItem.role.name)">
               {{employeeItem.id}}
             </option>
           </select>

@@ -12,15 +12,11 @@ import {NotificationsService} from 'angular2-notifications';
 
 export class NavigatorComponent implements OnInit {
 
-  model = {name: 'Karl'}
-
-  submitted = false;
   locationList = [1, 4, 10];
   dinoList = [1, 2, 5];
-  medicList = [1, 2, 3]
-  dinoTrainerList = [1, 2, 3]
-  driverList = [1, 2, 3]
-  medicControl!: FormControl;
+  medicList = [1, 2, 3];
+  dinoTrainerList = [1, 2, 3];
+  driverList = [1, 2, 3];
   progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
   Transportation: any;
   currentMedicID: any;
@@ -41,21 +37,21 @@ export class NavigatorComponent implements OnInit {
   onSubmit(naviForm: any) {
     console.log(naviForm);
     this.transportationRequest(naviForm);
-    this.submitted = true;
   }
 
   private getCurrentTransportation() {
     this.navigatorService.getTransportTask().subscribe((res: any) => {
       if (res === null) {
+        // this.progressStatus = {'medic': 1, 'dinoTrainer': 2, 'driver': 3};
         this.currentMedicID = null;
-        this.progressStatus = {'medic': 0, 'dinoTrainer': 0, 'driver': 0};
-        // this.currentDinoTrainerID = null;
-        // this.getDinoTrainerList();
-        // this.currentDriverID = null;
-        // this.getDriverList();
+        this.getMedicList();
+        this.currentDinoTrainerID = null;
+        this.getDinoTrainerList();
+        this.currentDriverID = null;
+        this.getDriverList();
         return;
       }
-      this.medicList = [];
+      // this.medicList = [];
       this.Transportation = res;
       this.currentMedicID = this.Transportation.medic.id; // нужна такая структура в ответе
       this.progressStatus = this.Transportation.status; // статусы всех в одном поле
@@ -83,13 +79,13 @@ export class NavigatorComponent implements OnInit {
           console.log(res[i]['id']);
           ids.push(res[i]['id']);
         }
-        this.medicList = ids;
+        this.locationList = ids;
       } catch (e) {
       }
-      console.log(this.medicList);
+      console.log(this.locationList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения списка локаций')
+      this.notificationService.error('Ошибка получения списка локаций');
     });
   }
 
@@ -106,13 +102,13 @@ export class NavigatorComponent implements OnInit {
           console.log(res[i]['id']);
           ids.push(res[i]['id']);
         }
-        this.medicList = ids;
+        this.dinoList = ids;
       } catch (e) {
       }
       console.log(this.medicList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения списка доступных Дино')
+      this.notificationService.error('Ошибка получения списка доступных Дино');
     });
   }
   private getMedicList() {
@@ -134,7 +130,7 @@ export class NavigatorComponent implements OnInit {
       console.log(this.medicList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения списка доступных Медиков')
+      this.notificationService.error('Ошибка получения списка доступных Медиков');
     });
   }
   private getDinoTrainerList() {
@@ -156,7 +152,7 @@ export class NavigatorComponent implements OnInit {
       console.log(this.dinoTrainerList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения списка доступных Дрессировщиков')
+      this.notificationService.error('Ошибка получения списка доступных Дрессировщиков');
     });
   }
 

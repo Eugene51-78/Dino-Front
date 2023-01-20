@@ -35,7 +35,7 @@
         <div class="col-4">
           <p class="text-center">
             <label for="dino">Динозавр:</label>
-            <select [disabled]="!f.value.location" *ngIf="medicList?.length" id="dino" type=number name="dino_id" class="form-select" required ngModel>
+            <select [disabled]="!f.value.location" id="dino" type=number name="dino_id" class="form-select" required ngModel>
               <option value="">&nbsp;</option>
               <option *ngFor="let dinoItem of dinoList" (click)="f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()">
                 {{dinoItem}}
@@ -52,7 +52,7 @@
       <div class="row text-center justify-content-center card-title">
         <div class="col" style="margin-top: 1.25rem">Медик</div>
         <div class="col">
-          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" *ngIf="medicList?.length" id="medic" type=number #medic name="medic_id" class="form-select" required ngModel>
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" id="medic" type=number #medic name="medic_id" class="form-select" required ngModel>
             <option value="">&nbsp;</option>
             <option *ngFor="let medicItem of medicList">
               {{medicItem}}
@@ -80,7 +80,7 @@
       <div class="row text-center justify-content-center">
         <div class="col" style="margin-top: 1.25rem">Дрессировщик</div>
         <div class="col">
-          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" *ngIf="dinoTrainerList?.length" id="trainer" type=number name="trainer_id" class="form-select" required ngModel>
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1rem" id="trainer" type=number name="trainer_id" class="form-select" required ngModel>
             <option value="">&nbsp;</option>
             <option *ngFor="let dinoTrainerItem of dinoTrainerList">
               {{dinoTrainerItem}}
@@ -110,7 +110,7 @@
       <div class="row text-center justify-content-center" style="margin-top: 0.25rem">
         <div class="col" style="margin-top: 1.25rem">Водитель</div>
         <div class="col">
-          <select [disabled]="!f.value.dino_id" style="margin-top: 1.2rem" *ngIf="dinoTrainerList?.length" id="driver" type=number name="driver_id" class="form-select" required ngModel>
+          <select [disabled]="!f.value.dino_id" style="margin-top: 1.2rem" id="driver" type=number name="driver_id" class="form-select" required ngModel>
             <option value="">&nbsp;</option>
             <option *ngFor="let driverItem of driverList">
               {{driverItem}}
