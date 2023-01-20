@@ -2,19 +2,29 @@ import {PersonalTableService} from './personal-table.service';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Employee} from '../../employee.interface';
 import { User, UserColumns } from './user';
-import { MatDialog } from '@angular/material/dialog';
-import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
 import {Router} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {NgForm} from '@angular/forms';
 
-// const USER_DATA = [
-//   {"id": 10, "first_name": "John", "second_name": "Smith", 'middle_name': 'Александрович', "role": "Хантер", "age": 36, "email": "mail@dino.ru", "password": '12345d'},
-//   {"name": "Igor Masri", "occupation": "Developer", "age": 28},
-//   {"name": "Peter Adams", "occupation": "HR", "age": 20},
-//   {"name": "Lora Bay", "occupation": "Marketing", "age": 43}
-// ];
+function translateRole(name: string) {
+  switch (name){
+    case 'Medic':
+      return 'Медик';
+    case 'Driver':
+      return 'Водитель';
+    case 'DinoTrainer':
+      return 'Дрессировщик';
+    case 'Manager':
+      return 'Управляющий';
+    case 'Worker':
+      return 'Работник';
+    case 'Navigator':
+      return 'Навигатор';
+    case 'Hunter':
+      return 'Хантер';
+  }
+  return name;
+}
 
 @Component({
   selector: 'app-personal-table',
@@ -41,9 +51,8 @@ export class PersonalTableComponent {
     this.personalTableService.getUsers().subscribe((res: any) => {
       console.log(res);
       for (let i=0; i < res.length; i++) {
-        res[i]['role'] = res[i]['role'].name;
+        res[i]['role'] = translateRole(res[i]['role'].name);
       }
-      console.log(res);
       this.dataSource = new MatTableDataSource<any>(res);
       this.dataSource.paginator = this.paginator;
     });

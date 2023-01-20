@@ -33,7 +33,7 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.momentumTask = res;
-      //console.log(this.momentumTask);
+      console.log(this.momentumTask);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения');

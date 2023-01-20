@@ -22,11 +22,12 @@ export class ScheduleComponent implements OnInit {
     {start: false, time: "16:00", task: 'Кормление', location: 5, end: false},
   ];
   displayedColumns = ['Начало', 'Время', 'Задача', 'Локация', 'Окончание'];
+  hasSchedule!: boolean;
 
   constructor(public appService: AppService,
               private scheduleService: ScheduleService,
               private notificationsService: NotificationsService) {
-
+    this.hasSchedule = true;
   }
 
   ngOnInit(): void {

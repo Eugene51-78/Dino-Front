@@ -11,7 +11,7 @@ import {ScheduleTableService} from './schedule-table.service';
 
 export class ScheduleTableComponent implements OnInit {
 
-  TASK_DATA: Task[] = [
+  TASK_DATA: any = [
     // {time: "10:00", task: "Кормление", location: 1},
     // {time: "12:00", task: 'Уборка', location: 2}
     // {time: "14:00", task: 'Кормление', location: 3},
@@ -20,6 +20,7 @@ export class ScheduleTableComponent implements OnInit {
   ];
 
   employeeList = [{id: 1, role: 'Worker'}, {id: 2, role: 'Medic'}, {id: 3, role: 'DinoTrainer'}]
+  currentRole!: string;
   timeList = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
   taskList!: string[];
   displayedColumns = ['Время', 'Задача', 'Локация'];
@@ -101,18 +102,23 @@ export class ScheduleTableComponent implements OnInit {
   onChangeEmployee(role: string) {
     // список задач зависит от роли сотрудника
     if (role == 'Worker') {
+      this.currentRole = 'Работник';
       this.taskList = ['', 'Уборка', 'Кормление'];
     }
     if (role == 'Medic') {
+      this.currentRole = 'Медик';
       this.taskList = ['', 'Лечение', 'Медосмотр'];
     }
     if (role == 'DinoTrainer') {
+      this.currentRole = 'Дрессировщик';
       this.taskList = ['', 'Тренировка', 'Осмотр'];
     }
     if (role == 'Driver') {
+      this.currentRole = 'Водитель';
       this.taskList = ['', 'Доставка еды', 'Перевозка материалов'];
     }
     if (role == 'Hunter') {
+      this.currentRole = 'Хантер';
       this.taskList = ['', 'Уборка', 'Кормление'];
     }
     this.dataSource = [];
@@ -121,7 +127,20 @@ export class ScheduleTableComponent implements OnInit {
   }
 
   sendSchedule() {
-    console.log(this.dataSource);
+    let schedule = this.dataSource;
+    for (let i =0 ; i < schedule.length; i++) {
+      delete schedule[i]['employee_id'];
+    }
+    console.log(schedule);
+    this.scheduleTableService.sendSchedule(schedule).subscribe(
+      () => {
+        this.notificationService.success("Успех", "Расписание отправлено");
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка отправки расписания");
+      }
+    );
   }
 }
 

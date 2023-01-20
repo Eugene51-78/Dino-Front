@@ -22,6 +22,7 @@
 <!--              {{timeItem}}-->
 <!--            </option>-->
 <!--          </select>-->
+          <span style="display: block;">Роль: {{currentRole}}</span>
           <span style="display: block;">Время: {{currentTime}}</span>
           <label for="task">Задача:</label>
           <select *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
