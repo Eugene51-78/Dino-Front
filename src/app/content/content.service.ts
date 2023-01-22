@@ -71,7 +71,7 @@ export class ContentService {
   }
 
   getHunterList() {
-    return this.http.get(this.baseApiUrl + '/api/user?role=Hunter');
+    return this.http.get(this.baseApiUrl + '/api/user/free?role=Hunter');
   }
 
   getMomentumTask() {

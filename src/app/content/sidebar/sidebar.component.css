@@ -6,6 +6,7 @@ mat-toolbar {
 mat-sidenav {
   margin: 16px;
   width: 200px;
+  height: 94%;
   border-right: none;
   background: #002b5c;
     /*#002b5c;*/
@@ -16,7 +17,7 @@ mat-sidenav {
 }
 
 .content {
-  height: calc(100vh - 98px);
+  height: 94%;
   max-width: 96%;
   border-radius: 10px;
   margin: 16px;
@@ -26,16 +27,17 @@ mat-sidenav {
   justify-content: center;
   align-items: center;
 
-  font-size: 1.25rem;
+  font-size: 1.0rem;
   color: gray;
 }
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
+  /*font-size: 1.1rem;*/
 }
 
 button {
-  width:140px
+  width: 140px;
 }
 
 
@@ -62,4 +64,16 @@ button {
   -webkit-transition: background-color 1000ms linear;
   -ms-transition: background-color 1000ms linear;
   transition: background-color 1000ms linear;
+}
+
+.btn-cont{
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }

@@ -12,7 +12,6 @@ import {User} from '../personal-table/user';
 export class ScheduleTableService {
   baseApiUrl: string;
   employee!: Employee;
-  fbToken!: string;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;
@@ -22,6 +21,10 @@ export class ScheduleTableService {
   getEmployeeList() {
     return this.http.get(this.baseApiUrl + '/api/user');
       // .pipe<any[]>(map((data: any) => data.users));
+  }
+
+  getLocationList() {
+    return this.http.get(this.baseApiUrl + '/api/location');
   }
 
   addUser(user: User): Observable<User> {

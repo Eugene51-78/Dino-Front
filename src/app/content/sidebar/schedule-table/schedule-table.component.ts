@@ -20,6 +20,7 @@ export class ScheduleTableComponent implements OnInit {
   ];
 
   employeeList = [{id: 1, role: {'name': 'Worker'}}, {id: 2, role: {'name': 'Medic'}}, {id: 3, role: {'name': 'DinoTrainer'}}]
+  locationList!: [];
   currentRole!: string;
   timeList = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
   taskList = ['', 'Уборка', 'Кормление'];
@@ -35,6 +36,7 @@ export class ScheduleTableComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataSource);
     this.getEmployeeList();
+    // this.getLocationList();
   }
 
   getEmployeeList(){
@@ -62,6 +64,20 @@ export class ScheduleTableComponent implements OnInit {
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения списка доступных Медиков');
+    });
+  }
+
+  getLocationList(){
+    this.scheduleTableService.getLocationList().subscribe((res: any) => {
+      if (res === null) {
+        console.log('res is null');
+        return;
+      }
+      console.log(res);
+      this.locationList = res;
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err.message);
+      this.notificationService.error('Ошибка получения списка доступных локаций');
     });
   }
 

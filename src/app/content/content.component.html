@@ -32,21 +32,33 @@
           </div>
           <div class="col">
             <div class="p-2">
-              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-warning col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
             </div>
           </div>
         </div>
-
-        <div class="row line" *ngIf="employee?.role?.name==='Medic'">
+        <div class="row line gx-1" *ngIf="employee?.role?.name ==='DinoTrainer'">
+          <div class="col text-end">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-primary col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" routerLink="/dinotrainer">Управление</button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-2">
+              <button type="button" [disabled]="appService.alarm?.value" class="btn btn-warning col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5" (click)="openGuardModal(guardModal)">Вызов Хантера</button>
+            </div>
+          </div>
+        </div>
+        <div class="row line" *ngIf="employee?.role?.name==='Medic' || employee?.role?.name==='DinoTrainer'">
         </div>
 
         <div class="row line gx-1" *ngIf="employee?.role?.name ==='Hunter'">
         </div>
-        <div class="col text-center">
-          <div class="p-2" *ngIf="employee?.role?.name === 'DinoTrainer'" routerLink="/dinotrainer">
-            <button [disabled]="appService.alarm?.value" class="btn btn-warning col-8 col-sm-4 col-md-4 col-lg-3 col-xl-2">Управление</button>
-          </div>
-        </div>
+
+<!--        <div class="col text-center">-->
+<!--          <div class="p-2" *ngIf="employee?.role?.name === 'DinoTrainer'" routerLink="/dinotrainer">-->
+<!--            <button [disabled]="appService.alarm?.value" class="btn btn-warning col-8 col-sm-4 col-md-4 col-lg-3 col-xl-2">Управление</button>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="col text-center">
           <div *ngIf="employee?.role?.name === 'Navigator'">
             <button [disabled]="appService.alarm?.value" routerLink="/navigator" class="btn btn-warning col-8 col-sm-4 col-md-4 col-lg-3 col-xl-2">Транспортировка</button>
@@ -73,6 +85,7 @@
     </div>
   </ng-template>
 </div>
+
 <ng-template #guardModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Вызов хантера</h4>

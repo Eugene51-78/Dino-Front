@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row line justify-content-center" *ngIf="hasMomentum()">
-      <div *ngIf="contentService.employee.role.name !== 'Medic'" class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
+      <div *ngIf="momentumTask!.from.id != appService.employee.role.id" class="card col-8 col-sm-7 col-md-6 col-lg-5 col-xl-5">
         <div class="card-body">
           <h5 class="card-title text-primary">Моментальная задача</h5>
           <p class="card-text">От: {{momentumTask!.from.firstName + ' ' + momentumTask!.from.secondName}}</p>

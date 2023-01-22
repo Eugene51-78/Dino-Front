@@ -1,29 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MomentumTask} from './momentum-task.interface';
 import {TaskService} from './task.service';
 import {NotificationsService} from 'angular2-notifications';
 import {AppService} from '../app.service';
 import {ContentService} from '../content/content.service';
+import {Employee} from '../content/employee.interface';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, AfterViewInit {
 
   momentumTask!: MomentumTask | null;
   interval: number | undefined;
+  employee!: any;
 
   constructor(private taskService: TaskService,
               public contentService: ContentService,
               private notificationService: NotificationsService,
               public appService: AppService) {
+    appService.setEmployeeFromServer();
+    this.employee = appService.employee;
   }
 
   ngOnInit(): void {
+    this.appService.setEmployeeFromServer();
+    this.employee = this.appService.employee;
     this.getMomentumTask();
+    console.log(this.employee);
     //this.interval = setInterval(() => {this.getMomentumTask();; console.log("int start")}, 5000);
+  }
+
+  ngAfterViewInit() {
+
   }
 
   getMomentumTask() {

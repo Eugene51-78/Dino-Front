@@ -49,6 +49,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { ScheduleComponent } from './schedule/schedule.component';
 import {ScheduleService} from './schedule/schedule.service';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {EditDinoComponent} from './content/sidebar/dino-table/edit-dino/edit-dino.component';
+import {AddDinoComponent} from './content/sidebar/dino-table/add-dino/add-dino.component';
+import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.component';
 
 // initializeApp(environment.firebase);
 
@@ -71,6 +74,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     NavigatorComponent,
     AddUserComponent,
     EditUserComponent,
+    DinoTableComponent,
+    AddDinoComponent,
+    EditDinoComponent,
     ScheduleComponent
   ],
   imports: [

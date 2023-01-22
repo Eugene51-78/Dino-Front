@@ -1,43 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {EditUserService} from './edit-user.service';
+import {EditDinoService} from './edit-dino.service';
 import {NotificationsService} from 'angular2-notifications';
 import {NgForm} from '@angular/forms';
-import {user} from '@angular/fire/auth';
-import {User} from '../user';
+import {Dino} from '../dino';
 import {ConfirmDialogComponent} from '../../../../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-edit-dino',
+  templateUrl: './edit-dino.component.html',
+  styleUrls: ['./edit-dino.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class EditDinoComponent implements OnInit {
 
   rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий'];
-  user!: any;
+  dino!: any;
 
   constructor(private router: Router,
-              private editUserService: EditUserService,
+              private editDinoService: EditDinoService,
               private notificationService: NotificationsService,
               public dialog: MatDialog) {
-    this.user = this.router.getCurrentNavigation()!.extras.state!['row'];
+    this.dino = this.router.getCurrentNavigation()!.extras.state!['row'];
   }
 
   ngOnInit(): void {
 
   }
 
-  private editUser(user: any) {
-    user.role = this.role_to_eng(user.role);
-    this.editUserService.editUser(user).subscribe(
+  private editDino(dino: any) {
+    dino.role = this.role_to_eng(dino.role);
+    this.editDinoService.editDino(dino).subscribe(
       () => {
-        this.notificationService.success("Успех", "Пользователь изменён");
+        this.notificationService.success("Успех", "Динозавр изменён");
       },
       error => {
         console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка изменения пользователя");
+        this.notificationService.error("Ошибка", "Ошибка изменения динозавра");
       }
     );
   }
@@ -48,9 +47,9 @@ export class EditUserComponent implements OnInit {
       .afterClosed()
       .subscribe((confirm) => {
         if (confirm) {
-          this.editUserService.deleteUser(id).subscribe(() => {
+          this.editDinoService.deleteUser(id).subscribe(() => {
           });
-          this.router.navigateByUrl('/content/(sidebar:personal)');
+          this.router.navigateByUrl('/content/(sidebar:dino)');
         }
       });
   }
@@ -84,7 +83,7 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(accountForm: NgForm) {
-    this.editUser(accountForm.value);
+    this.editDino(accountForm.value);
   }
 
 }

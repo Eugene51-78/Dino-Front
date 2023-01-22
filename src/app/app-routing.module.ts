@@ -15,6 +15,9 @@ import {AddUserComponent} from './content/sidebar/personal-table/add-user/add-us
 import {EditUserComponent} from './content/sidebar/personal-table/edit-user/edit-user.component';
 import {NavigatorComponent} from './navigator/navigator.component';
 import {ScheduleComponent} from './schedule/schedule.component';
+import {AddDinoComponent} from './content/sidebar/dino-table/add-dino/add-dino.component';
+import {EditDinoComponent} from './content/sidebar/dino-table/edit-dino/edit-dino.component';
+import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.component';
 
 const routes: Routes = [
   { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
@@ -36,6 +39,9 @@ const routes: Routes = [
       { path: 'personal', outlet: 'sidebar', canActivate:[AuthGuard], component: PersonalTableComponent },
       { path: 'addUser', outlet: 'sidebar', canActivate:[AuthGuard], component: AddUserComponent },
       { path: 'editUser', outlet: 'sidebar', canActivate:[AuthGuard], component: EditUserComponent },
+      { path: 'dino', outlet: 'sidebar', canActivate:[AuthGuard], component: DinoTableComponent },
+      { path: 'addDino', outlet: 'sidebar', canActivate:[AuthGuard], component: AddDinoComponent },
+      { path: 'editDino', outlet: 'sidebar', canActivate:[AuthGuard], component: EditDinoComponent },
   ]}
   // { path: 'notifications', component: NotificationComponent },
   // { path: 'alarm', component: AlarmComponent },
