@@ -18,6 +18,6 @@ export class DinoTableService {
   }
 
   getDino() {
-    return this.http.get(this.baseApiUrl + '/api/user');
+    return this.http.get(this.baseApiUrl + '/api/dino');
   }
 }

@@ -16,33 +16,33 @@ export const DinoColumns = [
     label: "ИД"
   },
   {
-    key: "secondName",
+    key: "name",
     type: "text",
-    label: "Фамилия"
+    label: "Кличка"
   },
   {
-    key: "firstName",
+    key: "type",
     type: "text",
-    label: "Имя"
-  },
-  {
-    key: "middleName",
-    type: "text",
-    label: "Отчество"
-  },
-  {
-    key: "role",
-    type: "text",
-    label: "Должность"
+    label: "Вид"
   },
   {
     key: "age",
-    type: "number",
+    type: "text",
     label: "Возраст"
   },
   {
-    key: "email",
+    key: "height",
+    type: "number",
+    label: "Рост"
+  },
+  {
+    key: "weight",
+    type: "number",
+    label: "Вес"
+  },
+  {
+    key: "location",
     type: "text",
-    label: "Почта"
+    label: "Локация"
   }
 ]

@@ -84,24 +84,24 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="password">Пароль</label>
-    <input type="password" class="form-control" id="password" name="password" #password="ngModel" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" [(ngModel)]="user.password">
-  </div>
-  <div *ngIf="!password?.valid && (password?.dirty || password?.touched)">
-    <div *ngIf="password.errors?.['required']">
-      <span style="color: red">Укажите пароль</span>
-    </div>
-    <div *ngIf="password.errors?.['pattern']">
-      <span style="color: orangered">Допустимые символы: цифры, буквы латинского алфавита</span>
-    </div>
-    <div *ngIf="password.errors?.['minlength']">
-      <span style="color: orange">Минимальная длина пароля - 6 символов</span>
-    </div>
-    <div *ngIf="password.errors?.['maxlength']">
-      <span style="color: orange">Максимальная длина пароля - 20 символов</span>
-    </div>
-  </div>
+<!--  <div class="form-group">-->
+<!--    <label for="password">Пароль</label>-->
+<!--    <input type="password" class="form-control" id="password" name="password" #password="ngModel" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" [(ngModel)]="user.password">-->
+<!--  </div>-->
+<!--  <div *ngIf="!password?.valid && (password?.dirty || password?.touched)">-->
+<!--    <div *ngIf="password.errors?.['required']">-->
+<!--      <span style="color: red">Укажите пароль</span>-->
+<!--    </div>-->
+<!--    <div *ngIf="password.errors?.['pattern']">-->
+<!--      <span style="color: orangered">Допустимые символы: цифры, буквы латинского алфавита</span>-->
+<!--    </div>-->
+<!--    <div *ngIf="password.errors?.['minlength']">-->
+<!--      <span style="color: orange">Минимальная длина пароля - 6 символов</span>-->
+<!--    </div>-->
+<!--    <div *ngIf="password.errors?.['maxlength']">-->
+<!--      <span style="color: orange">Максимальная длина пароля - 20 символов</span>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <p>
     <button type="submit" class="btn btn-primary" style="margin: 5%; margin-left: 2.5rem" [disabled]="!accountForm.valid">Изменить</button>

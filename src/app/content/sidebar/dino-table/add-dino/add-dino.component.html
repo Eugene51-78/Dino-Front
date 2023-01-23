@@ -1,104 +1,89 @@
-<!-- форма Фамилия Имя Отчество Email Пароль Должность -->
 <div class="container">
   <form style="font-size: 0.8em" #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)">
     <div class="form-group">
-      <label for="secondName">Фамилия</label>
-      <input type="text" class="form-control" id="secondName" name="secondName" #secondName="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
+      <label for="name">Кличка</label>
+      <input type="text" class="form-control" id="name" name="name" #name="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
     </div>
     <div>
-      <div *ngIf="!secondName?.valid && (secondName?.dirty || secondName?.touched)">
+      <div *ngIf="!name?.valid && (name?.dirty || name?.touched)">
     <!--      <span style="color: red"> Н</span>-->
-        <div *ngIf="secondName.errors?.['required']">
-          <span style="color: red">Введите фамилию</span>
+        <div *ngIf="name.errors?.['required']">
+          <span style="color: red">Введите кличку</span>
         </div>
-        <div *ngIf="secondName.errors?.['pattern']">
-          <span style="color: red">Некорректная фамилия</span>
+        <div *ngIf="name.errors?.['pattern']">
+          <span style="color: red">Некорректная кличка</span>
         </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="firstName">Имя</label>
-      <input type="text" class="form-control" id="firstName" name="firstName" #firstname="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
-    </div>
-    <div *ngIf="!firstname?.valid && (firstname?.dirty || firstname?.touched)">
-      <!--      <span style="color: red"> Н</span>-->
-      <div *ngIf="firstname.errors?.['required']">
-        <span style="color: red">Введите имя</span>
-      </div>
-      <div *ngIf="firstname.errors?.['pattern']">
-        <span style="color: red">Некорректное имя</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="middleName">Отчество</label>
-      <input type="text" class="form-control" id="middleName" name="middleName" #middleName="ngModel" pattern="^[А-Я][а-я]+$" ngModel>
+      <label for="type">Вид</label>
+      <input type="text" class="form-control" id="type" name="firstName" #type="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>
     </div>
-    <div *ngIf="!middleName?.valid && (middleName?.dirty || middleName?.touched)">
-      <div *ngIf="middleName.errors?.['pattern']">
-        <span style="color: red">Некорректное отчество</span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="role">Роль</label>
-      <select id="role" class="form-control" name="role" #role="ngModel" required ngModel>
-        <option [ngValue]="role_to_eng(role)" *ngFor="let role of rolesList">
-          {{role}}
-        </option>
-      </select>
-    </div>
-    <div *ngIf="!role?.valid && (role?.dirty || role?.touched)">
+    <div *ngIf="!type?.valid && (type?.dirty || type?.touched)">
       <!--      <span style="color: red"> Н</span>-->
-      <div *ngIf="role.errors?.['required']">
-        <span style="color: red">Выберите роль</span>
+      <div *ngIf="type.errors?.['required']">
+        <span style="color: red">Введите вид</span>
+      </div>
+      <div *ngIf="type  .errors?.['pattern']">
+        <span style="color: red">Некорректный вид</span>
       </div>
     </div>
 
     <div class="form-group">
       <label for="age">Возраст</label>
-      <input type="number" class="form-control" id="age" name="age" #age="ngModel" required [min]="15" [max]="99" ngModel>
+      <select id="age" class="form-control" name="age" #age="ngModel" required ngModel>
+        <option *ngFor="let age of ageList">
+          {{age}}
+        </option>
+      </select>
     </div>
     <div *ngIf="!age?.valid && (age?.dirty || age?.touched)">
+      <!--      <span style="color: red"> Н</span>-->
       <div *ngIf="age.errors?.['required']">
-        <span style="color: red">Укажите возраст</span>
-      </div>
-      <div *ngIf="age.errors?.['min'] || age.errors?.['max']">
-        <span style="color: red">Недопустимый возраст</span>
+        <span style="color: red">Выберите возраст</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" class="form-control" id="email" name="email" #email="ngModel" required email ngModel>
+      <label for="height">Рост</label>
+      <input type="number" class="form-control" id="height" name="height" #height="ngModel" required [min]="10" [max]="1000" ngModel>
     </div>
-    <div *ngIf="!email?.valid && (email?.dirty || email?.touched)">
-      <div *ngIf="email.errors?.['required']">
-        <span style="color: red">Укажите email</span>
+    <div *ngIf="!height?.valid && (height?.dirty || height?.touched)">
+      <div *ngIf="age.errors?.['required']">
+        <span style="color: red">Укажите рост</span>
       </div>
-      <div *ngIf="email.errors?.['email']">
-        <span style="color: red">Некорректный email</span>
+      <div *ngIf="height.errors?.['min'] || height.errors?.['max']">
+        <span style="color: red">Недопустимый рост</span>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="password">Пароль</label>
-      <input type="password" class="form-control" id="password" name="password" #password="ngModel" required minlength="6" pattern="^[a-z0-9!_A-Z]+$" maxlength="20" ngModel>
+      <label for="weight">Вес</label>
+      <input type="number" class="form-control" id="weight" name="weight" #weight="ngModel" required [min]="5" [max]="10000" ngModel>
     </div>
-    <div *ngIf="!password?.valid && (password?.dirty || password?.touched)">
-      <div *ngIf="password.errors?.['required']">
-        <span style="color: red">Укажите пароль</span>
+    <div *ngIf="!weight?.valid && (weight?.dirty || weight?.touched)">
+      <div *ngIf="age.errors?.['required']">
+        <span style="color: red">Укажите вес</span>
       </div>
-      <div *ngIf="password.errors?.['pattern']">
-        <span style="color: orangered">Допустимые символы: цифры, буквы латинского алфавита</span>
-      </div>
-      <div *ngIf="password.errors?.['minlength']">
-        <span style="color: orange">Минимальная длина пароля - 6 символов</span>
-      </div>
-      <div *ngIf="password.errors?.['maxlength']">
-        <span style="color: orange">Максимальная длина пароля - 20 символов</span>
+      <div *ngIf="weight.errors?.['min'] || weight.errors?.['max']">
+        <span style="color: red">Недопустимый вес</span>
       </div>
     </div>
+
+<!--    <div class="form-group">-->
+<!--      <label for="location">Локация</label>-->
+<!--      <input type="text" class="form-control" id="location" name="location" #type="ngModel" pattern="^[А-Я][а-я]+$" required ngModel>-->
+<!--    </div>-->
+<!--    <div *ngIf="!type?.valid && (type?.dirty || type?.touched)">-->
+<!--      &lt;!&ndash;      <span style="color: red"> Н</span>&ndash;&gt;-->
+<!--      <div *ngIf="type.errors?.['required']">-->
+<!--        <span style="color: red">Введите локацию</span>-->
+<!--      </div>-->
+<!--      <div *ngIf="type  .errors?.['pattern']">-->
+<!--        <span style="color: red">Некорректное локацию</span>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <p>
       <button type="submit" class="btn btn-primary" style="margin: 5%" [disabled]="!accountForm.valid">Добавить</button>

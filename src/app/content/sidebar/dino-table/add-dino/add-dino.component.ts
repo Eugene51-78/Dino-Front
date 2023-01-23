@@ -11,7 +11,7 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class AddDinoComponent implements OnInit {
 
-  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий'];
+  ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
 
   constructor(private addUserService: AddDinoService, private notificationService: NotificationsService) { }
 

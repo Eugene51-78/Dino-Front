@@ -14,7 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class EditDinoComponent implements OnInit {
 
-  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий'];
+  ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
   dino!: any;
 
   constructor(private router: Router,

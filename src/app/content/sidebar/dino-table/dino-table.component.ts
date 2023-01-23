@@ -50,8 +50,12 @@ export class DinoTableComponent {
   getDino() {
     this.dinoTableService.getDino().subscribe((res: any) => {
       console.log(res);
+      // for (let i=0; i < res.length; i++) {
+      //   res[i]['role'] = translateRole(res[i]['role'].name);
+      // }
       for (let i=0; i < res.length; i++) {
-        res[i]['role'] = translateRole(res[i]['role'].name);
+        res[i]['type'] = res[i]['type'].type;
+        res[i]['location'] = res[i]['location'].name;
       }
       this.dataSource = new MatTableDataSource<any>(res);
       this.dataSource.paginator = this.paginator;
