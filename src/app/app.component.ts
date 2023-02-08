@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
     //this.appService.getAlarm();
     setInterval(() => {
       this.getAlarmFromServer();
-    }, 1000);
+    }, 2000);
     //setInterval( () => { console.log("123"); }, 3000);
   }
 

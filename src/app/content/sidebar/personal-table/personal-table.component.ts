@@ -78,4 +78,9 @@ export class PersonalTableComponent {
     this.router.navigateByUrl('/content/(sidebar:editUser)', { state: {row} });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }

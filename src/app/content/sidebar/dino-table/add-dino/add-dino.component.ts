@@ -12,19 +12,23 @@ import {NotificationsService} from 'angular2-notifications';
 export class AddDinoComponent implements OnInit {
 
   ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
+  typeList!: string[];
 
-  constructor(private addUserService: AddDinoService, private notificationService: NotificationsService) { }
+  constructor(private addDinoService: AddDinoService, private notificationService: NotificationsService) {
+    this.typeList = [];
+  }
 
   ngOnInit(): void {
+    this.getTypeList();
   }
 
   onSubmit(accountForm: NgForm) {
     console.log(accountForm.value);
-    this.addUser(accountForm.value);
+    this.addDino(accountForm.value);
   }
 
-  private addUser(accountForm: any) {
-    this.addUserService.addDino(accountForm).subscribe(
+  private addDino(accountForm: any) {
+    this.addDinoService.addDino(accountForm).subscribe(
       () => {
         this.notificationService.success("Успех", "Динозавр добавлен");
       },
@@ -62,4 +66,13 @@ export class AddDinoComponent implements OnInit {
     }
     return eng_role;
   }
+
+  private getTypeList() {
+    this.addDinoService.getTypeList().subscribe((res: any) => {
+      for (let i=0; i < res.length; i++) {
+        this.typeList.push(res[i]['type']);
+      }
+    });
+  }
+
 }

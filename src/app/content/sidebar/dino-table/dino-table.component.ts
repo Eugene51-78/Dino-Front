@@ -71,4 +71,9 @@ export class DinoTableComponent {
     this.router.navigateByUrl('/content/(sidebar:editDino)', { state: {row} });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }

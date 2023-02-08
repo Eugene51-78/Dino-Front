@@ -36,14 +36,23 @@ export class NavigatorService {
   }
 
   stopMomentumTask(id: number) {
-    return this.http.post(this.baseApiUrl + '/api/task/end?taskId='+id, null);
+    return this.http.post(this.baseApiUrl + '/api/task/end?taskId=' + id, null);
   }
 
-  getMomentumTask() {
+  getCurrentTask() {
     return this.http.get(this.baseApiUrl + '/api/task/send');
   }
 
-  roleRequest(task: any) {
+  transportationRequest(task: any) {
+    return this.http.post(`${this.baseApiUrl}/api/task`, task)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
+
+  transRequest(task: any) {
     return this.http.post(`${this.baseApiUrl}/api/task`, task)
       .pipe(
         catchError(errorRes =>{
@@ -57,18 +66,14 @@ export class NavigatorService {
   }
 
   stopTransportation(id: number) {
-    return this.http.post(this.baseApiUrl + '/api/task/end?taskId='+id, null);
+    return this.http.post(this.baseApiUrl + '/api/task/resend?taskId=' + id, null);
     // return this.http.post(this.baseApiUrl + '/api/transport/end?taskId='+id, null);
   }
 
-  transportationRequest(task: any) {
-    return this.http.post(`${this.baseApiUrl}/api/transport`, task)
-      .pipe(
-        catchError(errorRes =>{
-          return throwError(errorRes);
-        })
-      );
-  }
+  // cancelTransportation(id: number) {
+  //   return this.http.post(this.baseApiUrl + '/api/task/end?taskId='+id, null);
+  //   // return this.http.post(this.baseApiUrl + '/api/transport/end?taskId='+id, null);
+  // }
 
   getRecommendations() {
     return this.http.get(this.baseApiUrl + '/api/recommend');

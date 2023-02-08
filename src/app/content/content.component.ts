@@ -143,7 +143,7 @@ export class ContentComponent implements OnInit {
     };
     this.hunterRequest(task);
 
-    this.modalService.dismissAll(); //dismiss the modal
+    this.modalService.dismissAll();
   }
 
   private hunterRequest(task: any) {

@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {Notification} from '../notification/notification.component';
-import {ScheduleService} from './schedule.service';
+import {ScheduleService} from '../schedule/schedule.service';
 import {NotificationsService} from 'angular2-notifications';
-import * as moment from 'moment';
-import {DatePipe, formatDate} from '@angular/common';
+import {DatePipe} from '@angular/common';
+import {InspectorService} from './inspector.service';
 
 @Component({
-  selector: 'app-schedule',
-  templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  selector: 'app-inspector',
+  templateUrl: './inspector.component.html',
+  styleUrls: ['./inspector.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class InspectorComponent implements OnInit {
 
   TASK_DATA: UserTask[] = [
     {time: "10:00", task: "Кормление", location: 1},
@@ -54,6 +52,7 @@ export class ScheduleComponent implements OnInit {
     console.log(row);
     //   отправить запрос
   }
+
   changeEndStatus(row: any) {
     console.log(row);
     //   отправить запрос
@@ -90,7 +89,7 @@ export class ScheduleComponent implements OnInit {
     const targetString : string = taskTime;
     const rExp: RegExp = /\d\d/;
     const hour = rExp.exec(targetString);
-      // @ts-ignore
+    // @ts-ignore
     if (curHour - hour >= -1 && curHour - hour <= 1) {
       return true;
     } else {

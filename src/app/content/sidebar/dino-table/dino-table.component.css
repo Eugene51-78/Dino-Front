@@ -11,3 +11,7 @@ table {
 .mat-form-field-infix {
   width: 10px;
 }
+
+.mat-row:hover .mat-cell{
+  background-color: #fff5a2;
+}

@@ -1,0 +1,21 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {environment} from '../../environments/environment';
+
+@Injectable()
+export class InspectorService {
+
+  baseApiUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.baseApiUrl = environment.baseApi;
+  }
+
+  getSchedule() {
+    return this.http.get(this.baseApiUrl + '/api/schedule');
+  }
+
+  getStartStatus(row: string) {
+    return this.http.get(this.baseApiUrl + '/api/schedule?' + row);
+  }
+}

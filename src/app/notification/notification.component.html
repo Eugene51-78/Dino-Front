@@ -1,4 +1,4 @@
-<header [ngClass]="{'alarm' : appService.alarm?.value}">
+<header [ngClass]="{'alarm' : appService.alarm?.value, 'manager': appService.employee.role.name == 'Manager'} ">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -11,7 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <table mat-table [dataSource]="dataSource" [ngClass]="{'manager': appService.employee.role.name === 'Manager'}" class="mat-elevation-z8 col-12 line">
+      <table mat-table [dataSource]="dataSource" [ngClass]="{'manager1': appService.employee.role.name == 'Manager'}" class="mat-elevation-z8 col-12 line">
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> ИД </th>

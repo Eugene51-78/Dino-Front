@@ -10,11 +10,16 @@
   </header>
 
   <article class="table-header">
-  <!--  "['./', {outlets: { sidebar: ['addUser'] } }]"-->
-  <!--  ['/content', {outlets: {'sidebar': ['personal', {outlets: {'sidebar': ['addUser']}}]}}]);-->
-  <!--  (click)="goToAddAccount()"-->
-    <button class="btn btn-success" style="margin: 1%" color="green" (click)="goToAddDino()">Добавить дино</button>
+    <!--  "['./', {outlets: { sidebar: ['addUser'] } }]"-->
+    <!--  ['/content', {outlets: {'sidebar': ['personal', {outlets: {'sidebar': ['addUser']}}]}}]);-->
+    <!--  (click)="goToAddAccount()"-->
   </article>
+
+  <mat-form-field appearance="standard">
+    <mat-label>Поиск</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Поиск" #input>
+  </mat-form-field>
+  <button class="btn btn-success" style="margin-left: 10%" color="green" (click)="goToAddDino()">Добавить дино</button>
   <table mat-table [dataSource]="dataSource">
     <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
       <th mat-header-cell routerLink="[/editDino, dino.id]" *matHeaderCellDef>

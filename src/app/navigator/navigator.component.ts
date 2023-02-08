@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
 import {FormControl} from '@angular/forms';
 import {NavigatorService} from './navigator.service';
@@ -11,22 +11,22 @@ import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
   styleUrls: ['./navigator.component.css']
 })
 
-export class NavigatorComponent implements OnInit {
+export class NavigatorComponent implements OnInit, OnDestroy {
 
-  locationList = [1, 4, 10];
-  dinoList = [1, 2, 5];
-  medicList = [1, 2, 3];
-  dinoTrainerList = [1, 2, 3];
-  driverList = [1, 2, 3];
-  progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
+  locationList!: any[];
+  dinoList!: any[];
+  medicList!: any[];
+  dinoTrainerList!: any[];
+  driverList!: any[];
+  // progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
   interval: number | undefined;
-  transportation: any;
-  currentDinoTrainerID: any;
-  currentDriverID: any;
   isRecomOn!: boolean;
-  medic = {id: 0, taskId: 0, taskStatusId: 0};
-  dinoTrainer = {id: 0, taskId: 0, taskStatusId: 0};
-  driver = {id: 0, taskId: 0, taskStatusId: 0};
+  medic = {id: -1, taskId: -1, taskStatusId: -1};
+  dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
+  driver = {id: -1, taskId: -1, taskStatusId: -1};
+  groupId: any;
+  flag = true;
+  // private task: ({ from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number })[];
 
   constructor(public appService: AppService,
               public navigatorService: NavigatorService,
@@ -35,15 +35,20 @@ export class NavigatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.interval = setInterval(() => {this.getCurrentTask(); console.log("запрос текущих задач")}, 5000);
-    // this.getCurrentTransportation();
+    this.getLocationList();
+    this.interval = setInterval(() => {this.getCurrentTask(); console.log("запрос текущих задач")}, 3000);
     // this.isRecomOn = false;
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   onSubmit(value: any) {
     console.log(value);
     const comment = "Локация: " + value.location + ", Дино ИД: " +  value.dino_id;
+    // const comment = value.location + ", " +  value.dino_id;
     const task1 = {
       "from": this.appService.employee.id,
       "to": +value.medic_id,
@@ -65,100 +70,92 @@ export class NavigatorComponent implements OnInit {
       "status": 1,
       "comment": comment
     };
-    this.roleRequest(task1);
-    this.roleRequest(task2);
-    this.roleRequest(task3);
+    const task_init = [task1, task2, task3]
+    // this.roleRequest(task1);
+    // this.roleRequest(task2);
+    // this.roleRequest(task3);
+    this.transportationRequest(task_init);
     this.getCurrentTask();
   }
 
-  private roleRequest(task: any) {
+  private transportationRequest(task: any) {
     console.log(task);
-    this.navigatorService.roleRequest(task).subscribe(
+    this.navigatorService.transportationRequest(task).subscribe(
       () => {
         this.notificationService.success("Успех", "Запрос отправлен");
       },
       error => {
         console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка отправки запроса Хантеру");
+        this.notificationService.error("Ошибка", "Ошибка отправки запроса транспортировки");
       }
     );
   }
 
   private getCurrentTask() {
-    this.navigatorService.getMomentumTask().subscribe((res: any) => {
+    this.navigatorService.getCurrentTask().subscribe((res: any) => {
+      console.log(res);
       if (res.length == 0) {
         // задач нет
-        this.getLocationList();
-        // this.currentMedicID = "";
-        this.getMedicList();
-        this.currentDinoTrainerID = "";
+        this.medic = {id: -1, taskId: -1, taskStatusId: -1};
+        this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
+        this.driver = {id: -1, taskId: -1, taskStatusId: -1};
+        if (this.flag) {
+          this.getDinoList();
+          this.getMedicList();
+          this.getDinoTrainerList();
+          this.getDriverList();
+          this.flag = false;
+        }
+      } else {
+        this.getDinoList();
         this.getDinoTrainerList();
-        this.currentDriverID = "";
         this.getDriverList();
+        this.dinoTrainer = {id: 0, taskStatusId: 0, taskId: 0}
+        // задачи есть
         console.log(res);
-        return;
-      }
-      // задачи есть
-      console.log(res);
-      for (let i = 0; i < res.length; i++) {
-        if (res[i]['to']['role']['name'] == "Medic") {
-          this.medic.id = res[i]['to']['id'];
-          this.medic.taskStatusId = res[i]['status']['id'];
-          this.medic.taskId = res[i]['id'];
-          console.log(this.medic);
-        }
-        if (res[i]['to']['role']['name'] == "DinoTrainer") {
-          this.dinoTrainer.id = res[i]['to']['id'];
-          this.dinoTrainer.taskStatusId = res[i]['status']['id'];
-          this.dinoTrainer.taskId = res[i]['id'];
-          console.log(this.dinoTrainer);
-        }
-        if (res[i]['to']['role']['name'] == "Driver") {
-          this.driver.id = res[i]['to']['id'];
-          this.driver.taskStatusId = res[i]['status']['id'];
-          this.driver.taskId = res[i]['id'];
-          console.log(this.driver);
-        }
-      }
-      // this.currentMedicID = res.
-      // this.medicList = [];
-      // this.getLocationList();
-      // this.getDinoList();
-      // this.getMedicList();
-      // this.getDinoTrainerList();
-      // this.getDriverList();
-      // this.currentMedicID = this.medicTask.to.id;
-      // this.progressStatus = this.medicTask.status.id;
-    }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
-      //this.notificationService.error('Ошибка получения текущей задачи')
-    });
-  }
+        this.groupId = res[0]['groupId'];
+        console.log(this.groupId);
+        // res = res['tasks']
+        for (let i = 0; i < res.length; i++) {
+          if (res[i]['to']['role']['name'] == "Medic") {
+            this.medic.id = res[i]['to']['id'];
+            this.medic.taskStatusId = res[i]['status']['id'];
+            this.medic.taskId = res[i]['id'];
+            this.medicList = [this.medic.id];
+          }
+          if (res[i]['to']['role']['name'] == "DinoTrainer") {
+            this.dinoTrainer.id = res[i]['to']['id'];
+            this.dinoTrainer.taskStatusId = res[i]['status']['id'];
+            this.dinoTrainer.taskId = res[i]['id'];
+            this.dinoTrainerList = [this.dinoTrainer.id];
+          }
+          if (res[i]['to']['role']['name'] == "Driver") {
+            this.driver.id = res[i]['to']['id'];
+            this.driver.taskStatusId = res[i]['status']['id'];
+            this.driver.taskId = res[i]['id'];
+            this.driverList = [this.driver.id];
+          }
 
-  private getCurrentTransportation() {
-    this.navigatorService.getTransportTask().subscribe((res: any) => {
-      if (res === null) {
-        // this.progressStatus = {'medic': 1, 'dinoTrainer': 2, 'driver': 3};
-        // this.currentMedicID = null;
-        this.getMedicList();
-        this.currentDinoTrainerID = null;
-        this.getDinoTrainerList();
-        this.currentDriverID = null;
-        this.getDriverList();
-        return;
+          console.log(this.medic);
+          if (this.medic.id == 0) {
+            console.log('hei');
+            this.medic = {id: 0, taskId: 0, taskStatusId: 0};
+            this.getMedicList();
+          }
+          if (this.dinoTrainer.id == 0) {
+            this.dinoTrainer = {id: 0, taskId: 0, taskStatusId: 0};
+            this.getDinoTrainerList();
+          }
+          if (this.driver.id == 0) {
+            console.log('Hule')
+            this.driver = {id: 0, taskId: 0, taskStatusId: 0};
+            this.getDriverList();
+          }
+        }
       }
-      // this.medicList = [];
-      this.transportation = res;
-      // this.currentMedicID = this.Transportation.medic.id; // нужна такая структура в ответе
-      this.progressStatus = this.transportation.status; // статусы всех в одном поле
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.getLocationList();
-      this.getDinoList();
-      this.getMedicList();
-      this.getDinoTrainerList();
-      this.getDriverList();
-      this.notificationService.error('Ошибка получения текущей задачи');
+      // this.notificationService.error('Ошибка получения текущей задачи транспортировки')
     });
   }
 
@@ -202,6 +199,7 @@ export class NavigatorComponent implements OnInit {
       this.notificationService.error('Ошибка получения списка доступных Дино');
     });
   }
+
   private getMedicList() {
     this.navigatorService.getMedicList().subscribe((res: any) => {
       if (res === null) {
@@ -261,31 +259,62 @@ export class NavigatorComponent implements OnInit {
     });
   }
 
-  private transportationRequest(value: any) {
-    const task = {
-      "from": this.appService.employee.id,
-      "to": value.id,
-      "type": 1,
-      "status": 1,
-      "comment": "test"
-    };
-    this.navigatorService.transportationRequest(task).subscribe(
-      () => {
-        this.notificationService.success("Успех", "Транспортировка назначена");
-      },
-      error => {
-        console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка отправки запроса на транспортировку");
-      }
-    );
+  stopTransportations() {
+    if (this.medic.taskStatusId == 4 || this.medic.taskStatusId == 2 || this.medic.taskStatusId == 1) {
+      this.stopTransportation(this.medic.taskId);
+    }
+    if (this.dinoTrainer.taskStatusId == 4 || this.dinoTrainer.taskStatusId == 2 || this.dinoTrainer.taskStatusId == 1) {
+      console.log('удаляем');
+      this.stopTransportation(this.dinoTrainer.taskId);
+    }
+    if (this.driver.taskStatusId == 4 || this.driver.taskStatusId == 2 || this.driver.taskStatusId == 1) {
+      this.stopTransportation(this.driver.taskId);
+    }
   }
 
-  stopTransportation() {
-    this.navigatorService.stopTransportation(this.medic.taskId).subscribe(
+  resetSome(value: any) {
+    const comment = "123"
+    console.log(this.driver);
+    if (this.medic.taskStatusId == 0) {
+      const task = [{
+        "from": this.appService.employee.id,
+        "to": +value.medic_id,
+        "type": 2,
+        "comment": comment,
+        "groupId": this.groupId
+      }];
+      this.transportationRequest(task);
+    }
+    if (this.dinoTrainer.taskStatusId == 0) {
+      const task = [{
+        "from": this.appService.employee.id,
+        "to": +value.trainer_id,
+        "type": 2,
+        "comment": comment,
+        "groupId": this.groupId
+      }];
+      this.transportationRequest(task);
+    }
+    if (this.driver.taskStatusId == 0) {
+      const task = [{
+        "from": this.appService.employee.id,
+        "to": +value.driver_id,
+        "type": 2,
+        "comment": comment,
+        "groupId": this.groupId
+      }];
+      console.log(task);
+      this.transportationRequest(task);
+    }
+  }
+
+  stopTransportation(taskId: number) {
+    console.log('Stop transport')
+    this.navigatorService.stopTransportation(taskId).subscribe(
       () => {
-        this.progressStatus.medic = 0;
-        this.progressStatus.dinoTrainer = 0;
-        this.progressStatus.driver = 0;
+        this.medic.taskStatusId = 0;
+        this.dinoTrainer.taskStatusId = 0;
+        this.driver.taskStatusId = 0;
         // this.getCurrentTransportation();
         this.notificationService.success("Успех", "Транспортировка завершена успешно");
       },

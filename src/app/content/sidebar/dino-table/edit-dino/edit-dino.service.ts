@@ -16,12 +16,17 @@ export class EditDinoService {
     this.baseApiUrl = environment.baseApi;
   }
 
-  editDino(user: any): Observable<any> {
-    console.log(user);
-    return this.http.patch<any>(`${this.baseApiUrl}/api/user`, user);
+  editDino(dino: any): Observable<any> {
+    console.log(dino);
+    return this.http.patch<any>(`${this.baseApiUrl}/api/dino`, dino);
   }
 
-  deleteUser(id: number): Observable<Dino> {
-    return this.http.delete<Dino>(`${this.baseApiUrl}/api/user/${id}`);
+  deleteDino(id: number): Observable<Dino> {
+    return this.http.delete<Dino>(`${this.baseApiUrl}/api/dino/${id}`);
   }
+
+  getTypeList() {
+    return this.http.get(this.baseApiUrl + '/api/dino/type');
+  }
+
 }

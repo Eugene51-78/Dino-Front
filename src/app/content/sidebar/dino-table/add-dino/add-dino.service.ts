@@ -19,4 +19,8 @@ export class AddDinoService {
     console.log(dino);
     return this.http.post<Dino>(`${this.baseApiUrl}/api/dino`, dino);
   }
+
+  getTypeList() {
+    return this.http.get(this.baseApiUrl + '/api/dino/type');
+  }
 }

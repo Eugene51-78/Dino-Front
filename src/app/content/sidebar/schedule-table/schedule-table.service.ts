@@ -9,6 +9,7 @@ import {User} from '../personal-table/user';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ScheduleTableService {
   baseApiUrl: string;
   employee!: Employee;

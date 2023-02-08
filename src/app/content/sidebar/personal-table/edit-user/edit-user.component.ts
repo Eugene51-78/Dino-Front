@@ -15,7 +15,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class EditUserComponent implements OnInit {
 
-  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий'];
+  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Навигатор', 'Управляющий'];
   user!: any;
 
   constructor(private router: Router,
@@ -86,5 +86,4 @@ export class EditUserComponent implements OnInit {
   onSubmit(accountForm: NgForm) {
     this.editUser(accountForm.value);
   }
-
 }

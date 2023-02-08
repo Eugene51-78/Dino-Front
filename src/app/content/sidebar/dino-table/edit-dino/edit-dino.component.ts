@@ -6,6 +6,7 @@ import {NgForm} from '@angular/forms';
 import {Dino} from '../dino';
 import {ConfirmDialogComponent} from '../../../../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-edit-dino',
@@ -15,6 +16,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class EditDinoComponent implements OnInit {
 
   ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
+  typeList!: string[];
   dino!: any;
 
   constructor(private router: Router,
@@ -22,10 +24,11 @@ export class EditDinoComponent implements OnInit {
               private notificationService: NotificationsService,
               public dialog: MatDialog) {
     this.dino = this.router.getCurrentNavigation()!.extras.state!['row'];
+    this.typeList = [];
   }
 
   ngOnInit(): void {
-
+    this.getTypeList();
   }
 
   private editDino(dino: any) {
@@ -41,13 +44,13 @@ export class EditDinoComponent implements OnInit {
     );
   }
 
-  deleteUser(id: number) {
+  deleteDino(id: number) {
     this.dialog
       .open(ConfirmDialogComponent)
       .afterClosed()
       .subscribe((confirm) => {
         if (confirm) {
-          this.editDinoService.deleteUser(id).subscribe(() => {
+          this.editDinoService.deleteDino(id).subscribe(() => {
           });
           this.router.navigateByUrl('/content/(sidebar:dino)');
         }
@@ -86,4 +89,11 @@ export class EditDinoComponent implements OnInit {
     this.editDino(accountForm.value);
   }
 
+  private getTypeList() {
+    this.editDinoService.getTypeList().subscribe((res: any) => {
+      for (let i=0; i < res.length; i++) {
+        this.typeList.push(res[i]['type']);
+      }
+    });
+  }
 }

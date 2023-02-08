@@ -19,14 +19,14 @@ export class ScheduleTableComponent implements OnInit {
     // {time: "16:00", task: 'Кормление', location: 5},
   ];
 
-  employeeList = [{id: 1, role: {'name': 'Worker'}}, {id: 2, role: {'name': 'Medic'}}, {id: 3, role: {'name': 'DinoTrainer'}}]
-  locationList!: [];
+  employeeList = [{id: 1, role: {'name': 'Worker'}}, {id: 2, role: {'name': 'Medic'}}, {id: 3, role: {'name': 'DinoTrainer'}}];
+  locationList!: any;
   currentRole!: string;
   timeList = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
   taskList = ['', 'Уборка', 'Кормление'];
   displayedColumns = ['Время', 'Задача', 'Локация'];
   dataSource = this.TASK_DATA;
-  timeIndex = 0
+  timeIndex = 0;
   currentTime = this.timeList[this.timeIndex];
   stopAdd = false;
 
@@ -36,7 +36,7 @@ export class ScheduleTableComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.dataSource);
     this.getEmployeeList();
-    // this.getLocationList();
+    this.getLocationList();
   }
 
   getEmployeeList(){

@@ -1,5 +1,6 @@
 mat-toolbar {
-  background: #ff6300;
+  /*background: #ff6300;*/
+  background: #be441b;
   color: white;
 }
 
@@ -17,6 +18,11 @@ mat-sidenav {
 }
 
 .content {
+  background-image: url(../../../assets/fon.jpg);
+  background-size: no-repeat;
+  background-position: center;
+  background-size: cover;
+
   height: 94%;
   max-width: 96%;
   border-radius: 10px;
@@ -28,7 +34,8 @@ mat-sidenav {
   align-items: center;
 
   font-size: 1.0rem;
-  color: gray;
+  color: darkred;
+  /*font-weight: bolder;*/
 }
 
 mat-sidenav-container {

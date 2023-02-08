@@ -1,6 +1,6 @@
 header{
   background-color: orange;
-  color: white;
+  color: black;
 }
 .line1{
   margin-top: 8rem;
@@ -21,6 +21,11 @@ button{
   background-color: red;
 }
 
+.manager {
+  background-color: transparent;
+  margin-top: 3rem;
+  color: midnightblue;
+}
 /*header {*/
 /*  height: 4rem;*/
 /*  justify-content: space-between;*/
@@ -56,8 +61,8 @@ button{
   font-style: italic;
 }
 
-.manager {
-  width: 70rem;
+.manager1 {
+  width: 60rem;
 }
 
 /*.col-0 {*/

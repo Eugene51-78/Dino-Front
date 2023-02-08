@@ -1,9 +1,20 @@
 @media (min-width: 1200px) {
   .container {
     width: 1000px;
+    font-size: 0.9rem;
+    /*color: black;*/
+    border: black;
   }
 }
 
 table {
+  background-color: #f9f993;
   width: 100%;
+  font-size: 0.9rem;
+  /*background-size: 40rem 200rem;*/
+
+}
+
+input {
+  font-size: 0.9rem;
 }

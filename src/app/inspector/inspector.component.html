@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2>Расписание</h2>
+        <h2>Задачи для контроля</h2>
       </div>
     </div>
   </div>
 </header>
 
-<div *ngIf="appService.employee.role.name != 'Manager'" class="container">
+<div *ngIf="appService.employee.role.name == 'Inspector'" class="container">
 
   <div class="row">
     <div class="col-12 line1">

@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-6">
         <p class="text-center">
-          <label for="employee">Расписание для сотрудника:</label>
+          <label style="margin-right: 6rem" for="employee">Расписание для сотрудника:</label>
           <select *ngIf="employeeList?.length" id="employee" type=number name="employee_id" class="form-select" required ngModel>
             <option> </option>
             <option *ngFor="let employeeItem of employeeList" (click)="onChangeEmployee(employeeItem.role.name)">
@@ -23,21 +23,21 @@
 <!--              {{timeItem}}-->
 <!--            </option>-->
 <!--          </select>-->
-          <span style="display: block;">Роль: {{currentRole}}</span>
-          <span style="display: block;">Время: {{currentTime}}</span>
+          <span style="display: block; margin-bottom: 2rem">Роль: {{currentRole}}</span>
+          <span style="display: block; margin-bottom: 2rem">Время: {{currentTime}}</span>
           <label for="task">Задача:</label>
-          <select *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
+          <select style="margin-bottom: 2rem" *ngIf="employeeList?.length" id="task" type=number name="task" class="form-select" required ngModel>
             <option *ngFor="let taskItem of taskList">
               {{taskItem}}
             </option>
           </select>
           <label for="location">Локация:</label>
           <select *ngIf="employeeList?.length" id="location" type=number name="location" class="form-select" required ngModel>
-            <option *ngFor="let locationItem of employeeList">
-              {{locationItem.id}}
+            <option *ngFor="let locationItem of locationList">
+              {{locationItem.name}}
             </option>
           </select>
-          <button style="margin-top: 1rem" type="button" class="btn btn-success col-10 col-sm-10 col-md-10 col-lg-8 col-xl-6" [disabled]="!f.valid || stopAdd" (click)="addRow(f)">Добавить</button>
+          <button style="margin-top: 10rem" type="button" class="btn btn-warning col-10 col-sm-10 col-md-10 col-lg-8 col-xl-6" [disabled]="!f.valid || stopAdd" (click)="addRow(f)">Добавить</button>
         </p>
       </div>
 
@@ -65,16 +65,10 @@
 
           </table>
 
-          <button mat-button class="button-remove" (click)="removeRow()">Удалить последнюю задачу</button>
+          <button mat-button class="btn-light" (click)="removeRow()">Удалить последнюю задачу</button>
+          <button mat-button class="btn btn-primary col-4" style="margin-left: 16rem" *ngIf="dataSource.length == 7" [disabled]="dataSource.length != 7" (click)="sendSchedule()">Подтвердить</button>
         </div>
       </div>
     </div>
   </form>
-  <div class="row justify-content-center">
-    <div class="col-md">
-      <div class="col-6 text-center align-items-md-end">
-        <button class="btn btn-primary text-center col-6" *ngIf="dataSource.length == 7" [disabled]="dataSource.length != 7" (click)="sendSchedule()">Подтвердить</button>
-      </div>
-    </div>
-  </div>
 </div>

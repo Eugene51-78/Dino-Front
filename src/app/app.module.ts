@@ -52,6 +52,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {EditDinoComponent} from './content/sidebar/dino-table/edit-dino/edit-dino.component';
 import {AddDinoComponent} from './content/sidebar/dino-table/add-dino/add-dino.component';
 import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.component';
+import { InspectorComponent } from './inspector/inspector.component';
 
 // initializeApp(environment.firebase);
 
@@ -77,7 +78,8 @@ import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.compon
     DinoTableComponent,
     AddDinoComponent,
     EditDinoComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    InspectorComponent
   ],
   imports: [
     BrowserModule,
