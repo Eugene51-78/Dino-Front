@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
 import {ScheduleTableService} from './schedule-table.service';
+import {DatePipe} from '@angular/common';
+import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-schedule-table',
@@ -27,14 +29,14 @@ export class ScheduleTableComponent implements OnInit {
   displayedColumns = ['Время', 'Задача', 'Локация'];
   dataSource = this.TASK_DATA;
   timeIndex = 0;
-  currentTime = this.timeList[this.timeIndex];
+  currentTime: String = this.timeList[this.timeIndex];
   stopAdd = false;
 
-  constructor(private notificationService: NotificationsService, private scheduleTableService: ScheduleTableService) {
+  constructor(private notificationService: NotificationsService, private scheduleTableService: ScheduleTableService,
+              private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
-    console.log(this.dataSource);
     this.getEmployeeList();
     this.getLocationList();
   }
@@ -82,9 +84,8 @@ export class ScheduleTableComponent implements OnInit {
   }
 
   addRow(f: NgForm) {
-    const newRow = f.value;
-    newRow['time'] = this.currentTime;
-    console.log(this.dataSource);
+    const newRow = JSON.parse(JSON.stringify(f.value));
+    newRow['time'] = JSON.parse(JSON.stringify(this.currentTime));
     this.dataSource = [...this.dataSource, newRow];
     if (this.timeIndex == (this.timeList.length - 1)) {
       this.stopAdd = true;
@@ -92,14 +93,6 @@ export class ScheduleTableComponent implements OnInit {
       this.timeIndex += 1;
     }
     this.currentTime = this.timeList[this.timeIndex];
-    // this.timeList = this.timeList.filter(obj => {return obj !== f.value.time});
-    // console.log(f.value.time)
-    // console.log(this.timeList);
-    // this.ELEMENT_DATA.push({time: "10:00", task: 'Кормление', location: 1});
-  }
-
-  onSubmit(f: NgForm) {
-    console.log(f);
   }
 
   removeRow() {
@@ -143,15 +136,34 @@ export class ScheduleTableComponent implements OnInit {
     this.currentTime = this.timeList[this.timeIndex];
   }
 
-  sendSchedule() {
-    let schedule = this.dataSource;
-    for (let i =0 ; i < schedule.length; i++) {
-      delete schedule[i]['employee_id'];
+  toLocationId(str: string) {
+    for (let i = 0; i < this.locationList.length; i++) {
+      if (this.locationList[i].name == str){
+        return this.locationList[i].id;
+      }
     }
-    console.log(schedule);
-    this.scheduleTableService.sendSchedule(schedule).subscribe(
+    return 0;
+  }
+
+  sendSchedule() {
+    let schedule = JSON.parse(JSON.stringify(this.dataSource));
+    let date = this.datePipe.transform(new Date(),'MM-dd-yyyy');
+    let userId = Number(schedule[0]['userId']);
+    for (let i = 0 ; i < schedule.length; i++) {
+      delete schedule[i]['userId'];
+      schedule[i]['locationId'] = this.toLocationId(schedule[i]['location']);
+      delete schedule[i]['location'];
+      schedule[i]['dateTime'] = date + 'T' + schedule[i]['time'];
+      delete schedule[i]['time'];
+    }
+    let sched = {
+      'userId': userId,
+      'schedules': schedule,
+    }
+    console.log(sched);
+    this.scheduleTableService.sendTask(sched).subscribe(
       () => {
-        this.notificationService.success("Успех", "Расписание отправлено");
+        this.notificationService.success("Успех", "Раписание отправлено");
       },
       error => {
         console.warn(error);

@@ -53,6 +53,7 @@ import {EditDinoComponent} from './content/sidebar/dino-table/edit-dino/edit-din
 import {AddDinoComponent} from './content/sidebar/dino-table/add-dino/add-dino.component';
 import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.component';
 import { InspectorComponent } from './inspector/inspector.component';
+import {DatePipe} from '@angular/common';
 
 // initializeApp(environment.firebase);
 
@@ -125,7 +126,7 @@ import { InspectorComponent } from './inspector/inspector.component';
     MatCheckboxModule
   ],
 
-  providers: [ ContentService, NotificationService, MedicPageService, AppService, ScheduleService,
+  providers: [ ContentService, NotificationService, MedicPageService, AppService, ScheduleService, DatePipe,
               { provide: HTTP_INTERCEPTORS,
                 multi: true,
                 useClass: TokenInterceptor},

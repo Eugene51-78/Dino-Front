@@ -31,7 +31,6 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // на бэке добавить 2 булевых поля каждой задаче - start и end
     setTimeout(() => {
       this.getSchedule();
     }, 1);
@@ -43,75 +42,16 @@ export class ScheduleComponent implements OnInit {
         console.log('res is null');
         return;
       }
+      for (let i = 0; i < res.length; i++) {
+        delete res[i]['id'];
+        delete res[i]['user'];
+        res[i]['time'] = res[i]['dateTime'].split('T')[1];
+      }
       this.TASK_DATA = res;
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationsService.error('Ошибка получения расписания');
     });
-  }
-
-  changeStartStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-  }
-  changeEndStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-  }
-
-  checkStartStatus(row: any) {
-    setTimeout(() => {
-      this.scheduleService.getStartStatus(row).subscribe((res: any) => {
-        if (res === null) {
-          console.log('res is null');
-          return;
-        }
-        console.log(res);
-      }, (err: { message: any; }) => {
-        console.log('Ошибка', err.message);
-        this.notificationsService.error('Ошибка получения расписания')
-      });
-    }, 1000);
-    return true;
-  }
-
-  checkEndStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-    return true;
-  }
-
-  checkTimeStart(taskTime: string) {
-    const datepipe: DatePipe = new DatePipe('en-US')
-    let dateTime = new Date();
-    let curHour = datepipe.transform(dateTime, 'HH')
-    curHour = '11'
-
-    const targetString : string = taskTime;
-    const rExp: RegExp = /\d\d/;
-    const hour = rExp.exec(targetString);
-      // @ts-ignore
-    if (curHour - hour >= -1 && curHour - hour <= 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  checkTimeEnd(taskTime: string) {
-    const datepipe: DatePipe = new DatePipe('en-US')
-    let dateTime = new Date();
-    let curHour = datepipe.transform(dateTime, 'HH')
-    curHour = '11'
-
-    const targetString : string = taskTime;
-    const rExp: RegExp = /\d\d/;
-    const hour = rExp.exec(targetString);
-    // @ts-ignore
-    if (curHour - hour >= 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }
 

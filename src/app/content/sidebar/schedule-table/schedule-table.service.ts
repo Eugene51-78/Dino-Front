@@ -32,8 +32,8 @@ export class ScheduleTableService {
     return this.http.post<User>(`${this.baseApiUrl}/api/user`, user);
   }
 
-  sendSchedule(schedule: any){
-    return this.http.post(`${this.baseApiUrl}/api/schedule`, schedule)
+  sendTask(task: any){
+    return this.http.post(`${this.baseApiUrl}/api/schedule`, task)
       .pipe(
         catchError(errorRes =>{
           return throwError(errorRes);

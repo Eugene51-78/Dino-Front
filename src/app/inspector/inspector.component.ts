@@ -58,22 +58,6 @@ export class InspectorComponent implements OnInit {
     //   отправить запрос
   }
 
-  checkStartStatus(row: any) {
-    setTimeout(() => {
-      this.scheduleService.getStartStatus(row).subscribe((res: any) => {
-        if (res === null) {
-          console.log('res is null');
-          return;
-        }
-        console.log(res);
-      }, (err: { message: any; }) => {
-        console.log('Ошибка', err.message);
-        this.notificationsService.error('Ошибка получения расписания')
-      });
-    }, 1000);
-    return true;
-  }
-
   checkEndStatus(row: any) {
     console.log(row);
     //   отправить запрос

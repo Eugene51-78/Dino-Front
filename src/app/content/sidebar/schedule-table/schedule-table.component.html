@@ -1,10 +1,10 @@
 <div class="container">
-  <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <form  #f="ngForm">
     <div class="row justify-content-center">
       <div class="col-6">
         <p class="text-center">
           <label style="margin-right: 6rem" for="employee">Расписание для сотрудника:</label>
-          <select *ngIf="employeeList?.length" id="employee" type=number name="employee_id" class="form-select" required ngModel>
+          <select *ngIf="employeeList?.length" id="employee" type=number name="userId" class="form-select" required ngModel>
             <option> </option>
             <option *ngFor="let employeeItem of employeeList" (click)="onChangeEmployee(employeeItem.role.name)">
               {{employeeItem.id}}
@@ -33,6 +33,7 @@
           </select>
           <label for="location">Локация:</label>
           <select *ngIf="employeeList?.length" id="location" type=number name="location" class="form-select" required ngModel>
+            <option></option>
             <option *ngFor="let locationItem of locationList">
               {{locationItem.name}}
             </option>
