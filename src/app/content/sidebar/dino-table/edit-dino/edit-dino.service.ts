@@ -17,7 +17,6 @@ export class EditDinoService {
   }
 
   editDino(dino: any): Observable<any> {
-    console.log(dino);
     return this.http.patch<any>(`${this.baseApiUrl}/api/dino`, dino);
   }
 

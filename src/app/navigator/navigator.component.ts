@@ -21,9 +21,9 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   // progressStatus = {'medic': 0, 'dinoTrainer': 0,'driver': 0};
   interval: number | undefined;
   isRecomOn!: boolean;
-  medic = {id: -1, taskId: -1, taskStatusId: -1};
-  dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
-  driver = {id: -1, taskId: -1, taskStatusId: -1};
+  medic = {id: -1, taskId: -1, taskStatusId: 0};
+  dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
+  driver = {id: -1, taskId: -1, taskStatusId: 0};
   groupId: any;
   flag = true;
   // private task: ({ from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number })[];
@@ -96,9 +96,9 @@ export class NavigatorComponent implements OnInit, OnDestroy {
       console.log(res);
       if (res.length == 0) {
         // задач нет
-        this.medic = {id: -1, taskId: -1, taskStatusId: -1};
-        this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
-        this.driver = {id: -1, taskId: -1, taskStatusId: -1};
+        // this.medic = {id: -1, taskId: -1, taskStatusId: -1};
+        // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
+        // this.driver = {id: -1, taskId: -1, taskStatusId: -1};
         if (this.flag) {
           this.getDinoList();
           this.getMedicList();

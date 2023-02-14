@@ -39,37 +39,9 @@ export class AddDinoComponent implements OnInit {
     );
   }
 
-  role_to_eng(role: string) {
-    let eng_role;
-    switch (role) {
-      case 'Работник':
-        eng_role = 'Worker';
-        break;
-      case 'Медик':
-        eng_role = 'Medic'
-        break;
-      case 'Управляющий':
-        eng_role = 'Manager';
-        break;
-      case 'Дрессировщик':
-        eng_role = 'DinoTrainer';
-        break;
-      case 'Водитель':
-        eng_role = 'Driver';
-        break;
-      case 'Хантер':
-        eng_role = 'Hunter';
-        break;
-      case 'Навигатор':
-        eng_role = 'Navigator';
-        break;
-    }
-    return eng_role;
-  }
-
   private getTypeList() {
     this.addDinoService.getTypeList().subscribe((res: any) => {
-      for (let i=0; i < res.length; i++) {
+      for (let i = 0; i < res.length; i++) {
         this.typeList.push(res[i]['type']);
       }
     });

@@ -15,11 +15,11 @@ import {DatePipe, formatDate} from '@angular/common';
 export class ScheduleComponent implements OnInit {
 
   TASK_DATA: UserTask[] = [
-    {time: "10:00", task: "Кормление", location: 1},
-    {time: "12:00", task: 'Уборка', location: 2},
-    {time: "14:00", task: 'Кормление', location: 3},
-    {time: "15:00", task: 'Уборка', location: 4},
-    {time: "16:00", task: 'Кормление', location: 5},
+    // {time: "10:00", task: "Кормление", location: "Кек"},
+    // {time: "12:00", task: 'Уборка', location: "Кек"},
+    // {time: "14:00", task: 'Кормление', location: "Кек"},
+    // {time: "15:00", task: 'Уборка', location: "Кек"},
+    // {time: "16:00", task: 'Кормление', location: "Кек"},
   ];
   displayedColumns = ['Время', 'Задача', 'Локация'];
   hasSchedule!: boolean;
@@ -46,6 +46,8 @@ export class ScheduleComponent implements OnInit {
         delete res[i]['id'];
         delete res[i]['user'];
         res[i]['time'] = res[i]['dateTime'].split('T')[1];
+        res[i]['time'] = res[i]['time'].split(':00Z')[0];
+        res[i]['location'] = res[i]['location']['name'];
       }
       this.TASK_DATA = res;
     }, (err: { message: any; }) => {
@@ -59,6 +61,6 @@ export interface UserTask {
   // start: boolean;
   time: string;
   task: string;
-  location: number;
+  location: string;
   // end: boolean;
 }

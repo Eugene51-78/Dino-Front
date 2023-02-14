@@ -16,7 +16,9 @@ import {MatTableDataSource} from '@angular/material/table';
 export class EditDinoComponent implements OnInit {
 
   ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
-  typeList!: string[];
+  typeList: string[] = ['Жопошник', 'Аллозавр', 'Велоцираптор', 'Герреразавр', 'Дейноних',
+                        'Дилофозавр', 'Мегалозавр', 'Нодозавр', 'Панфагия', 'Платеозавр', 'Спинозавр',
+                        'Ставрикозавр', 'Стегозавр', 'Стиракозавр', 'Церапод', 'Эокурсор'];
   dino!: any;
 
   constructor(private router: Router,
@@ -24,15 +26,16 @@ export class EditDinoComponent implements OnInit {
               private notificationService: NotificationsService,
               public dialog: MatDialog) {
     this.dino = this.router.getCurrentNavigation()!.extras.state!['row'];
-    this.typeList = [];
+    console.log(this.dino);
+    // this.getTypeList();
   }
 
   ngOnInit(): void {
-    this.getTypeList();
+
   }
 
   private editDino(dino: any) {
-    dino.role = this.role_to_eng(dino.role);
+    console.log(dino);
     this.editDinoService.editDino(dino).subscribe(
       () => {
         this.notificationService.success("Успех", "Динозавр изменён");
@@ -57,43 +60,15 @@ export class EditDinoComponent implements OnInit {
       });
   }
 
-  role_to_eng(role: string) {
-    let eng_role;
-    switch (role) {
-      case 'Работник':
-        eng_role = 'Worker';
-        break;
-      case 'Медик':
-        eng_role = 'Medic'
-        break;
-      case 'Управляющий':
-        eng_role = 'Manager';
-        break;
-      case 'Дрессировщик':
-        eng_role = 'DinoTrainer';
-        break;
-      case 'Водитель':
-        eng_role = 'Driver';
-        break;
-      case 'Хантер':
-        eng_role = 'Hunter';
-        break;
-      case 'Навигатор':
-        eng_role = 'Navigator';
-        break;
-    }
-    return eng_role;
-  }
-
   onSubmit(accountForm: NgForm) {
     this.editDino(accountForm.value);
   }
 
-  private getTypeList() {
-    this.editDinoService.getTypeList().subscribe((res: any) => {
-      for (let i=0; i < res.length; i++) {
-        this.typeList.push(res[i]['type']);
-      }
-    });
-  }
+  // private getTypeList() {
+  //   this.editDinoService.getTypeList().subscribe((res: any) => {
+  //     for (let i=0; i < res.length; i++) {
+  //       this.typeList.push(res[i]['type']);
+  //     }
+  //   });
+  // }
 }

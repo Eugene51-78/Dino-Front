@@ -19,6 +19,7 @@
     <div class="form-group">
       <label for="type">Вид</label>
       <select id="type" class="form-control form-select" name="type" #type="ngModel" required ngModel>
+        <option></option>
         <option *ngFor="let type of typeList">
           {{type}}
         </option>
