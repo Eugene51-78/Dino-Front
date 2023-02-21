@@ -18,6 +18,7 @@ import {ScheduleComponent} from './schedule/schedule.component';
 import {AddDinoComponent} from './content/sidebar/dino-table/add-dino/add-dino.component';
 import {EditDinoComponent} from './content/sidebar/dino-table/edit-dino/edit-dino.component';
 import {DinoTableComponent} from './content/sidebar/dino-table/dino-table.component';
+import {InspectorComponent} from './inspector/inspector.component';
 
 const routes: Routes = [
   { path: 'sidebar', canActivate:[AuthGuard], component: SidebarComponent, children: [
@@ -25,6 +26,7 @@ const routes: Routes = [
     ]},
   { path: 'notifications', canActivate:[AuthGuard], component: NotificationComponent },
   { path: 'alarm', canActivate:[AuthGuard], component: AlarmComponent },
+  { path: 'inspector', canActivate:[AuthGuard], data: {role: 'Inspector'}, component: InspectorComponent },
   { path: 'medicPage', canActivate:[AuthGuard], data: {role: 'Medic'}, component: MedicPageComponent },
   { path: 'dinotrainer', canActivate:[AuthGuard], data: {role: 'DinoTrainer'}, component: DinoTrainerComponent },
   { path: 'navigator', canActivate:[AuthGuard], data: {role: 'Navigator'}, component: NavigatorComponent },

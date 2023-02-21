@@ -20,7 +20,7 @@ export class ScheduleTableService {
 
   // Observable<any[]>
   getEmployeeList() {
-    return this.http.get(this.baseApiUrl + '/api/user');
+    return this.http.get(this.baseApiUrl + '/api/schedule/free');
       // .pipe<any[]>(map((data: any) => data.users));
   }
 

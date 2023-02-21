@@ -25,3 +25,19 @@ header{
 .tt {
   width: 100%;
 }
+
+
+.mat-cell {
+  text-align: center;
+  border-right: 1px solid gray;
+}
+.mat-header-cell {
+  text-align: center;
+  border-right: 1px solid gray;
+  font-size: larger;
+  border-bottom: 3px solid gray;
+}
+
+table {
+  border: 4px solid gray;
+}

@@ -10,7 +10,7 @@
         <p class="role" *ngIf="employee?.role?.name=='DinoTrainer'">Дрессировщик {{employee?.firstName}}</p>
         <p class="role" *ngIf="employee?.role?.name=='Driver'">Водитель {{employee?.firstName}}</p>
         <p class="role" *ngIf="employee?.role?.name=='Worker'">Работник {{employee?.firstName}}</p>
-
+        <p class="role" *ngIf="employee?.role?.name=='Inspector'">Инспектор {{employee?.firstName}}</p>
         <p class="alarm-text" *ngIf="appService.alarm?.value && appService.alarm?.type=='Attack'">Внимание, нападение дино!</p>
         <p class="alarm-text" *ngIf="appService.alarm?.value && appService.alarm?.type=='Escape'">Внимание, сбежал дино!</p>
       </div>

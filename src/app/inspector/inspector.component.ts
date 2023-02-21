@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
 import {ScheduleService} from '../schedule/schedule.service';
 import {NotificationsService} from 'angular2-notifications';
@@ -10,98 +10,69 @@ import {InspectorService} from './inspector.service';
   templateUrl: './inspector.component.html',
   styleUrls: ['./inspector.component.css']
 })
-export class InspectorComponent implements OnInit {
+export class InspectorComponent implements OnInit, OnDestroy {
 
   TASK_DATA: UserTask[] = [
-    {time: "10:00", task: "Кормление", location: 1},
-    {time: "12:00", task: 'Уборка', location: 2},
-    {time: "14:00", task: 'Кормление', location: 3},
-    {time: "15:00", task: 'Уборка', location: 4},
-    {time: "16:00", task: 'Кормление', location: 5},
+    {time: "", task: "", location: ""},
   ];
-  displayedColumns = ['Время', 'Задача', 'Локация'];
+  displayedColumns = ['Время', 'Задача', 'Локация']; //'ИД сотрудника',
   hasSchedule!: boolean;
+  interval: number | undefined;
+  dataFlag = false;
 
   constructor(public appService: AppService,
-              private scheduleService: ScheduleService,
+              private inspectorService: InspectorService,
               private notificationsService: NotificationsService) {
+    this.appService.setEmployeeFromServer();
     this.hasSchedule = true;
+    this.getSchedule();
   }
 
   ngOnInit(): void {
-    // на бэке добавить 2 булевых поля каждой задаче - start и end
-    setTimeout(() => {
-      this.getSchedule();
-    }, 1);
+    this.interval = setInterval(() => {this.getSchedule(); console.log("запрос задач")}, 2000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   getSchedule() {
-    this.scheduleService.getSchedule().subscribe((res: any) => {
+    this.inspectorService.getSchedule().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
         return;
       }
+      console.log(res);
+      const datepipe: DatePipe = new DatePipe('en-US')
+      for (let i = 0; i < res.length; i++) {
+        res[i].dateTime = datepipe.transform(res[i].dateTime, 'HH:mm')
+      }
       this.TASK_DATA = res;
+      this.dataFlag = true;
+      clearInterval(this.interval);
+      this.interval = undefined;
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
-      this.notificationsService.error('Ошибка получения расписания');
+      // this.notificationsService.error('Ошибка получения расписания');
     });
   }
 
-  changeStartStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-  }
-
-  changeEndStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-  }
-
-  checkEndStatus(row: any) {
-    console.log(row);
-    //   отправить запрос
-    return true;
-  }
-
-  checkTimeStart(taskTime: string) {
-    const datepipe: DatePipe = new DatePipe('en-US')
-    let dateTime = new Date();
-    let curHour = datepipe.transform(dateTime, 'HH')
-    curHour = '11'
-
-    const targetString : string = taskTime;
-    const rExp: RegExp = /\d\d/;
-    const hour = rExp.exec(targetString);
-    // @ts-ignore
-    if (curHour - hour >= -1 && curHour - hour <= 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  checkTimeEnd(taskTime: string) {
-    const datepipe: DatePipe = new DatePipe('en-US')
-    let dateTime = new Date();
-    let curHour = datepipe.transform(dateTime, 'HH')
-    curHour = '11'
-
-    const targetString : string = taskTime;
-    const rExp: RegExp = /\d\d/;
-    const hour = rExp.exec(targetString);
-    // @ts-ignore
-    if (curHour - hour >= 0) {
-      return true;
-    } else {
-      return false;
-    }
+  createSchedule() {
+    this.inspectorService.createSchedule().subscribe((res) => {
+      this.notificationsService.success('Успех', 'Задачи сформированы')
+    }, (err: { message: any; }) => {
+      console.log('Ошибка', err);
+      this.notificationsService.error('Ошибка формирования задач')
+      return null;
+    });
+    this.getSchedule();
+    console.log('Create schedule');
   }
 }
 
 export interface UserTask {
-  // start: boolean;
   time: string;
   task: string;
-  location: number;
-  // end: boolean;
+  location: string;
 }

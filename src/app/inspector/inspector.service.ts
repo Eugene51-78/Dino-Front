@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {catchError} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 @Injectable()
 export class InspectorService {
@@ -15,7 +17,12 @@ export class InspectorService {
     return this.http.get(this.baseApiUrl + '/api/schedule');
   }
 
-  getStartStatus(row: string) {
-    return this.http.get(this.baseApiUrl + '/api/schedule?' + row);
+  createSchedule() {
+    return this.http.post(this.baseApiUrl + '/api/schedule/inspector', null)
+      .pipe(
+        catchError(errorRes => {
+          return throwError(errorRes);
+        })
+      );
   }
 }

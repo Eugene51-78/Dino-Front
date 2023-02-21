@@ -11,7 +11,7 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class AddUserComponent implements OnInit {
 
-  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий', 'Навигатор'];
+  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Управляющий', 'Навигатор', 'Инспектор'];
 
   constructor(private addUserService: AddUserService, private notificationService: NotificationsService) { }
 
@@ -58,6 +58,9 @@ export class AddUserComponent implements OnInit {
         break;
       case 'Навигатор':
         eng_role = 'Navigator';
+        break;
+      case 'Инспектор':
+        eng_role = 'Inspector';
         break;
     }
     return eng_role;

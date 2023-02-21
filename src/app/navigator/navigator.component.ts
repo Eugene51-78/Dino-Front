@@ -349,7 +349,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   getRecommendationDino(location: number) {
     if (this.isRecomOn) {
       console.log(location);
-      //   обновить список дино, указав реки
+      // обновить список дино, указав реки
     }
   }
 }

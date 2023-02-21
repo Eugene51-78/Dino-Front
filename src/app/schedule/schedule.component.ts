@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {Notification} from '../notification/notification.component';
@@ -12,28 +12,30 @@ import {DatePipe, formatDate} from '@angular/common';
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
 
   TASK_DATA: UserTask[] = [
-    // {time: "10:00", task: "Кормление", location: "Кек"},
-    // {time: "12:00", task: 'Уборка', location: "Кек"},
-    // {time: "14:00", task: 'Кормление', location: "Кек"},
-    // {time: "15:00", task: 'Уборка', location: "Кек"},
-    // {time: "16:00", task: 'Кормление', location: "Кек"},
+    {time: "", task: "", location: ""},
   ];
   displayedColumns = ['Время', 'Задача', 'Локация'];
   hasSchedule!: boolean;
+  interval: number | undefined;
 
   constructor(public appService: AppService,
               private scheduleService: ScheduleService,
               private notificationsService: NotificationsService) {
-    this.hasSchedule = true;
+    this.appService.setEmployeeFromServer();
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getSchedule();
-    }, 1);
+    this.interval = setInterval(() => {this.getSchedule(); console.log("запрос текущего расписания")}, 5000);
+  }
+
+  // this.isRecomOn = false;
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   getSchedule() {

@@ -23,7 +23,7 @@
 
         <ng-container matColumnDef="Время">
           <th mat-header-cell *matHeaderCellDef> Время </th>
-          <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.dateTime}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Задача">
@@ -33,7 +33,7 @@
 
         <ng-container matColumnDef="Локация">
           <th mat-header-cell  class="text-center" *matHeaderCellDef> Локация </th>
-          <td mat-cell class="text-center" *matCellDef="let element"> {{element.location}} </td>
+          <td mat-cell class="text-center" *matCellDef="let element"> {{element.location.name}} </td>
         </ng-container>
 
 <!--        <ng-container matColumnDef="Окончание">-->
@@ -50,9 +50,9 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-
+  <div class="row" *ngIf="TASK_DATA.length < 2 && dataFlag">
+    <div class="text-center">
+      <button type="button" class="btn btn-warning col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" (click)="createSchedule()">Создать задачи для контроля</button>
     </div>
   </div>
 

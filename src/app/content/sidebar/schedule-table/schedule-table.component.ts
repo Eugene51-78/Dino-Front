@@ -147,7 +147,7 @@ export class ScheduleTableComponent implements OnInit {
 
   sendSchedule() {
     let schedule = JSON.parse(JSON.stringify(this.dataSource));
-    let date = this.datePipe.transform(new Date(),'MM-dd-yyyy');
+    let date = this.datePipe.transform(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)),'MM-dd-yyyy');
     let userId = Number(schedule[0]['userId']);
     for (let i = 0 ; i < schedule.length; i++) {
       delete schedule[i]['userId'];

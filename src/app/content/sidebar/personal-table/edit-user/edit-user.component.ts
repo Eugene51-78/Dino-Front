@@ -15,7 +15,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class EditUserComponent implements OnInit {
 
-  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Навигатор', 'Управляющий'];
+  rolesList = ['Работник', 'Медик', 'Хантер', 'Водитель', 'Дрессировщик', 'Навигатор', 'Управляющий', 'Инспектор'];
   user!: any;
 
   constructor(private router: Router,
@@ -78,6 +78,9 @@ export class EditUserComponent implements OnInit {
         break;
       case 'Навигатор':
         eng_role = 'Navigator';
+        break;
+      case 'Инспектор':
+        eng_role = 'Inspector';
         break;
     }
     return eng_role;
