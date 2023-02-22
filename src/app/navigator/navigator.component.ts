@@ -25,7 +25,10 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
   driver = {id: -1, taskId: -1, taskStatusId: 0};
   groupId: any;
-  flag = true;
+  initFlag = true;
+  medicResetFlag = true;
+  dinoTrainerResetFlag = true;
+  driverResetFlag = true;
   // private task: ({ from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number })[];
 
   constructor(public appService: AppService,
@@ -99,46 +102,75 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         // this.medic = {id: -1, taskId: -1, taskStatusId: -1};
         // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
         // this.driver = {id: -1, taskId: -1, taskStatusId: -1};
-        if (this.flag) {
+        if (this.initFlag) {
           this.getDinoList();
           this.getMedicList();
           this.getDinoTrainerList();
           this.getDriverList();
-          this.flag = false;
+          this.initFlag = false;
         }
       } else {
-        this.getDinoList();
-        this.getDinoTrainerList();
-        this.getDriverList();
-        this.dinoTrainer = {id: 0, taskStatusId: 0, taskId: 0}
+        // this.getDinoList();
+        // this.getDinoTrainerList();
+        // this.getDriverList();
         // задачи есть
-        console.log(res);
         this.groupId = res[0]['groupId'];
-        console.log(this.groupId);
         // res = res['tasks']
         for (let i = 0; i < res.length; i++) {
           if (res[i]['to']['role']['name'] == "Medic") {
-            this.medic.id = res[i]['to']['id'];
+            if (this.medic.taskStatusId != 4) {
+              this.medic.id = res[i]['to']['id'];
+            }
             this.medic.taskStatusId = res[i]['status']['id'];
             this.medic.taskId = res[i]['id'];
-            this.medicList = [this.medic.id];
+            if (this.medic.taskStatusId != 4) {
+              this.medicList = [this.medic.id];
+            }
+            if (this.medicResetFlag) {
+              if (res[i]['status']['id'] == 4) {
+                // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
+                this.getMedicList();
+              }
+              this.medicResetFlag = false;
+            }
           }
           if (res[i]['to']['role']['name'] == "DinoTrainer") {
-            this.dinoTrainer.id = res[i]['to']['id'];
+            if (this.dinoTrainer.taskStatusId != 4) {
+              this.dinoTrainer.id = res[i]['to']['id'];
+            }
             this.dinoTrainer.taskStatusId = res[i]['status']['id'];
             this.dinoTrainer.taskId = res[i]['id'];
-            this.dinoTrainerList = [this.dinoTrainer.id];
+            if (this.dinoTrainer.taskStatusId != 4) {
+              this.dinoTrainerList = [this.dinoTrainer.id];
+            }
+            if (this.dinoTrainerResetFlag) {
+              if (res[i]['status']['id'] == 4) {
+                // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
+                this.getDinoTrainerList();
+              }
+              this.dinoTrainerResetFlag = false;
+            }
           }
           if (res[i]['to']['role']['name'] == "Driver") {
-            this.driver.id = res[i]['to']['id'];
+            if (this.driver.taskStatusId != 4) {
+              this.driver.id = res[i]['to']['id'];
+            }
             this.driver.taskStatusId = res[i]['status']['id'];
             this.driver.taskId = res[i]['id'];
-            this.driverList = [this.driver.id];
+            if (this.driver.taskStatusId != 4) {
+              this.driverList = [this.driver.id];
+            }
+            if (this.driverResetFlag) {
+              if (res[i]['status']['id'] == 4) {
+                // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
+                console.log('hefa')
+                this.getDriverList();
+              }
+              this.driverResetFlag = false;
+            }
           }
 
-          console.log(this.medic);
           if (this.medic.id == 0) {
-            console.log('hei');
             this.medic = {id: 0, taskId: 0, taskStatusId: 0};
             this.getMedicList();
           }
@@ -147,10 +179,28 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             this.getDinoTrainerList();
           }
           if (this.driver.id == 0) {
-            console.log('Hule')
             this.driver = {id: 0, taskId: 0, taskStatusId: 0};
             this.getDriverList();
           }
+
+          // if (this.resetFlag) {
+          //
+          //   console.log(this.medic)
+          //   if (this.medic.taskStatusId == 4) {
+          //     console.log('hello')
+          //     // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
+          //     this.getMedicList();
+          //   }
+          //   if (this.dinoTrainer.taskStatusId == 4) {
+          //     // this.dinoTrainer = {id: 0, taskId: 0, taskStatusId: 0};
+          //     this.getDinoTrainerList();
+          //   }
+          //   if (this.driver.taskStatusId == 4) {
+          //     // this.driver = {id: 0, taskId: 0, taskStatusId: 0};
+          //     this.getDriverList();
+          //   }
+          //   this.resetFlag = false;
+          // }
         }
       }
     }, (err: { message: any; }) => {
@@ -275,7 +325,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   resetSome(value: any) {
     const comment = "123"
     console.log(this.driver);
-    if (this.medic.taskStatusId == 0) {
+    if (this.medic.taskStatusId == 4) {
       const task = [{
         "from": this.appService.employee.id,
         "to": +value.medic_id,
@@ -285,7 +335,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
       }];
       this.transportationRequest(task);
     }
-    if (this.dinoTrainer.taskStatusId == 0) {
+    if (this.dinoTrainer.taskStatusId == 4) {
       const task = [{
         "from": this.appService.employee.id,
         "to": +value.trainer_id,
@@ -295,7 +345,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
       }];
       this.transportationRequest(task);
     }
-    if (this.driver.taskStatusId == 0) {
+    if (this.driver.taskStatusId == 4) {
       const task = [{
         "from": this.appService.employee.id,
         "to": +value.driver_id,
@@ -351,5 +401,45 @@ export class NavigatorComponent implements OnInit, OnDestroy {
       console.log(location);
       // обновить список дино, указав реки
     }
+  }
+
+  endTransportation() {
+    this.navigatorService.endTransportation(this.groupId).subscribe(
+      () => {
+        this.medic = {id: -1, taskId: -1, taskStatusId: 0};
+        this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
+        this.driver = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.getCurrentTransportation();
+        this.initFlag = true;
+        this.medicResetFlag = true;
+        this.dinoTrainerResetFlag = true;
+        this.driverResetFlag = true;
+        this.notificationService.success("Успех", "Транспортировка завершена успешно");
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка завершения транспортировки");
+      }
+    );
+  }
+
+  stopAllTasks() {
+    this.navigatorService.stopAllTasks(this.groupId).subscribe(
+      () => {
+        // this.medic = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.driver = {id: -1, taskId: -1, taskStatusId: 0};
+        this.initFlag = true;
+        this.medicResetFlag = true;
+        this.dinoTrainerResetFlag = true;
+        this.driverResetFlag = true;
+        // this.getCurrentTransportation();
+        this.notificationService.success("Успех", "Транспортировка завершена успешно");
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка завершения транспортировки");
+      }
+    );
   }
 }

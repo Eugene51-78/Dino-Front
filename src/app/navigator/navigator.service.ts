@@ -65,8 +65,8 @@ export class NavigatorService {
     return this.http.get(this.baseApiUrl + '/api/transport/last');
   }
 
-  stopTransportation(id: number) {
-    return this.http.post(this.baseApiUrl + '/api/task/resend?taskId=' + id, null);
+  stopTransportation(groupId: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/resend?taskId=' + groupId, null);
     // return this.http.post(this.baseApiUrl + '/api/transport/end?taskId='+id, null);
   }
 
@@ -77,5 +77,23 @@ export class NavigatorService {
 
   getRecommendations() {
     return this.http.get(this.baseApiUrl + '/api/recommend');
+  }
+
+  endTransportation(groupId: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/cancel?groupId=' + groupId, null)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
+
+  stopAllTasks(groupId: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/disable?groupId=' + groupId, null)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+    );
   }
 }

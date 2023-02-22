@@ -23,9 +23,9 @@
     <form class="naviform" #f="ngForm">
       <div class="row justify-content-center">
         <div class="col-4">
-          <p *ngIf="medic.taskStatusId == 0 && dinoTrainer.taskStatusId == 0 && driver.taskStatusId == 0" class="text-center">
+          <p *ngIf="medic.taskStatusId == 0 && dinoTrainer.taskStatusId == 0 && driver.taskStatusId == 0"class="text-center">
             <label for="location">Локация:</label>
-            <select id="location" type=number name="location" #location class="form-select" [disabled]="medic.taskStatusId > 0 || dinoTrainer.taskStatusId > 0 || driver.taskStatusId > 0" required ngModel>
+            <select [disabled]="medic.taskStatusId > 0 || dinoTrainer.taskStatusId > 0 || driver.taskStatusId > 0" id="location" type=number name="location" #location class="form-select" required ngModel>
               <option> </option>
               <option *ngFor="let location of locationList" (click)="getRecommendationDino(location); f.controls['dino_id'].reset(); f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()">
                 {{location}}
@@ -53,7 +53,7 @@
       <div class="row text-center justify-content-center card-title">
         <div class="col" style="margin-top: 1.25rem">Медик</div>
         <div class="col">
-          <select [disabled]="!(f.value.dino_id) && medic.taskStatusId != 0" style="margin-top: 1rem" id="medic" type=number name="medic_id" class="form-select" required [(ngModel)]="medic.id">
+          <select [disabled]="!(f.value.dino_id) && medic.taskStatusId != 0 && medic.taskStatusId != 4" style="margin-top: 1rem" id="medic" type=number name="medic_id" class="form-select" required [(ngModel)]="medic.id">
             <option> </option>
             <option *ngFor="let medicItem of medicList">
               {{medicItem}}
@@ -84,8 +84,8 @@
       <div class="row text-center justify-content-center">
         <div class="col" style="margin-top: 1.25rem">Дрессировщик</div>
         <div class="col">
-          <select [disabled]="!f.value.dino_id && dinoTrainer.taskStatusId != 0" style="margin-top: 1rem" id="trainer" type=number name="trainer_id" class="form-select" required [(ngModel)]="dinoTrainer.id">
-            <option></option>
+          <select [disabled]="!f.value.dino_id && dinoTrainer.taskStatusId != 0 && dinoTrainer.taskStatusId != 4" style="margin-top: 1rem" id="trainer" type=number name="trainer_id" class="form-select" required [(ngModel)]="dinoTrainer.id">
+            <option value=""></option>
             <option *ngFor="let dinoTrainerItem of dinoTrainerList">
               {{dinoTrainerItem}}
             </option>
@@ -117,7 +117,7 @@
       <div class="row text-center justify-content-center" style="margin-top: 0.25rem">
         <div class="col" style="margin-top: 1.25rem">Водитель</div>
         <div class="col">
-          <select [disabled]="!f.value.dino_id && driver.taskStatusId != 0" style="margin-top: 1.2rem" id="driver" type=number name="driver_id" class="form-select" required [(ngModel)]="driver.id">
+          <select [disabled]="!f.value.dino_id && driver.taskStatusId != 0 && driver.taskStatusId != 4" style="margin-top: 1.2rem" id="driver" type=number name="driver_id" class="form-select" required [(ngModel)]="driver.id">
             <option value="">&nbsp;</option>
             <option *ngFor="let driverItem of driverList">
               {{driverItem}}
@@ -150,15 +150,16 @@
 <!--        <button *ngIf="!isRecomOn" class="btn btn-warning" style="float:left; margin-right: 60%;" (click)="switchRecommendation()">Использовать рекомендации</button>-->
 <!--        <button *ngIf="isRecomOn" class="btn btn-warning" style="float:left; margin-right: 61%;" (click)="switchRecommendation()">Выключить рекомендации</button>-->
 <!--        *ngIf="progressStatus.medic == 4 || progressStatus.dinoTrainer == 4 || progressStatus.driver == 4"-->
-        <div>
-<!--          [disabled]="(medic.taskStatusId == 4 || dinoTrainer.taskStatusId == 4 || driver.taskStatusId == 4)"-->
-          <button class="btn btn-warning" (click)="stopTransportations()">Начать заново</button>
-        </div>
+<!--        <div>-->
+<!--&lt;!&ndash;          [disabled]="(medic.taskStatusId == 4 || dinoTrainer.taskStatusId == 4 || driver.taskStatusId == 4)"&ndash;&gt;-->
+          <button style="margin-right: 80%; display: block; font-size: smaller" class="btn btn-danger" *ngIf="medic.taskStatusId != 0 && dinoTrainer.taskStatusId != 0 && driver.taskStatusId != 0" (click)="stopAllTasks()">Отменить запрос</button>
+<!--        </div>-->
         <div>
           <button  class="btn btn-warning" [disabled]="f.form.invalid || f.value['driver_id'] == '' || f.value['medic_id'] == '' || f.value['trainer_id'] == ''" *ngIf="(medic.taskStatusId == 4 || dinoTrainer.taskStatusId == 4 || driver.taskStatusId == 4)" (click)="resetSome(f.value)">Переназначить</button>
         </div>
-        <button  class="btn btn-warning" *ngIf="(medic.taskStatusId == 2 && dinoTrainer.taskStatusId == 2 && driver.taskStatusId == 2)" (click)="stopTransportations()">Завершить</button>
-        <button type="submit" data-dismiss="modal" id="submit" [disabled]="f.form.invalid || medic.taskStatusId != 0 || dinoTrainer.taskStatusId != 0 || driver.taskStatusId != 0" class="btn btn-primary" (click)="onSubmit(f.value)">Подтвердить</button>
+        <button  class="btn btn-primary" *ngIf="medic.taskStatusId == 2 && dinoTrainer.taskStatusId == 2 && driver.taskStatusId == 2" [disabled]="medic.taskStatusId != 2 || dinoTrainer.taskStatusId != 2 || driver.taskStatusId != 2" (click)="endTransportation()">Завершить</button>
+        <button  class="btn btn-primary" *ngIf="medic.taskStatusId == 3 && dinoTrainer.taskStatusId == 3 && driver.taskStatusId == 3" (click)="stopAllTasks()">Начать новую транспортировку</button>
+        <button type="submit" data-dismiss="modal" id="submit" *ngIf="medic.taskStatusId == 0 && dinoTrainer.taskStatusId == 0 && driver.taskStatusId == 0" [disabled]="f.form.invalid || medic.taskStatusId != 0 || dinoTrainer.taskStatusId != 0 || driver.taskStatusId != 0" class="btn btn-primary" (click)="onSubmit(f.value)">Подтвердить</button>
       </div>
     </form>
 
