@@ -27,7 +27,7 @@
             <label for="location">Локация:</label>
             <select [disabled]="medic.taskStatusId > 0 || dinoTrainer.taskStatusId > 0 || driver.taskStatusId > 0" id="location" type=number name="location" #location class="form-select" required ngModel>
               <option> </option>
-              <option *ngFor="let location of locationList" (click)="getRecommendationDino(location); f.controls['dino_id'].reset(); f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()">
+              <option *ngFor="let location of locationList" (click)="getRecommendations(f.value.location); f.controls['dino_id'].reset(); f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()">
                 {{location}}
               </option>
             </select>
@@ -114,7 +114,7 @@
           </div>
         </div>
       </div>
-      <div class="row text-center justify-content-center" style="margin-top: 0.25rem">
+      <div class="row text-center justify-content-center" style="margin-top: 0.5rem">
         <div class="col" style="margin-top: 1.25rem">Водитель</div>
         <div class="col">
           <select [disabled]="!f.value.dino_id && driver.taskStatusId != 0 && driver.taskStatusId != 4" style="margin-top: 1.2rem" id="driver" type=number name="driver_id" class="form-select" required [(ngModel)]="driver.id">
@@ -146,7 +146,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer" style="margin-top: 1rem">
 <!--        <button *ngIf="!isRecomOn" class="btn btn-warning" style="float:left; margin-right: 60%;" (click)="switchRecommendation()">Использовать рекомендации</button>-->
 <!--        <button *ngIf="isRecomOn" class="btn btn-warning" style="float:left; margin-right: 61%;" (click)="switchRecommendation()">Выключить рекомендации</button>-->
 <!--        *ngIf="progressStatus.medic == 4 || progressStatus.dinoTrainer == 4 || progressStatus.driver == 4"-->

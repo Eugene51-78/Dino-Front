@@ -25,7 +25,7 @@ export class ContentComponent implements OnInit {
   hunterList!: Employee[];               // список доступных Хантеров, если задача в Gray статусе, иначе он пустой
   progressStatus: number | undefined; // статус Прогресса задачи, если задача в статусах Yellow, Green, Red, иначе он пустой
   currentHunterID!: number | null;     // текущий вызванный Хантер, если задача в стаутсах Yellow, Green, Red, иначе он пустой
-
+  groupId!: number;
   momentumTask!: MomentumTask;
   interval: number | undefined;
 
@@ -139,15 +139,15 @@ export class ContentComponent implements OnInit {
       "to": f.value.id,
       "type": 1,
       "status": 1,
-      "comment": "test"
+      "comment": "Нужна охрана"
     };
-    this.hunterRequest(task);
+    this.hunterRequest([task]);
 
     this.modalService.dismissAll();
   }
 
   private hunterRequest(task: any) {
-    this.contentService.hunterRequest(task).subscribe(
+    this.contentService.transportationRequest(task).subscribe(
       () => {
         this.notificationService.success("Успех", "Запрос отправлен Хантеру");
       },
@@ -205,8 +205,15 @@ export class ContentComponent implements OnInit {
         this.getHunterList();
         return;
       }
+      if (res.length == 0) {
+        this.currentHunterID = null;
+        this.getHunterList();
+        return;
+      }
+      console.log(res);
       this.hunterList = [];
-      this.momentumTask = res;
+      this.momentumTask = res[0];
+      this.groupId = res[0].groupId;
       this.currentHunterID = this.momentumTask.to.id;
       this.progressStatus = this.momentumTask.status.id;
     }, (err: { message: any; }) => {
@@ -214,4 +221,31 @@ export class ContentComponent implements OnInit {
       //this.notificationService.error('Ошибка получения текущей задачи')
     });
   }
+
+  resendTransportation() {
+    this.contentService.resendTransportation(this.groupId).subscribe((res: any) => {
+        this.notificationService.success("Успех", "Вызов завершен успешно");
+        this.getCurrentTask();
+        this.progressStatus = 0;
+      },
+      error => {
+        console.warn(error);
+        this.notificationService.error("Ошибка", "Ошибка завершения вызова");
+      }
+    );
+  }
+
+  stopAllTasks() {
+    this.contentService.stopAllTasks(this.groupId).subscribe((res: any) => {
+      this.notificationService.success("Успех", "Вызов завершен успешно");
+        this.getCurrentTask();
+        this.progressStatus = 0;
+    },
+    error => {
+      console.warn(error);
+      this.notificationService.error("Ошибка", "Ошибка завершения вызова");
+    }
+  );
+  }
 }
+

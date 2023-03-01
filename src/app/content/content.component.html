@@ -108,7 +108,7 @@
           <div class="text-danger" *ngIf="sel?.invalid && sel?.touched">Выберите доступного Хантера</div>
         </div>
         <div *ngIf="currentHunterID">
-          <p id="hunter" type=number name="id" class="form-control" #sel="ngModel" required ngModel>{{currentHunterID}}</p>
+          <p id="hunter1" type=number name="id1" class="form-control" #sel="ngModel" required ngModel>{{currentHunterID}}</p>
           <div class="text-danger" *ngIf="sel?.invalid && sel?.touched">Это поле обязательное</div>
           <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-success">Хантер успешно вызван!</div>
           <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-info">Завершите вызов по окончании выполнения задачи!</div>
@@ -139,8 +139,11 @@
   <div *ngIf="progressStatus === 2" class="modal-footer">
     <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Завершить вызов</button>
   </div>
+  <div *ngIf="progressStatus === 3" class="modal-footer">
+    <button data-dismiss="modal" class="btn btn-primary" (click)="stopAllTasks()">Начать новый вызов</button>
+  </div>
   <div *ngIf="progressStatus === 4" class="modal-footer">
-    <button data-dismiss="modal" class="btn btn-primary" (click)="stopMomentumTask()">Начать заново</button>
+    <button data-dismiss="modal" class="btn btn-primary" (click)="stopAllTasks()">Выбрать заново</button>
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>

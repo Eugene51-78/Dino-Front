@@ -24,11 +24,14 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   medic = {id: -1, taskId: -1, taskStatusId: 0};
   dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
   driver = {id: -1, taskId: -1, taskStatusId: 0};
+  location!: string;
   groupId: any;
   initFlag = true;
   medicResetFlag = true;
   dinoTrainerResetFlag = true;
   driverResetFlag = true;
+  shows = ['Шоу-Арена', 'Шоу-Поляна'];
+  comment!: string;
   // private task: ({ from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number })[];
 
   constructor(public appService: AppService,
@@ -40,7 +43,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getLocationList();
     this.interval = setInterval(() => {this.getCurrentTask(); console.log("запрос текущих задач")}, 3000);
-    // this.isRecomOn = false;
+    this.isRecomOn = true;
   }
 
   ngOnDestroy() {
@@ -115,6 +118,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         // this.getDriverList();
         // задачи есть
         this.groupId = res[0]['groupId'];
+        this.comment = res[0]['comment'];
         // res = res['tasks']
         for (let i = 0; i < res.length; i++) {
           if (res[i]['to']['role']['name'] == "Medic") {
@@ -123,15 +127,18 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             }
             this.medic.taskStatusId = res[i]['status']['id'];
             this.medic.taskId = res[i]['id'];
-            if (this.medic.taskStatusId != 4) {
-              this.medicList = [this.medic.id];
-            }
-            if (this.medicResetFlag) {
+            // if (this.medicResetFlag) {
+            //   console.log(this.medic.taskStatusId);
               if (res[i]['status']['id'] == 4) {
+                console.log('update medics');
                 // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
                 this.getMedicList();
+                // this.medicList = this.medicList.filter(obj => [return obj !== res[i]['to']['id']]);
               }
-              this.medicResetFlag = false;
+              //this.medicResetFlag = false;
+            // }
+            if (this.medic.taskStatusId != 4) {
+              this.medicList = [this.medic.id];
             }
           }
           if (res[i]['to']['role']['name'] == "DinoTrainer") {
@@ -143,14 +150,14 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             if (this.dinoTrainer.taskStatusId != 4) {
               this.dinoTrainerList = [this.dinoTrainer.id];
             }
-            if (this.dinoTrainerResetFlag) {
+            //if (this.dinoTrainerResetFlag) {
               if (res[i]['status']['id'] == 4) {
                 // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
                 this.getDinoTrainerList();
               }
-              this.dinoTrainerResetFlag = false;
+              //this.dinoTrainerResetFlag = false;
             }
-          }
+         // }
           if (res[i]['to']['role']['name'] == "Driver") {
             if (this.driver.taskStatusId != 4) {
               this.driver.id = res[i]['to']['id'];
@@ -160,14 +167,14 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             if (this.driver.taskStatusId != 4) {
               this.driverList = [this.driver.id];
             }
-            if (this.driverResetFlag) {
+            //if (this.driverResetFlag) {
               if (res[i]['status']['id'] == 4) {
                 // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
                 console.log('hefa')
                 this.getDriverList();
               }
-              this.driverResetFlag = false;
-            }
+              //this.driverResetFlag = false;
+            //}
           }
 
           if (this.medic.id == 0) {
@@ -323,14 +330,13 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   resetSome(value: any) {
-    const comment = "123"
     console.log(this.driver);
     if (this.medic.taskStatusId == 4) {
       const task = [{
         "from": this.appService.employee.id,
         "to": +value.medic_id,
         "type": 2,
-        "comment": comment,
+        "comment": this.comment,
         "groupId": this.groupId
       }];
       this.transportationRequest(task);
@@ -340,7 +346,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         "from": this.appService.employee.id,
         "to": +value.trainer_id,
         "type": 2,
-        "comment": comment,
+        "comment": this.comment,
         "groupId": this.groupId
       }];
       this.transportationRequest(task);
@@ -350,7 +356,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         "from": this.appService.employee.id,
         "to": +value.driver_id,
         "type": 2,
-        "comment": comment,
+        "comment": this.comment,
         "groupId": this.groupId
       }];
       console.log(task);
@@ -382,22 +388,27 @@ export class NavigatorComponent implements OnInit, OnDestroy {
     // }
   }
 
-  getRecommendations() {
-    this.navigatorService.getRecommendations().subscribe((res: any) => {
-      if (res === null) {
-        console.log('res is null');
-        return;
-      }
-      // рекомендации как готовые
-      console.log(res);
-    }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
-      this.notificationService.error('Ошибка получения списка доступных Медиков')
-    });
+  getRecommendations(location: string) {
+    console.log(location);
+    this.location = location;
+    if (this.shows.includes(location)) {
+      this.navigatorService.getRecommendations().subscribe((res: any) => {
+        if (res === null) {
+          console.log('res is null');
+          return;
+        }
+        console.log(res);
+      }, (err: { message: any; }) => {
+        console.log('Ошибка', err.message);
+        this.notificationService.error('Ошибка запроса рекомендаций')
+      });
+    }
   }
 
   getRecommendationDino(location: number) {
     if (this.isRecomOn) {
+      this.dinoList = this.dinoList;
+      // this.recDinoList = ['+', '-', '+'];
       console.log(location);
       // обновить список дино, указав реки
     }
@@ -406,9 +417,9 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   endTransportation() {
     this.navigatorService.endTransportation(this.groupId).subscribe(
       () => {
-        this.medic = {id: -1, taskId: -1, taskStatusId: 0};
-        this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
-        this.driver = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.medic = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
+        // this.driver = {id: -1, taskId: -1, taskStatusId: 0};
         // this.getCurrentTransportation();
         this.initFlag = true;
         this.medicResetFlag = true;
@@ -426,9 +437,9 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   stopAllTasks() {
     this.navigatorService.stopAllTasks(this.groupId).subscribe(
       () => {
-        // this.medic = {id: -1, taskId: -1, taskStatusId: 0};
-        // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
-        // this.driver = {id: -1, taskId: -1, taskStatusId: 0};
+        this.medic = {id: -1, taskId: -1, taskStatusId: 0};
+        this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: 0};
+        this.driver = {id: -1, taskId: -1, taskStatusId: 0};
         this.initFlag = true;
         this.medicResetFlag = true;
         this.dinoTrainerResetFlag = true;

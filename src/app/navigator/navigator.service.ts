@@ -76,7 +76,7 @@ export class NavigatorService {
   // }
 
   getRecommendations() {
-    return this.http.get(this.baseApiUrl + '/api/recommend');
+    return this.http.get(this.baseApiUrl + '/api/dino/recommend');
   }
 
   endTransportation(groupId: number) {

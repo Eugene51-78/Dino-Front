@@ -8,4 +8,5 @@ export interface MomentumTask{
   status: { id: number, status: string };
   comment: string;
   creationDate: string;
+  groupId: number;
 }

@@ -20,8 +20,14 @@
         <div class="card-body">
           <h5 class="card-title text-primary">Моментальная задача</h5>
           <p class="card-text">От: {{momentumTask!.from.firstName + ' ' + momentumTask!.from.secondName}}</p>
-          <p *ngIf="momentumTask!.type.type === 'CALL_HANTER'" class="card-text">
+          <p *ngIf="momentumTask!.type.id == 1" class="card-text">
             Тип задачи: Охрана Медика
+          </p>
+          <p *ngIf="momentumTask!.type.id == 2" class="card-text">
+            Тип задачи: Транспортировка динозавра
+          </p>
+          <p *ngIf="momentumTask!.comment.length > 0" class="card-text">
+            {{momentumTask!.comment}}
           </p>
           <p *ngIf="momentumTask!.status.id === 2" class="alert-success text-center">
             Задача подтверждена!

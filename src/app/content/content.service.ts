@@ -75,7 +75,8 @@ export class ContentService {
   }
 
   getMomentumTask() {
-    return this.http.get(this.baseApiUrl + '/api/task/last');
+    // return this.http.get(this.baseApiUrl + '/api/task/last');
+    return this.http.get(this.baseApiUrl + '/api/task/send');
   }
 
   getCurrentMedicID() {
@@ -110,4 +111,27 @@ export class ContentService {
  setAlarmType(type: string){
    this.alarm.type = type;
  }
+
+  transportationRequest(task: any) {
+    return this.http.post(`${this.baseApiUrl}/api/task`, task)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
+
+  resendTransportation(groupId: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/resend?taskId=' + groupId, null);
+    // return this.http.post(this.baseApiUrl + '/api/transport/end?taskId='+id, null);
+  }
+
+  stopAllTasks(groupId: number) {
+    return this.http.post(this.baseApiUrl + '/api/task/disable?groupId=' + groupId, null)
+      .pipe(
+        catchError(errorRes =>{
+          return throwError(errorRes);
+        })
+      );
+  }
 }
