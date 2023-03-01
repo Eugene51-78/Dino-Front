@@ -2,7 +2,7 @@
   <div class="form-group">
     <label for="id">ИД</label>
     <input type="text" class="form-control" [readonly]="true" id="id" name="id" required [(ngModel)]="dino.id">
-    <button class="btn btn-warning" style="margin-top: 0.5rem; margin-left: 1.3rem" (click)="deleteDino(accountForm.value.id)">Удалить аккаунт</button>
+    <button class="btn btn-warning" style="margin-top: 0.5rem; margin-left: 1.3rem" (click)="deleteDino(accountForm.value.id)">Удалить дино</button>
   </div>
 
   <div class="form-group">
@@ -52,7 +52,7 @@
   </div>
 
   <div class="form-group">
-    <label for="height">Рост</label>
+    <label for="height">Рост, см</label>
     <input type="number" class="form-control" id="height" name="height" #height="ngModel" required [min]="10" [max]="1000" [(ngModel)]="dino.height">
   </div>
   <div *ngIf="!height?.valid && (height?.dirty || height?.touched)">
@@ -65,7 +65,7 @@
   </div>
 
   <div class="form-group">
-    <label for="weight">Вес</label>
+    <label for="weight">Вес, кг</label>
     <input type="number" class="form-control" id="weight" name="weight" #weight="ngModel" required [min]="5" [max]="10000" [(ngModel)]="dino.weight">
   </div>
   <div *ngIf="!weight?.valid && (weight?.dirty || weight?.touched)">
@@ -74,6 +74,19 @@
     </div>
     <div *ngIf="weight.errors?.['min'] || weight.errors?.['max']">
       <span style="color: red">Недопустимый вес</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="training">Дрессировка, %</label>
+    <input type="number" class="form-control" id="training" name="training" #training="ngModel" required [min]="0" [max]="100" [(ngModel)]="dino.training">
+  </div>
+  <div *ngIf="!training?.valid && (training?.dirty || training?.touched)">
+    <div *ngIf="age.errors?.['required']">
+      <span style="color: red">Укажите степень дрессированности</span>
+    </div>
+    <div *ngIf="training.errors?.['min'] || training.errors?.['max']">
+      <span style="color: red">Недопустимая степень</span>
     </div>
   </div>
 

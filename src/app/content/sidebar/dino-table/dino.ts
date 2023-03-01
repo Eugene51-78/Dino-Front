@@ -33,13 +33,23 @@ export const DinoColumns = [
   {
     key: "height",
     type: "number",
-    label: "Рост"
+    label: "Рост, см"
   },
   {
     key: "weight",
     type: "number",
-    label: "Вес"
+    label: "Вес, кг"
   },
+  {
+    key: "training",
+    type: "number",
+    label: "Дрессировка, %"
+  },
+  // {
+  //   key: "calm",
+  //   type: "number",
+  //   label: "Спокойствие, %"
+  // },
   {
     key: "location",
     type: "text",

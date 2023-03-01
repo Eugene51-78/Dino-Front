@@ -22,6 +22,8 @@ function translateRole(name: string) {
       return 'Навигатор';
     case 'Hunter':
       return 'Хантер';
+    case 'Inspector':
+      return 'Инспектор';
   }
   return name;
 }

@@ -37,6 +37,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   constructor(public appService: AppService,
               public navigatorService: NavigatorService,
               public notificationService: NotificationsService) {
+    this.appService.setEmployeeFromServer();
     this.getCurrentTask();
   }
 
@@ -52,35 +53,35 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(value: any) {
-    console.log(value);
-    const comment = "Локация: " + value.location + ", Дино ИД: " +  value.dino_id;
-    // const comment = value.location + ", " +  value.dino_id;
-    const task1 = {
+    console.log(this.appService.employee.id);
+    const rExp : RegExp = /\d+/g;
+    let dino_id = +value.dino_id.match(rExp);
+    console.log("Дино ИД: " +  dino_id);
+    const comment = "Локация: " + value.location + ", Дино ИД: " +  dino_id;
+    this.comment = comment;
+    const taskMedic = {
       "from": this.appService.employee.id,
       "to": +value.medic_id,
       "type": 2,
       "status": 1,
       "comment": comment
     };
-    const task2 = {
+    const taskTrainer = {
       "from": this.appService.employee.id,
       "to": +value.trainer_id,
       "type": 2,
       "status": 1,
       "comment": comment
     };
-    const task3 = {
+    const taskDriver = {
       "from": this.appService.employee.id,
       "to": +value.driver_id,
       "type": 2,
       "status": 1,
       "comment": comment
     };
-    const task_init = [task1, task2, task3]
-    // this.roleRequest(task1);
-    // this.roleRequest(task2);
-    // this.roleRequest(task3);
-    this.transportationRequest(task_init);
+    const taskInit = [taskMedic, taskTrainer, taskDriver]
+    this.transportationRequest(taskInit);
     this.getCurrentTask();
   }
 
@@ -106,7 +107,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
         // this.driver = {id: -1, taskId: -1, taskStatusId: -1};
         if (this.initFlag) {
-          this.getDinoList();
+          // this.getDinoList();
           this.getMedicList();
           this.getDinoTrainerList();
           this.getDriverList();
@@ -390,6 +391,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
   getRecommendations(location: string) {
     console.log(location);
+    this.getDinoList();
     this.location = location;
     if (this.shows.includes(location)) {
       this.navigatorService.getRecommendations().subscribe((res: any) => {
@@ -398,19 +400,24 @@ export class NavigatorComponent implements OnInit, OnDestroy {
           return;
         }
         console.log(res);
+        this.dinoList = [];
+        try {
+          let ids = [];
+          for (let i = 0; i < res.length; i++) {
+            ids.push(res[i]['id']);
+          }
+          this.dinoList = ids;
+        } catch (e) {
+        }
+        for (let i = 0; i < res.length; i++) {
+          if (res[i]['isRecommend']) {
+            this.dinoList.splice(this.dinoList.indexOf(res[i].id), 1, res[i].id + ' (рекомендуется)');
+          }
+        }
       }, (err: { message: any; }) => {
         console.log('Ошибка', err.message);
         this.notificationService.error('Ошибка запроса рекомендаций')
       });
-    }
-  }
-
-  getRecommendationDino(location: number) {
-    if (this.isRecomOn) {
-      this.dinoList = this.dinoList;
-      // this.recDinoList = ['+', '-', '+'];
-      console.log(location);
-      // обновить список дино, указав реки
     }
   }
 
