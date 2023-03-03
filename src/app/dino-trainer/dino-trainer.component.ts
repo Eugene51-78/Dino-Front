@@ -39,12 +39,7 @@ export class DinoTrainerComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    if (this.currentOperation === 'Отчет о занятии') {
-      this.sendReport(f.value);
-    }
-    else {
-      this.sendRequestAggressive(f.value.id);
-    }
+    this.sendReport(f.value);
     this.modalService.dismissAll(); //dismiss the modal
   }
 
@@ -71,26 +66,15 @@ export class DinoTrainerComponent implements OnInit {
   }
 
   sendReport(form: any) {
-    form = {  dinoId: form.id,
-              isCalm: true,
-              calm: form.calm,
-              train: form.train};
+    form = {  dino_id: +form.id,
+              calm: form.calm/1000,
+              training: form.train/1000};
     //console.log(form);
     this.dinoTrainerService.sendReport(form).subscribe((res) => {
       this.notificationService.success('Успех', 'Информация о занятии дино отправлена')
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      this.notificationService.error('Ошибка отправки отчета')
-      return null;
-    });
-  }
-
-  sendRequestAggressive(id: number) {
-    this.dinoTrainerService.sendRequestAggressive(id).subscribe((res) => {
-      this.notificationService.success('Успех','Информация об агрессивности дино отправлена');
-    }, (err: { message: any; }) => {
-      console.log('Ошибка', err);
-      this.notificationService.error('Ошибка отправки информации об агрессивности');
+      this.notificationService.error('Ошибка отправки отчета');
       return null;
     });
   }

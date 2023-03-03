@@ -28,6 +28,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getSchedule();
     this.interval = setInterval(() => {this.getSchedule(); console.log("запрос текущего расписания")}, 5000);
   }
 

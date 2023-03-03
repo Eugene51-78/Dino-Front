@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AddDinoService} from './add-dino.service';
-import {Dino} from '../dino';
 import {NotificationsService} from 'angular2-notifications';
 
 @Component({

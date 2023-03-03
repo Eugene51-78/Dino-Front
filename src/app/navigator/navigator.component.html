@@ -25,9 +25,9 @@
         <div class="col-4">
           <p *ngIf="medic.taskStatusId == 0 && dinoTrainer.taskStatusId == 0 && driver.taskStatusId == 0"class="text-center">
             <label for="location">Локация:</label>
-            <select [disabled]="medic.taskStatusId > 0 || dinoTrainer.taskStatusId > 0 || driver.taskStatusId > 0" id="location" type="text" name="location" #location class="form-select" required ngModel>
+            <select [disabled]="medic.taskStatusId > 0 || dinoTrainer.taskStatusId > 0 || driver.taskStatusId > 0" (change)="getRecommendations(f.value.location); f.controls['dino_id'].reset(); f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()" id="location" type="text" name="location" #location class="form-select" required ngModel>
               <option> </option>
-              <option *ngFor="let location of locationList" (click)="getRecommendations(f.value.location); f.controls['dino_id'].reset(); f.controls['medic_id'].reset(); f.controls['trainer_id'].reset(); f.controls['driver_id'].reset()">
+              <option *ngFor="let location of locationList">
                 {{location}}
               </option>
             </select>

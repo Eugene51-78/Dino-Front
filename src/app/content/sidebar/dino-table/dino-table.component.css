@@ -4,8 +4,12 @@ header{
 }
 
 table {
-  height: 40vh;
-  width: 120vh;
+  height: 20rem;
+  width: 60rem;
+}
+
+mat-paginator {
+  width: 60rem;
 }
 
 .mat-form-field-infix {

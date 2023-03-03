@@ -3,10 +3,8 @@ import {Router} from '@angular/router';
 import {EditDinoService} from './edit-dino.service';
 import {NotificationsService} from 'angular2-notifications';
 import {NgForm} from '@angular/forms';
-import {Dino} from '../dino';
 import {ConfirmDialogComponent} from '../../../../confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-edit-dino',
@@ -16,7 +14,7 @@ import {MatTableDataSource} from '@angular/material/table';
 export class EditDinoComponent implements OnInit {
 
   ageList = ['Новорожденный', 'Молодой', 'Зрелый', 'Пожилой'];
-  typeList: string[] = ['Жопошник', 'Аллозавр', 'Велоцираптор', 'Герреразавр', 'Дейноних',
+  typeList: string[] = ['Аллозавр', 'Велоцираптор', 'Герреразавр', 'Дейноних',
                         'Дилофозавр', 'Мегалозавр', 'Нодозавр', 'Панфагия', 'Платеозавр', 'Спинозавр',
                         'Ставрикозавр', 'Стегозавр', 'Стиракозавр', 'Церапод', 'Эокурсор'];
   dino!: any;

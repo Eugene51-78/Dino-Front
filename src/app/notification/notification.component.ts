@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NotificationsService} from 'angular2-notifications';
 import {NotificationService} from './notification.service';
 import {MatPaginator} from '@angular/material/paginator';
@@ -29,13 +29,14 @@ export interface Notification {
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css']
 })
-export class NotificationComponent implements OnInit, AfterViewInit {
+export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   notifications!: Notification[];
   columnsToDisplay = ['id', 'header', 'body'];
   dataSource: any;
+  interval: number | undefined;
 
   constructor(public notificationService: NotificationService, public notificationsService: NotificationsService, public appService: AppService) {
     appService.setEmployeeFromServer();
@@ -43,8 +44,12 @@ export class NotificationComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getNotifications();
-    this.dataSource = new MatTableDataSource<Notification>(this.notifications);
-    this.dataSource.paginator = this.paginator;
+    this.interval = setInterval(() => {this.getNotifications(); console.log("запрос текущих  уведомлений")}, 5000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   ngAfterViewInit() {

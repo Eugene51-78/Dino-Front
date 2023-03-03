@@ -32,7 +32,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   driverResetFlag = true;
   shows = ['Шоу-Арена', 'Шоу-Поляна'];
   comment!: string;
-  // private task: ({ from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number } | { from: number; comment: string; to: number; type: number; status: number })[];
 
   constructor(public appService: AppService,
               public navigatorService: NavigatorService,

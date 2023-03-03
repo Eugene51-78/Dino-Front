@@ -27,13 +27,4 @@ export class DinoTrainerService {
         })
       );
   }
-
-  sendRequestAggressive(id: number) {
-    return this.http.post(this.baseApiUrl + `/api/dino/calm?dinoId=${id}&calm=false`, null)
-      .pipe(
-        catchError(errorRes => {
-          return throwError(errorRes);
-        })
-      );
-  }
 }

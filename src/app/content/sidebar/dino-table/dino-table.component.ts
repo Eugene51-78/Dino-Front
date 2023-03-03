@@ -1,7 +1,7 @@
 import {DinoTableService} from './dino-table.service';
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {Employee} from '../../employee.interface';
-import {Dino, DinoColumns} from './dino';
+import {DinoColumns} from './dino';
 import {Router} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';

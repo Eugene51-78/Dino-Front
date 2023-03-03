@@ -4,7 +4,7 @@ import {catchError, map} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {Employee} from '../../../employee.interface';
 import {environment} from '../../../../../environments/environment';
-import { Dino, DinoColumns } from '../dino';
+import { DinoColumns } from '../dino';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,8 @@ export class EditDinoService {
     return this.http.patch<any>(`${this.baseApiUrl}/api/dino`, dino);
   }
 
-  deleteDino(id: number): Observable<Dino> {
-    return this.http.delete<Dino>(`${this.baseApiUrl}/api/dino/${id}`);
+  deleteDino(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/api/dino/${id}`);
   }
 
   getTypeList() {

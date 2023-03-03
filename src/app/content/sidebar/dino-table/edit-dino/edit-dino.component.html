@@ -82,10 +82,23 @@
     <input type="number" class="form-control" id="training" name="training" #training="ngModel" required [min]="0" [max]="100" [(ngModel)]="dino.training">
   </div>
   <div *ngIf="!training?.valid && (training?.dirty || training?.touched)">
-    <div *ngIf="age.errors?.['required']">
+    <div *ngIf="calm.errors?.['required']">
       <span style="color: red">Укажите степень дрессированности</span>
     </div>
     <div *ngIf="training.errors?.['min'] || training.errors?.['max']">
+      <span style="color: red">Недопустимая степень</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="training">Спокойствие, %</label>
+    <input type="number" class="form-control" id="calm" name="calm" #calm="ngModel" required [min]="0" [max]="100" [(ngModel)]="dino.calm">
+  </div>
+  <div *ngIf="!calm?.valid && (calm?.dirty || calm?.touched)">
+    <div *ngIf="calm.errors?.['required']">
+      <span style="color: red">Укажите степень спокойствия</span>
+    </div>
+    <div *ngIf="calm.errors?.['min'] || calm.errors?.['max']">
       <span style="color: red">Недопустимая степень</span>
     </div>
   </div>

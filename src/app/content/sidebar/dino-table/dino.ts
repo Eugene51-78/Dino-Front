@@ -1,13 +1,13 @@
 
-export interface Dino {
-  id: number;
-  firstName: string;
-  secondName: string;
-  middleName: string;
-  role: string;
-  age: number;
-  email: string;
-}
+// export interface Dino {
+//   id: number;
+//   firstName: string;
+//   secondName: string;
+//   middleName: string;
+//   role: string;
+//   age: number;
+//   email: string;
+// }
 
 export const DinoColumns = [
   {
@@ -45,11 +45,11 @@ export const DinoColumns = [
     type: "number",
     label: "Дрессировка, %"
   },
-  // {
-  //   key: "calm",
-  //   type: "number",
-  //   label: "Спокойствие, %"
-  // },
+  {
+    key: "calm",
+    type: "number",
+    label: "Спокойствие, %"
+  },
   {
     key: "location",
     type: "text",

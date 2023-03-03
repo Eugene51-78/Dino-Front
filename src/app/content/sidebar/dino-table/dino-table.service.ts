@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {DinoTableComponent} from './dino-table.component';
 import {Employee} from '../../employee.interface';
 import {environment} from '../../../../environments/environment';
-import { Dino, DinoColumns } from './dino';
+import { DinoColumns } from './dino';
 
 @Injectable({
   providedIn: 'root',

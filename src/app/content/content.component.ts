@@ -90,8 +90,7 @@ export class ContentComponent implements OnInit {
       this.employee = res;
       this.contentService.setEmployee(this.employee);
       this.employeeHasLoaded = true;
-      console.log(this.employee);
-      //console.log(this.employee);
+      // console.log(this.employee);
       return this.employee;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {

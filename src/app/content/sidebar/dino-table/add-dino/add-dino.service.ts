@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../../../environments/environment';
-import { Dino } from '../dino';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +14,9 @@ export class AddDinoService {
     this.baseApiUrl = environment.baseApi;
   }
 
-  addDino(dino: Dino): Observable<Dino> {
+  addDino(dino: any): Observable<any> {
     console.log(dino);
-    return this.http.post<Dino>(`${this.baseApiUrl}/api/dino`, dino);
+    return this.http.post<any>(`${this.baseApiUrl}/api/dino`, dino);
   }
 
   getTypeList() {
