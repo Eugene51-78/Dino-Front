@@ -53,7 +53,7 @@ export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngAfterViewInit() {
-    // this.paginator = this.dataSource.paginator
+    // this.paginator = this.dataSource.paginator;
   }
 
 

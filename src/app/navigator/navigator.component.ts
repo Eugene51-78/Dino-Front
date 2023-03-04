@@ -101,12 +101,14 @@ export class NavigatorComponent implements OnInit, OnDestroy {
     this.navigatorService.getCurrentTask().subscribe((res: any) => {
       console.log(res);
       if (res.length == 0) {
+        // this.getDinoList();
         // задач нет
         // this.medic = {id: -1, taskId: -1, taskStatusId: -1};
         // this.dinoTrainer = {id: -1, taskId: -1, taskStatusId: -1};
         // this.driver = {id: -1, taskId: -1, taskStatusId: -1};
         if (this.initFlag) {
           // this.getDinoList();
+          this.getDinoList();
           this.getMedicList();
           this.getDinoTrainerList();
           this.getDriverList();
@@ -390,7 +392,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
   getRecommendations(location: string) {
     console.log(location);
-    this.getDinoList();
     this.location = location;
     if (this.shows.includes(location)) {
       this.navigatorService.getRecommendations().subscribe((res: any) => {
@@ -406,6 +407,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             ids.push(res[i]['id']);
           }
           this.dinoList = ids;
+          console.log(this.dinoList);
         } catch (e) {
         }
         for (let i = 0; i < res.length; i++) {
@@ -417,7 +419,8 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         console.log('Ошибка', err.message);
         this.notificationService.error('Ошибка запроса рекомендаций')
       });
-    }
+    } else
+      this.getDinoList();
   }
 
   endTransportation() {

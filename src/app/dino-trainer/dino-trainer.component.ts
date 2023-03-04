@@ -67,8 +67,8 @@ export class DinoTrainerComponent implements OnInit {
 
   sendReport(form: any) {
     form = {  dino_id: +form.id,
-              calm: form.calm/1000,
-              training: form.train/1000};
+              training: form.train/1000,
+              calm: form.calm/1000};
     //console.log(form);
     this.dinoTrainerService.sendReport(form).subscribe((res) => {
       this.notificationService.success('Успех', 'Информация о занятии дино отправлена')

@@ -60,20 +60,20 @@
       <span style="color: red">Укажите рост</span>
     </div>
     <div *ngIf="height.errors?.['min'] || height.errors?.['max']">
-      <span style="color: red">Недопустимый рост</span>
+      <span style="color: red">Допустимый вес от 10 до 1000 см</span>
     </div>
   </div>
 
   <div class="form-group">
     <label for="weight">Вес, кг</label>
-    <input type="number" class="form-control" id="weight" name="weight" #weight="ngModel" required [min]="5" [max]="10000" [(ngModel)]="dino.weight">
+    <input type="number" class="form-control" id="weight" name="weight" #weight="ngModel" required [min]="1" [max]="10000" [(ngModel)]="dino.weight">
   </div>
   <div *ngIf="!weight?.valid && (weight?.dirty || weight?.touched)">
     <div *ngIf="age.errors?.['required']">
       <span style="color: red">Укажите вес</span>
     </div>
     <div *ngIf="weight.errors?.['min'] || weight.errors?.['max']">
-      <span style="color: red">Недопустимый вес</span>
+      <span style="color: red">Допустимый вес от 1 до 10000 кг</span>
     </div>
   </div>
 

@@ -4,6 +4,7 @@ import {ScheduleService} from '../schedule/schedule.service';
 import {NotificationsService} from 'angular2-notifications';
 import {DatePipe} from '@angular/common';
 import {InspectorService} from './inspector.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-inspector',
@@ -22,7 +23,8 @@ export class InspectorComponent implements OnInit, OnDestroy {
 
   constructor(public appService: AppService,
               private inspectorService: InspectorService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private router: Router) {
     this.appService.setEmployeeFromServer();
     this.hasSchedule = true;
     this.getSchedule();
@@ -60,7 +62,8 @@ export class InspectorComponent implements OnInit, OnDestroy {
 
   createSchedule() {
     this.inspectorService.createSchedule().subscribe((res) => {
-      this.notificationsService.success('Успех', 'Задачи сформированы')
+      this.notificationsService.success('Успех', 'Задачи сформированы');
+      this.router.navigateByUrl("/inspector");
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
       this.notificationsService.error('Ошибка формирования задач')
