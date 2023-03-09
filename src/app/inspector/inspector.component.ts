@@ -42,7 +42,7 @@ export class InspectorComponent implements OnInit, OnDestroy {
   getSchedule() {
     this.inspectorService.getSchedule().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       console.log(res);

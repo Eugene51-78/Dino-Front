@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ContentService} from './content.service';
 import {NotificationsService} from 'angular2-notifications';
 import {NgForm} from '@angular/forms';
@@ -16,7 +16,7 @@ import {MomentumTask} from '../task/momentum-task.interface';
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, OnDestroy {
 
   employeeHasLoaded: boolean = false;
 
@@ -46,6 +46,11 @@ export class ContentComponent implements OnInit {
     }
     this.employee = this.contentService.getEmployee();
     this.contentService.setEmployee(this.employee);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 
   requestPermission(firebaseApp: any) {
@@ -83,7 +88,7 @@ export class ContentComponent implements OnInit {
   getEmployeeFromServer() {
     this.contentService.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return null;
       }
       this.employee = res;
@@ -108,24 +113,21 @@ export class ContentComponent implements OnInit {
 
   openGuardModal(guardModal: any) {
     this.getCurrentTask();
-    this.interval = setInterval(() => {this.getCurrentTask(); console.log("int start")}, 5000);
-
+    this.interval = setInterval(() => {this.getCurrentTask(); console.log('interval')}, 3000);
     this.modalService.open(guardModal).result
       .then((result) => {
-        console.log('Modal closed');
+        // console.log('Modal closed');
       })
       .catch(err => '');
   }
 
-  onClose(modal: any){
+  onClose(modal: any) {
     modal.dismiss('Cross click');
-    console.log('tets')
     clearInterval(this.interval);
     this.interval = undefined;
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value);
     const task = {
       "from": this.employee.id,
       "to": f.value.id,
@@ -134,7 +136,8 @@ export class ContentComponent implements OnInit {
       "comment": "Нужна охрана"
     };
     this.hunterRequest([task]);
-
+    clearInterval(this.interval);
+    this.interval = undefined;
     this.modalService.dismissAll();
   }
 
@@ -156,20 +159,14 @@ export class ContentComponent implements OnInit {
         console.log('res is null');
         return;
       }
-      console.log(res);
       try {
-        //let json = JSON.parse(res);
-        console.log(res);
         let ids = [];
         for (let i = 0; i < res.length; i++) {
-          console.log(res[i]['id']);
           ids.push(res[i]['id']);
         }
         this.hunterList = ids;
       } catch (e) {
-
       }
-      console.log(this.hunterList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения списка доступных Хантеров')
@@ -202,7 +199,6 @@ export class ContentComponent implements OnInit {
         this.getHunterList();
         return;
       }
-      console.log(res);
       this.hunterList = [];
       this.momentumTask = res[0];
       this.groupId = res[0].groupId;
@@ -212,19 +208,6 @@ export class ContentComponent implements OnInit {
       console.log('Ошибка', err.message);
       //this.notificationService.error('Ошибка получения текущей задачи')
     });
-  }
-
-  resendTransportation() {
-    this.contentService.resendTransportation(this.groupId).subscribe((res: any) => {
-        this.notificationService.success("Успех", "Вызов завершен успешно");
-        this.getCurrentTask();
-        this.progressStatus = 0;
-      },
-      error => {
-        console.warn(error);
-        this.notificationService.error("Ошибка", "Ошибка завершения вызова");
-      }
-    );
   }
 
   stopAllTasks() {
@@ -238,6 +221,12 @@ export class ContentComponent implements OnInit {
       this.notificationService.error("Ошибка", "Ошибка завершения вызова");
     }
   );
+  }
+
+  onCancelClick(modal: any) {
+    modal.close('Cancel click');
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 }
 

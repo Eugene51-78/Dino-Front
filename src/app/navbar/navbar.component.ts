@@ -56,4 +56,8 @@ export class NavbarComponent implements OnInit {
   toggleNavbar() {
     this.navbarOpened = !this.navbarOpened;
   }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
+  }
 }

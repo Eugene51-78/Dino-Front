@@ -3,14 +3,14 @@
     <div class="navbar-mobile-top" fxLayout="row wrap" fxLayoutAlign="start center">
       <div class="navbar-logo">
         <img src="../../assets/profile.ico" width="60rem">
-        <p class="role" *ngIf="employee?.role?.name=='Medic'">Медик {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Manager'">Управляющий {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Navigator'">Навигатор {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Hunter'">Хантер {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='DinoTrainer'">Дрессировщик {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Driver'">Водитель {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Worker'">Работник {{employee?.firstName}}</p>
-        <p class="role" *ngIf="employee?.role?.name=='Inspector'">Инспектор {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Medic'">Медик {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Manager'">Управляющий {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Navigator'">Навигатор {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Hunter'">Хантер {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='DinoTrainer'">Дрессировщик {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Driver'">Водитель {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Worker'">Работник {{employee?.firstName}}</p>
+        <p class="role" *ngIf="getRole()=='Inspector'">Инспектор {{employee?.firstName}}</p>
         <p class="alarm-text" *ngIf="appService.alarm?.value && appService.alarm?.type=='Attack'">Внимание, нападение дино!</p>
         <p class="alarm-text" *ngIf="appService.alarm?.value && appService.alarm?.type=='Escape'">Внимание, сбежал дино!</p>
       </div>

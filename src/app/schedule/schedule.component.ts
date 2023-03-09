@@ -41,6 +41,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         // console.log('res is null');
         return;
       }
+      console.log(res);
       for (let i = 0; i < res.length; i++) {
         delete res[i]['id'];
         delete res[i]['user'];

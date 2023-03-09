@@ -90,7 +90,7 @@
 <ng-template #guardModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Вызов хантера</h4>
-    <button type="button" class="close" aria-label="Close" (click)="onClose(modal)">
+    <button type="button" class="btn-close" aria-label="Close" (click)="onClose(modal)">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -99,7 +99,7 @@
       <div class="form-group">
         <label for="hunter" class="form-label">ИД Хантера: </label>
         <div *ngIf="hunterList?.length">
-          <select id="hunter" type=number name="id" class="form-select" #sel="ngModel" required ngModel>
+          <select [disabled]="false" id="hunter" type=number name="id" class="form-select" #sel="ngModel" required ngModel>
             <option *ngFor="let hunterItem of hunterList">
               {{hunterItem}}
             </option>
@@ -108,7 +108,7 @@
           <div class="text-danger" *ngIf="sel?.invalid && sel?.touched">Выберите доступного Хантера</div>
         </div>
         <div *ngIf="currentHunterID">
-          <p id="hunter1" type=number name="id1" class="form-control" #sel="ngModel" required ngModel>{{currentHunterID}}</p>
+          <p id="hunter1" type=number name="id1" class="form-control" #sel="ngModel" required ngModel ngDefaultControl>{{currentHunterID}}</p>
           <div class="text-danger" *ngIf="sel?.invalid && sel?.touched">Это поле обязательное</div>
           <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-success">Хантер успешно вызван!</div>
           <div *ngIf="progressStatus === 2 && !sel?.dirty && !sel?.touched" class="text-info">Завершите вызов по окончании выполнения задачи!</div>
@@ -146,7 +146,7 @@
     <button data-dismiss="modal" class="btn btn-primary" (click)="stopAllTasks()">Выбрать заново</button>
   </div>
   <div *ngIf="hunterList?.length" class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Отменить</button>
+    <button type="button" class="btn btn-outline-dark" (click)="onCancelClick(modal)">Отменить</button>
     <button data-dismiss="modal" [disabled]="f.invalid" class="btn btn-primary" (click)="onSubmit(f)">Подтвердить</button>
   </div>
 </ng-template>

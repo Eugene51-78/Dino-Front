@@ -48,14 +48,11 @@ export class AppComponent implements OnInit{
         // console.log("Can't get alarm status!");
         return null;
       }
-      var alarmRes = (res["value"] === 'true');
       this.appService.alarm = res;
       this.appService.setAlarm(res);
-      //localStorage.setItem("alarm", res);
-      //console.log(this.appService.alarm);
       return res;
     }, (err: { message: any; }) => {
-      // console.log('Ошибка', err);
+      console.log('Ошибка', err);
       // this.notificationService.error('Ошибка получения')
     });
   }

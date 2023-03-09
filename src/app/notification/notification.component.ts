@@ -36,7 +36,7 @@ export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy{
 
   ngOnInit() {
     this.getNotifications();
-    this.interval = setInterval(() => {this.getNotifications(); console.log("запрос текущих  уведомлений")}, 5000);
+    this.interval = setInterval(() => {this.getNotifications();}, 5000);
   }
 
   ngOnDestroy() {
