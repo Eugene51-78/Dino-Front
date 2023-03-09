@@ -4,6 +4,7 @@ import {AuthService} from './auth.service';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NotificationsService} from 'angular2-notifications';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: new FormControl(null,[Validators.required, Validators.minLength(6)])
   });
 
-  aSub: Subscription | undefined
+  aSub: Subscription | undefined;
 
   constructor(private fb: FormBuilder,
               private auth: AuthService,
               private router: Router,
               private route: ActivatedRoute,
-              private notificationService: NotificationsService) { }
+              private notificationService: NotificationsService,
+              private appService: AppService) { }
 
   ngOnInit(): void {
     // this.form = new FormGroup({
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.form.disable()
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => {
-        //console.log("login success");
+        this.appService.setEmployeeFromServer();
         this.notificationService.success("Успех", "Вы вошли в систему ПЮР");
         this.router.navigate(['/content']);
       },

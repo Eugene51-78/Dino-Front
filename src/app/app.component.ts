@@ -34,9 +34,9 @@ export class AppComponent implements OnInit{
 
   listen(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);
-    console.log("Receiving messages...")
+    // console.log("Receiving messages...")
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
+      // console.log('Message received. ', payload);
       // this.message=payload;
       // const f = parseJson(payload.toString())
     });
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit{
   getAlarmFromServer() : any{
     this.appService.getAlarmStatus().subscribe((res: any) => {
       if (res === null) {
-        console.log("Can't get alarm status!");
+        // console.log("Can't get alarm status!");
         return null;
       }
       var alarmRes = (res["value"] === 'true');
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit{
       //console.log(this.appService.alarm);
       return res;
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err);
+      // console.log('Ошибка', err);
       // this.notificationService.error('Ошибка получения')
     });
   }

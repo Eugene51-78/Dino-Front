@@ -34,6 +34,12 @@ export class AuthService{
       )
   }
 
+  logout() {
+    this.revokeToken();
+    this.setToken(null);
+    localStorage.removeItem('auth-token');
+  }
+
   setToken(token: string | null) {
     this.token = token;
   }
@@ -51,13 +57,7 @@ export class AuthService{
     const firebaseApp = initializeApp(environment.firebase);
     const messaging = getMessaging(firebaseApp);
     deleteToken(messaging).then(r => {
-      //console.log("Token deleted")
+      console.log("Token deleted");
     })
-  }
-
-  logout() {
-    this.setToken(null);
-    this.revokeToken();
-    localStorage.removeItem('auth-token');
   }
 }

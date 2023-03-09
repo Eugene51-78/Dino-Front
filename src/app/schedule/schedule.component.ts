@@ -15,10 +15,8 @@ import {DatePipe, formatDate} from '@angular/common';
 export class ScheduleComponent implements OnInit, OnDestroy {
 
   TASK_DATA: UserTask[] = [
-    {time: "", task: "", location: ""},
   ];
   displayedColumns = ['Время', 'Задача', 'Локация'];
-  hasSchedule!: boolean;
   interval: number | undefined;
 
   constructor(public appService: AppService,
@@ -29,10 +27,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getSchedule();
-    this.interval = setInterval(() => {this.getSchedule(); console.log("запрос текущего расписания")}, 5000);
+    this.interval = setInterval(() => {this.getSchedule();}, 5000);
   }
-
-  // this.isRecomOn = false;
 
   ngOnDestroy() {
     clearInterval(this.interval);
@@ -42,7 +38,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   getSchedule() {
     this.scheduleService.getSchedule().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       for (let i = 0; i < res.length; i++) {
@@ -58,12 +54,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.notificationsService.error('Ошибка получения расписания');
     });
   }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
+  }
 }
 
 export interface UserTask {
-  // start: boolean;
   time: string;
   task: string;
   location: string;
-  // end: boolean;
 }

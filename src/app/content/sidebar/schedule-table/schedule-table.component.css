@@ -7,6 +7,25 @@
   }
 }
 
+.container {
+  width: 50rem;
+  /*max-height: 40rem;*/
+  font-size: 0.9rem;
+  border: black;
+}
+
+.form-select, .btn{
+  font-size: 0.9rem;
+}
+
+.mat-button{
+  font-size: 0.7rem;
+}
+
+.mat-cell {
+  font-size: 0.8rem;
+}
+
 table {
   background-color: #f9f993;
   width: 100%;

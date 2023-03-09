@@ -5,14 +5,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {AppService} from '../app.service';
 import {Employee} from '../content/employee.interface';
-import {ContentService} from '../content/content.service';
-
-export interface PeriodicElement {
-  id: number;
-  from: string;
-  message: number;
-  symbol: string;
-}
 
 export interface Notification {
   id: number | undefined;
@@ -74,6 +66,10 @@ export class NotificationComponent implements OnInit, AfterViewInit, OnDestroy{
       console.log('Ошибка', err.message);
       this.notificationsService.error('Ошибка получения')
     });
+  }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
   }
 
 }

@@ -8,18 +8,11 @@
   </div>
 </header>
 
-<div *ngIf="appService.employee.role.name != 'Manager'" class="container">
+<div *ngIf="getRole() != 'Manager'" class="container">
 
-  <div class="row">
-    <div class="col-12 line1">
+  <div class="row line">
+    <div class="col-12">
       <table mat-table [dataSource]="TASK_DATA" class="mat-elevation-z8 tt">
-
-<!--        <ng-container matColumnDef="Начало">-->
-<!--          <th mat-header-cell  class="text-center" *matHeaderCellDef> Начало </th>-->
-<!--          <td mat-cell class="text-center" *matCellDef="let element">-->
-<!--            <mat-checkbox [disabled]="!checkTimeStart(element.time)" (click)="changeStartStatus(element)" ></mat-checkbox>-->
-<!--          </td>-->
-<!--        </ng-container>-->
 
         <ng-container matColumnDef="Время">
           <th mat-header-cell *matHeaderCellDef> Время </th>
@@ -35,13 +28,6 @@
           <th mat-header-cell  class="text-center" *matHeaderCellDef> Локация </th>
           <td mat-cell class="text-center" *matCellDef="let element"> {{element.location}} </td>
         </ng-container>
-
-<!--        <ng-container matColumnDef="Окончание">-->
-<!--          <th mat-header-cell class="text-center" *matHeaderCellDef> Окончание </th>-->
-<!--          <td mat-cell class="text-center" *matCellDef="let element">-->
-<!--            <mat-checkbox [disabled]="!checkTimeEnd(element.time)" (click)="changeEndStatus(element)"></mat-checkbox>-->
-<!--          </td>-->
-<!--        </ng-container>-->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

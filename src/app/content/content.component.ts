@@ -54,12 +54,11 @@ export class ContentComponent implements OnInit {
       { vapidKey: environment.firebase.vapidKey}).then(
       (currentToken) => {
         if (currentToken) {
-          console.log("Hurraaa!!! we got the token.....");
-          console.log(currentToken);
+          // console.log("Hurraaa!!! we got the token.....");
+          // console.log(currentToken);
           let token = {
             token: currentToken
           }
-          console.log()
           this.contentService.setFbToken(currentToken);
           this.sendFireBaseToken(token);
         } else {
@@ -72,9 +71,9 @@ export class ContentComponent implements OnInit {
 
   listen(firebaseApp: any) {
     const messaging = getMessaging(firebaseApp);
-    console.log("Receiving messages...")
+    // console.log("Receiving messages...")
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
+      // console.log('Message received. ', payload);
       this.notificationService.info(payload.notification?.title, payload.notification?.body)
       // this.message=payload;
       // const f = parseJson(payload.toString())
@@ -90,9 +89,7 @@ export class ContentComponent implements OnInit {
       this.employee = res;
       this.contentService.setEmployee(this.employee);
       this.employeeHasLoaded = true;
-      // console.log(this.employee);
       return this.employee;
-      //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
       // this.notificationService.error('Ошибка', 'Не удалось получить сведения об аккаунте!')
       return null;
@@ -101,10 +98,10 @@ export class ContentComponent implements OnInit {
 
   sendFireBaseToken(token: any) {
     this.contentService.sendFireBaseToken(token).subscribe((res) => {
-      console.log('Токен сохранен успешно');
+      // console.log('Токен сохранен успешно');
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
-      // this.notificationService.error('Ошибка получения')
+      // this.notificationService.error('Ошибка получения токена');
       return null;
     });
   }
@@ -112,10 +109,6 @@ export class ContentComponent implements OnInit {
   openGuardModal(guardModal: any) {
     this.getCurrentTask();
     this.interval = setInterval(() => {this.getCurrentTask(); console.log("int start")}, 5000);
-
-    // this.getHunterList();
-    // Get there current Hunter ID
-    // else If none than get list of available Hunters
 
     this.modalService.open(guardModal).result
       .then((result) => {

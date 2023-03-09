@@ -13,7 +13,6 @@ import { User, UserColumns } from './user';
 export class PersonalTableService {
   baseApiUrl: string;
   employee!: Employee;
-  fbToken!: string;
 
   constructor(private http: HttpClient) {
     this.baseApiUrl = environment.baseApi;

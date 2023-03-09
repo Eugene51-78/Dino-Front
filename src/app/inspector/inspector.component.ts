@@ -63,7 +63,9 @@ export class InspectorComponent implements OnInit, OnDestroy {
   createSchedule() {
     this.inspectorService.createSchedule().subscribe((res) => {
       this.notificationsService.success('Успех', 'Задачи сформированы');
-      this.router.navigateByUrl("/inspector");
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(["/inspector"]);
+      });
     }, (err: { message: any; }) => {
       console.log('Ошибка', err);
       this.notificationsService.error('Ошибка формирования задач')
@@ -71,6 +73,10 @@ export class InspectorComponent implements OnInit, OnDestroy {
     });
     this.getSchedule();
     console.log('Create schedule');
+  }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
   }
 }
 

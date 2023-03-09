@@ -14,11 +14,6 @@ import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 export class ScheduleTableComponent implements OnInit {
 
   TASK_DATA: any = [
-    // {time: "10:00", task: "Кормление", location: 1},
-    // {time: "12:00", task: 'Уборка', location: 2}
-    // {time: "14:00", task: 'Кормление', location: 3},
-    // {time: "15:00", task: 'Уборка', location: 4},
-    // {time: "16:00", task: 'Кормление', location: 5},
   ];
 
   employeeList = [{id: 1, role: {'name': 'Worker'}}, {id: 2, role: {'name': 'Medic'}}, {id: 3, role: {'name': 'DinoTrainer'}}];
@@ -91,6 +86,7 @@ export class ScheduleTableComponent implements OnInit {
       this.stopAdd = true;
     } else {
       this.timeIndex += 1;
+      this.stopAdd = false;
     }
     this.currentTime = this.timeList[this.timeIndex];
   }
@@ -129,7 +125,7 @@ export class ScheduleTableComponent implements OnInit {
     }
     if (role == 'Hunter') {
       this.currentRole = 'Хантер';
-      this.taskList = ['', 'Уборка', 'Кормление'];
+      this.taskList = ['', 'Патрулирование', 'Тренировка'];
     }
     this.dataSource = [];
     this.timeIndex = 0;

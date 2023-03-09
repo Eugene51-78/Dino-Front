@@ -16,8 +16,6 @@ export class AlarmComponent implements OnInit {
 
   @ViewChild('ContentComponent') contentComponent: ContentComponent | undefined;
   constructor(public contentService: ContentService, private notificationService: NotificationsService, public appService: AppService) {
-    this.employeeType = this.contentService.getEmployeeRole();
-    console.log(this.employeeType);
     // // this.isAlarmOn = this.contentService.getIsAlarmOn();
     // if (localStorage.getItem('alarm') === 'true')
     //   this.isAlarmOn = true;
@@ -51,5 +49,9 @@ export class AlarmComponent implements OnInit {
       // this.notificationService.error('Ошибка получения')
       return null;
     });
+  }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
   }
 }

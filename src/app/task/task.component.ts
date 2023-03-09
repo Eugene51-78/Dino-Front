@@ -29,7 +29,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.appService.setEmployeeFromServer();
     this.employee = this.appService.employee;
     this.getMomentumTask();
-    console.log(this.employee);
+    // console.log(this.employee);
     //this.interval = setInterval(() => {this.getMomentumTask();; console.log("int start")}, 5000);
   }
 
@@ -40,13 +40,13 @@ export class TaskComponent implements OnInit, AfterViewInit {
   getMomentumTask() {
     this.taskService.getMomentumTask().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       this.momentumTask = res;
-      console.log(this.momentumTask);
+      // console.log(this.momentumTask);
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
+      // console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения');
     });
   }
@@ -59,12 +59,12 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   acceptMomentumTask() {
     this.taskService.acceptMomentumTask(this.momentumTask!.id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.notificationService.success('Задача подтверждена!');
       this.getMomentumTask();
       // Изменить состояние задачи и приложения или бэк сам все сделает
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
+      // console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка подтверждения задачи')
     });
   }
@@ -76,7 +76,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.momentumTask = null;
       // Изменить состояние задачи и приложения
     }, (err: { message: any; }) => {
-      console.log('Ошибка', err.message);
+      // console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка отказа от задачи')
     });
   }

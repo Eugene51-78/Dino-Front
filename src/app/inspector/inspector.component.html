@@ -8,7 +8,7 @@
   </div>
 </header>
 
-<div *ngIf="appService.employee.role.name == 'Inspector'" class="container">
+<div *ngIf="getRole() == 'Inspector'" class="container">
 
   <div class="row">
     <div class="col-12 line1">

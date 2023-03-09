@@ -1,4 +1,4 @@
-<header [ngClass]="{'alarm' : appService.alarm?.value, 'manager': appService.employee.role.name == 'Manager'} ">
+<header [ngClass]="{'alarm' : appService.alarm?.value, 'manager': getRole() == 'Manager'} ">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -11,7 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <table mat-table [dataSource]="dataSource" [ngClass]="{'manager1': appService.employee.role.name == 'Manager'}" class="mat-elevation-z8 col-12 line">
+      <table mat-table [dataSource]="dataSource" [ngClass]="{'manager1': getRole() == 'Manager'}" class="mat-elevation-z8 col-12 line">
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> ИД </th>
@@ -42,7 +42,7 @@
 
   <div class="row line">
     <div class="text-center">
-      <button *ngIf="appService.employee.role.name !== 'Manager'" type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
+      <button *ngIf="getRole() !== 'Manager'" type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
     </div>
   </div>
 

@@ -8,7 +8,7 @@
   </div>
 </header>
 <!--*ngIf="appService.employee.role.name == 'Navigator'"-->
-<div class="main" style="margin-top: 5rem">
+<div class="main" style="margin-top: 2rem">
   <div class="container">
 <!--    <div class="row line1">-->
 <!--      <div class="text-center">-->
@@ -152,7 +152,7 @@
 <!--        *ngIf="progressStatus.medic == 4 || progressStatus.dinoTrainer == 4 || progressStatus.driver == 4"-->
 <!--        <div>-->
 <!--&lt;!&ndash;          [disabled]="(medic.taskStatusId == 4 || dinoTrainer.taskStatusId == 4 || driver.taskStatusId == 4)"&ndash;&gt;-->
-          <button style="margin-right: 80%; display: block; font-size: smaller" class="btn btn-danger" *ngIf="medic.taskStatusId != 0 && dinoTrainer.taskStatusId != 0 && driver.taskStatusId != 0" (click)="stopAllTasks()">Отменить запрос</button>
+          <button style="margin-right: 80%; display: block; font-size: smaller" class="btn btn-danger" *ngIf="medic.taskStatusId != 0 && dinoTrainer.taskStatusId != 0 && driver.taskStatusId != 0 && medic.taskStatusId != 3 && dinoTrainer.taskStatusId != 3 && driver.taskStatusId != 3" (click)="stopAllTasks()">Отменить запрос</button>
 <!--        </div>-->
         <div>
           <button class="btn btn-warning" [disabled]="f.form.invalid || f.value['driver_id'] == '' || f.value['medic_id'] == '' || f.value['trainer_id'] == ''" *ngIf="(medic.taskStatusId == 4 || dinoTrainer.taskStatusId == 4 || driver.taskStatusId == 4)" (click)="resetSome(f.value)">Переназначить</button>
@@ -163,7 +163,7 @@
       </div>
     </form>
 
-    <div class="row line2">
+    <div class="row line">
       <div class="text-center">
         <button type="button" class="btn btn-success col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2" routerLink="/content">Назад</button>
       </div>

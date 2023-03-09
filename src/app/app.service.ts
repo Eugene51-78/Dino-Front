@@ -45,11 +45,12 @@ export class AppService {
   setEmployeeFromServer() {
     this.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return null;
       }
       this.employee = res;
-      console.log(this.employee);
+      localStorage.setItem('ROLE', this.employee.role.name);
+      // console.log(this.employee);
       return res;
       //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {

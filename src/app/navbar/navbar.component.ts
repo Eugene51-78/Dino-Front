@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     this.appService.getAlarm();
   }
 
-  getEmployeeFromServer() {  // flag for getData() call without rerender in NgOnInit()
+  getEmployeeFromServer() {
     this.contentService.getEmployeeFromServer().subscribe((res: any) => {
       if (res === null) {
         console.log('res is null');
@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
       }
       this.employee = res;
       this.contentService.setEmployee(this.employee);
-      //this.notificationService.success('Получено')
     }, (err: { message: any; }) => {
       console.log('Ошибка', 'Не удалось получить сведения об аккаунте!');
     });

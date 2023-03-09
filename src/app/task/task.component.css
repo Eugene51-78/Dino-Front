@@ -29,3 +29,11 @@ button{
 .alarm {
   background-color: red;
 }
+
+@media only screen and (max-width: 500px) {
+
+  div {
+    font-size: 0.9rem;
+  }
+
+}

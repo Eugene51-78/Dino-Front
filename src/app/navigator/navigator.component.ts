@@ -42,7 +42,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getLocationList();
-    this.interval = setInterval(() => {this.getCurrentTask(); console.log("запрос текущих задач")}, 3000);
+    this.interval = setInterval(() => {this.getCurrentTask();}, 3000);
     this.isRecomOn = true;
   }
 
@@ -52,10 +52,10 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(value: any) {
-    console.log(this.appService.employee.id);
+    // console.log(this.appService.employee.id);
     const rExp : RegExp = /\d+/g;
     let dino_id = +value.dino_id.match(rExp);
-    console.log("Дино ИД: " +  dino_id);
+    // console.log("Дино ИД: " +  dino_id);
     const comment = "Локация: " + value.location + ", Дино ИД: " +  dino_id;
     this.comment = comment;
     const taskMedic = {
@@ -85,7 +85,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   private transportationRequest(task: any) {
-    console.log(task);
+    // console.log(task);
     this.navigatorService.transportationRequest(task).subscribe(
       () => {
         this.notificationService.success("Успех", "Запрос отправлен");
@@ -99,7 +99,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
   private getCurrentTask() {
     this.navigatorService.getCurrentTask().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if (res.length == 0) {
         // this.getDinoList();
         // задач нет
@@ -132,7 +132,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             // if (this.medicResetFlag) {
             //   console.log(this.medic.taskStatusId);
               if (res[i]['status']['id'] == 4) {
-                console.log('update medics');
+                // console.log('update medics');
                 // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
                 this.getMedicList();
                 // this.medicList = this.medicList.filter(obj => [return obj !== res[i]['to']['id']]);
@@ -172,7 +172,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             //if (this.driverResetFlag) {
               if (res[i]['status']['id'] == 4) {
                 // this.medic = {id: 0, taskId: 0, taskStatusId: 0};
-                console.log('hefa')
                 this.getDriverList();
               }
               //this.driverResetFlag = false;
@@ -221,7 +220,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   private getLocationList() {
     this.navigatorService.getLocationList().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       try {
@@ -232,7 +231,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         this.locationList = ids;
       } catch (e) {
       }
-      console.log(this.locationList);
+      // console.log(this.locationList);
     }, (err: { message: any; }) => {
       console.log('Ошибка', err.message);
       this.notificationService.error('Ошибка получения списка локаций');
@@ -242,7 +241,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   private getDinoList() {
     this.navigatorService.getDinoList().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       try {
@@ -262,7 +261,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   private getMedicList() {
     this.navigatorService.getMedicList().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       try {
@@ -281,7 +280,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   private getDinoTrainerList() {
     this.navigatorService.getDinoTrainerList().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       try {
@@ -301,7 +300,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   private getDriverList() {
     this.navigatorService.getDriverList().subscribe((res: any) => {
       if (res === null) {
-        console.log('res is null');
+        // console.log('res is null');
         return;
       }
       try {
@@ -323,7 +322,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
       this.stopTransportation(this.medic.taskId);
     }
     if (this.dinoTrainer.taskStatusId == 4 || this.dinoTrainer.taskStatusId == 2 || this.dinoTrainer.taskStatusId == 1) {
-      console.log('удаляем');
       this.stopTransportation(this.dinoTrainer.taskId);
     }
     if (this.driver.taskStatusId == 4 || this.driver.taskStatusId == 2 || this.driver.taskStatusId == 1) {
@@ -332,7 +330,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   resetSome(value: any) {
-    console.log(this.driver);
     if (this.medic.taskStatusId == 4) {
       const task = [{
         "from": this.appService.employee.id,
@@ -361,13 +358,12 @@ export class NavigatorComponent implements OnInit, OnDestroy {
         "comment": this.comment,
         "groupId": this.groupId
       }];
-      console.log(task);
       this.transportationRequest(task);
     }
   }
 
   stopTransportation(taskId: number) {
-    console.log('Stop transport')
+    console.log('Stop transportation')
     this.navigatorService.stopTransportation(taskId).subscribe(
       () => {
         this.medic.taskStatusId = 0;
@@ -391,7 +387,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
   }
 
   getRecommendations(location: string) {
-    console.log(location);
     this.location = location;
     if (this.shows.includes(location)) {
       this.navigatorService.getRecommendations().subscribe((res: any) => {
@@ -399,7 +394,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
           console.log('res is null');
           return;
         }
-        console.log(res);
         this.dinoList = [];
         try {
           let ids = [];
@@ -407,7 +401,6 @@ export class NavigatorComponent implements OnInit, OnDestroy {
             ids.push(res[i]['id']);
           }
           this.dinoList = ids;
-          console.log(this.dinoList);
         } catch (e) {
         }
         for (let i = 0; i < res.length; i++) {

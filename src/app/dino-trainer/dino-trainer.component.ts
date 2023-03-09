@@ -85,4 +85,8 @@ export class DinoTrainerComponent implements OnInit {
     }
     return value;
   }
+
+  getRole() {
+    return localStorage.getItem("ROLE");
+  }
 }
