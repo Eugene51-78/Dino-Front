@@ -6,6 +6,8 @@ Available functions:
 2. Calling the Guard.
 3. Conducting a dinosaur medical examination report.
 
+    and other features according to [SRS](https://docs.google.com/document/d/1byu_v9p1yXKIiTHV0EB_wk97NCr5lQPtB3WhUhsjIXk/edit?usp=sharing).
+
 [Link to backend](https://github.com/DomerRus/JurassicParcMPI)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.7.
